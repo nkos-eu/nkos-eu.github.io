@@ -44,13 +44,13 @@ body {
 <li><a href="#priest">Andy Priest et al - The PERsonlisation TAgging interface INformation in Services, PERTAINS project: presenting tag recommenders in UK national services</a></li>
 <li><a href="#sanjari">Azade Sanjari - EIAH Data Model: Introducing the building blocks of the information architecture</a></li>
 <li><a href="#borst">Timo Borst &amp; Joachim Neubert - STW Thesaurus for Economics Web Service applied to library applications</a></li>
-<li><a href="#reverte">Carmen RevertÈ RevertÈ &amp; Dra. Montserrat Sebasti‡ Salat - The KOS Interoperability in aquatic science field through mapping processes</a></li>
+<li><a href="#reverte">Carmen Revert√© Revert√© &amp; Dra. Montserrat Sebasti√† Salat - The KOS Interoperability in aquatic science field through mapping processes</a></li>
 <li><a href="#golub">Koraljka Golub et al - EASTER project: Evaluating Automated Subject Tools for Enhancing Retrieval</a></li>
 <li><a href="#mayr">Philipp Mayr, Philipp Schaer &amp; York Sure - Intra- and interdisciplinary cross-concordances for information retrieval</a></li>
 <li><a href="#tice">Rob Tice - ASPECT Vocabulary Bank for Education</a></li>
 <li><a href="#schaer">Philipp Schaer &amp; York Sure - User Interface Design for Search-Term Recommendation and Interactive Query Expansion Services</a></li>
 <li><a href="#slavic">Aida Slavic &amp; Antoine Isaac - Identifying management issues in networked KOS: examples from classification schemes</a></li>
-<li><a href="#dextre-clarke">Stella G Dextre Clarke - ISO 25964 ñ plans and progress towards the revised international standard for thesauri</a></li>
+<li><a href="#dextre-clarke">Stella G Dextre Clarke - ISO 25964 ‚Äì plans and progress towards the revised international standard for thesauri</a></li>
 <li><a href="#murthy">Edward Fox et al - Building an Ontology for Crisis, Tragedy, and Recovery</a></li>
 <li><a href="#gnoli">Claudio Gnoli &amp; Aida Slavic - Developing facets in UDC for online retrieval</a></li>
 </ul>
@@ -70,7 +70,7 @@ However, we are in the midst of a paradigm shift as a result of the growing prol
 </p>
 <h4>Aims</h4>
 <p>
-This paper will give and overview of the PERTAINS project (which is JISC funded), including technical discussion, sharing of the issues around enhancement to existing services, and project development in response to user requirements.  Overall, this project explicitly aims to leverage network effects, respond to changing user expectations and more effectively exploit Intuteís and Copacís UK presence as powerful aggregators of learning and research materials.  We believe that the demonstrators developed could provide the foundations for a new tag recommender system and infrastructure for future development work in other services. 
+This paper will give and overview of the PERTAINS project (which is JISC funded), including technical discussion, sharing of the issues around enhancement to existing services, and project development in response to user requirements.  Overall, this project explicitly aims to leverage network effects, respond to changing user expectations and more effectively exploit Intute‚Äôs and Copac‚Äôs UK presence as powerful aggregators of learning and research materials.  We believe that the demonstrators developed could provide the foundations for a new tag recommender system and infrastructure for future development work in other services. 
 </p>
 <p>
 Objectives of PERTAINS:
@@ -144,7 +144,7 @@ All documents in distributed repositories must get their metadata according to t
 
 <a name="borst"></a>
 <p>Timo Borst &amp; Joachim Neubert</p> 
-<p>German National Library of Economics (ZBW) ñ Leibniz Information Centre for Economics</p>
+<p>German National Library of Economics (ZBW) ‚Äì Leibniz Information Centre for Economics</p>
 <h4>STW Thesaurus for Economics Web Service applied to library applications</h4>
 <!--
 <p>
@@ -153,7 +153,7 @@ Especially in the realm of digital libraries we normally expect positive effects
 In this paper we outline the technical infrastructure necessary to support and to optimize this scenario. This infrastructure consists of
 <ul>
 <li>a SKOS-representation of the STW Thesaurus for Economics (recently published as Linked Data),</li>
-<li>a web service (<A HREF="http://zbw.eu/beta/stw-ws">http://zbw.eu/beta/stw-ws</A>) for requesting and delivering its concepts and their relations, offering a simple, REST-oriented API for resources like ìconceptsî, ìnarrowerî or ìsynonymsî,</li>
+<li>a web service (<A HREF="http://zbw.eu/beta/stw-ws">http://zbw.eu/beta/stw-ws</A>) for requesting and delivering its concepts and their relations, offering a simple, REST-oriented API for resources like ‚Äúconcepts‚Äù, ‚Äúnarrower‚Äù or ‚Äúsynonyms‚Äù,</li>
 <li>a thin PHP wrapper which translates the resource requests to SPARQL queries, hiding their complexity from the application programmer, and</li>
 <li>a Joseki server operating directly on a memory model of the RDF/XML file and alternatively a SPARQLite server with a Jena TDB triple store and LARQ (Lucene free text indexing for SPARQL) to execute the queries.</li>
 </ul>
@@ -167,21 +167,21 @@ We exploit it in the two fields introduced above:
 </ul>
 <p>
 STW with its 5,800 bilingual concepts, 17,000 synonyms and 25,000 relations is well suited for this.
-For a large scale evaluation of the thesaurus coverage and for a simulation of the effects of query enrichment in association with ìreal lifeî queries we examined 1.15 million ìsimpleî queries mined from the logs of a representative bibliographic database in economics (http://econis.eu). As we found out, 50% of the (already normalized) queries only occurred once in two years (only less than 1% showed up 10 or more times). In case of queries with multiple occurrences we looked up the thesaurus and found 14% direct matches. The main reason for this rather low rate was that users combined multiple concepts within one query. We therefore will present different approaches to deal with this, especially a) syntactical splitting of search strings, and b) an application of full text matching techniques to the lookup itself. For the identified thesaurus concepts the synonyms, broader, narrower and related terms are evaluated statistically. 
+For a large scale evaluation of the thesaurus coverage and for a simulation of the effects of query enrichment in association with ‚Äúreal life‚Äù queries we examined 1.15 million ‚Äúsimple‚Äù queries mined from the logs of a representative bibliographic database in economics (http://econis.eu). As we found out, 50% of the (already normalized) queries only occurred once in two years (only less than 1% showed up 10 or more times). In case of queries with multiple occurrences we looked up the thesaurus and found 14% direct matches. The main reason for this rather low rate was that users combined multiple concepts within one query. We therefore will present different approaches to deal with this, especially a) syntactical splitting of search strings, and b) an application of full text matching techniques to the lookup itself. For the identified thesaurus concepts the synonyms, broader, narrower and related terms are evaluated statistically. 
 </p>
 <p>
-<i>In the field of indexing</i>, the thesaurus web service can assist users with indexing or ìtaggingî. In our DSpace repository for scientific articles in economics, indexing is performed by authorized end users submitting and uploading their articles. These users, e.g. scientific staff from an economics faculty, generally have no experience in applying controlled vocabularies. To support them we will offer an autosuggest service for thesaurus terms very similar to the one already in use on the STW web site (<A HREF="http://zbw.eu/stw">http://zbw.eu/stw</A>). Finally, we will stretch this service to another well-known terminology, the ìJournal of Economic Literatureî (JEL) classification.
+<i>In the field of indexing</i>, the thesaurus web service can assist users with indexing or ‚Äútagging‚Äù. In our DSpace repository for scientific articles in economics, indexing is performed by authorized end users submitting and uploading their articles. These users, e.g. scientific staff from an economics faculty, generally have no experience in applying controlled vocabularies. To support them we will offer an autosuggest service for thesaurus terms very similar to the one already in use on the STW web site (<A HREF="http://zbw.eu/stw">http://zbw.eu/stw</A>). Finally, we will stretch this service to another well-known terminology, the ‚ÄúJournal of Economic Literature‚Äù (JEL) classification.
 </p>
 -->
 <p>
 After having published the STW Thesaurus for Economics as Linked Data
 (<A HREF="http://zbw.eu/stw">http://zbw.eu/stw</A>), the ZBW German National Library of Economics wants to make use of it
 in library applications. Frequently, these applications are not thesaurus-driven (let alone
-Semantic Web enabled), so thesaurus support has to be added in an unobtrusive way ìfrom
-the outsideî. For this purpose we provide access to the thesaurus concepts and relations in a
+Semantic Web enabled), so thesaurus support has to be added in an unobtrusive way ‚Äúfrom
+the outside‚Äù. For this purpose we provide access to the thesaurus concepts and relations in a
 web service (<A HREF="http://zbw.eu/beta/stw-ws">http://zbw.eu/beta/stw-ws</A>). The web service works on the SKOS-representation
-of the STW, offering a simple, REST-oriented API for resources like ìconceptsî, ìnarrowerî
-or ìsynonymsî. It can be applied to enhance and facilitate both retrieval and indexing in
+of the STW, offering a simple, REST-oriented API for resources like ‚Äúconcepts‚Äù, ‚Äúnarrower‚Äù
+or ‚Äúsynonyms‚Äù. It can be applied to enhance and facilitate both retrieval and indexing in
 library applications (prototypically implemented in a repository application).
 </p>
 
@@ -199,9 +199,9 @@ STW with its 5,800 bilingual concepts, 17,000 synonyms and 25,000 relations is w
 for this.
 </p>
 <p>
-For a large-scale advance simulation of the effects of query enrichment facing ìreal
-lifeî queries (and for the evaluation of the actual thesaurus coverage) we analyzed more than
-a million ìsimpleî search queries mined from the logs of a representative bibliographic
+For a large-scale advance simulation of the effects of query enrichment facing ‚Äúreal
+life‚Äù queries (and for the evaluation of the actual thesaurus coverage) we analyzed more than
+a million ‚Äúsimple‚Äù search queries mined from the logs of a representative bibliographic
 database in economics (<A HREF="http://econis.eu">http://econis.eu</A>). As we found out, half of the (already normalized)
 queries only occurred once in two years (only less than 1% showed up 10 or more times). In
 the case of queries with multiple occurrences we looked up the thesaurus and found less than
@@ -213,14 +213,14 @@ For the identified thesaurus concepts the synonyms, broader, narrower and relate
 evaluated statistically.
 </p>
 <p>
-<i>In the field of indexing</i>, the thesaurus web service can assist users with indexing or ìtaggingî.
+<i>In the field of indexing</i>, the thesaurus web service can assist users with indexing or ‚Äútagging‚Äù.
 In our DSpace repository for scientific articles in economics, indexing is prospectively done
 by authorized end users submitting and uploading their articles. These users, e.g. scientific
 staff from an economics faculty, generally have no experience in applying controlled
 vocabularies. To support them and to foster the submission of electronic resources we will
 offer an autosuggest service for thesaurus terms very similar to the one already in use on the
 STW web site (<A HREF="http://zbw.eu/stw">http://zbw.eu/stw</A>). Finally, we will extend this service to another well-known
-terminology, the ìJournal of Economic Literatureî (JEL) classification.
+terminology, the ‚ÄúJournal of Economic Literature‚Äù (JEL) classification.
 </p>
 <p>
 The web service builds on Semantic Web technology. A thin PHP wrapper translates the
@@ -232,8 +232,8 @@ LARQ (Lucene free text indexing for SPARQL) are used to execute the queries.
 <div align="right"><p class="small"><a href="#top">Back to top</a></p></div><hr />
 
 <a name="reverte"></a>
-<p>Carmen RevertÈ RevertÈ. Aquatic Ecosystems. IRTA. E-mail: <A HREF="mailto:carme.reverte@irta.cat">carme.reverte@irta.cat</A><br>
-Dra. Montserrat Sebasti‡ Salat. University of Barcelona. E-mail: <A HREF="msebastia@ub.edu">msebastia@ub.edu</A></p>
+<p>Carmen Revert√© Revert√©. Aquatic Ecosystems. IRTA. E-mail: <A HREF="mailto:carme.reverte@irta.cat">carme.reverte@irta.cat</A><br>
+Dra. Montserrat Sebasti√† Salat. University of Barcelona. E-mail: <A HREF="msebastia@ub.edu">msebastia@ub.edu</A></p>
 
 <h4>The KOS Interoperability in aquatic science field through mapping processes</h4>
 <p>
@@ -243,7 +243,7 @@ The present work is part of a European Subject Gateway project in the aquatic sc
 The main objective of this research is to solve the information integration in the aquatic sciences domain with a KOS system that integrates different thesauruses and taxonomies.  It will focus in two methodologies. On one hand, develop mapping methods for aligning ontologies through automatic processes. In this stage the aquatic sciences thesaurus will be converted to data schemes, mainly SKOS-Core language with RDF or XML format, and will be mapped to find the equivalence relationships among languages, the thematic depth, accuracy and consistency. 
 </p>
 <p>
-On the other hand, main findings show us that aquatic science field it isnít enough represented in the controlled vocabularies. The main reason is because we are in front of multilingual and multidisciplinary collections (marine science, oceanography, limnology, ecology, environmental science, etc.). Consequently, the other methodology studied is build a new multilingual thesaurus on aquatic sciences, in which the establishment of cross-concordances among controlled vocabularies and terminologies will be the basic element to solve the heterogenic semantic problem. 
+On the other hand, main findings show us that aquatic science field it isn‚Äôt enough represented in the controlled vocabularies. The main reason is because we are in front of multilingual and multidisciplinary collections (marine science, oceanography, limnology, ecology, environmental science, etc.). Consequently, the other methodology studied is build a new multilingual thesaurus on aquatic sciences, in which the establishment of cross-concordances among controlled vocabularies and terminologies will be the basic element to solve the heterogenic semantic problem. 
 </p>
 <p>[<A HREF="./abstracts/CarmenReverte.pdf">PDF version of abstract</A>]</p>
 <div align="right"><p class="small"><a href="#top">Back to top</a></p></div><hr />
@@ -261,7 +261,7 @@ The purpose of the project is to test and evaluate existing tools for automated 
 Selected tools for automated subject metadata generation will be tested in two contexts: by Intute cataloguers in the cataloguing workflow; and by end-users of Intute who search for information in Intute as part of their research, learning, and information management. 
 </p>
 <p>
-The methodology includes creating ëgold standardí test collection by careful manual cataloguing and then using this test collection to evaluate several tools with respect to the subject terms ñ both controlled vocabulary descriptors and free terms  ñ they assign.  The best tool(s) will then be integrated into the cataloguing workflow to evaluate their effect on the quality and speed of cataloguing. Furthermore, we will conduct a task-based end-user retrieval study to determine the contribution of automatically assigned terms and manually assigned terms. 
+The methodology includes creating ‚Äògold standard‚Äô test collection by careful manual cataloguing and then using this test collection to evaluate several tools with respect to the subject terms ‚Äì both controlled vocabulary descriptors and free terms  ‚Äì they assign.  The best tool(s) will then be integrated into the cataloguing workflow to evaluate their effect on the quality and speed of cataloguing. Furthermore, we will conduct a task-based end-user retrieval study to determine the contribution of automatically assigned terms and manually assigned terms. 
 </p>
 
 <p>[<A HREF="./abstracts/KoraGolub.pdf">PDF version of abstract</A>]</p>
@@ -292,9 +292,9 @@ In this paper we want to explore pros and cons of intra- and interdisciplinary c
 
 <h4>References</h4>
 <ul>
-<li>Lauser, Boris; Johannsen, Gudrun; Caracciolo, Caterina; Keizer, Johannes; Hage, Willem Robert van; Mayr, Philipp (2008): Comparing human and automatic thesaurus mapping approaches in the agricultural domain. pp. 43-53. In: Greenberg, Jane; Klas, Wolfgang (eds.): Metadata for semantic and social applications: Proceedings of the 8. International conference on Dublin Core and Metadata Applications. Berlin: Uni.-Verl. Gˆttingen. URL: <a href="http://edoc.hu-berlin.de/conferences/dc-2008/lauser-boris-43/PDF/lauser.pdf">http://edoc.hu-berlin.de/conferences/dc-2008/lauser-boris-43/PDF/lauser.pdf</a></li>
+<li>Lauser, Boris; Johannsen, Gudrun; Caracciolo, Caterina; Keizer, Johannes; Hage, Willem Robert van; Mayr, Philipp (2008): Comparing human and automatic thesaurus mapping approaches in the agricultural domain. pp. 43-53. In: Greenberg, Jane; Klas, Wolfgang (eds.): Metadata for semantic and social applications: Proceedings of the 8. International conference on Dublin Core and Metadata Applications. Berlin: Uni.-Verl. G√∂ttingen. URL: <a href="http://edoc.hu-berlin.de/conferences/dc-2008/lauser-boris-43/PDF/lauser.pdf">http://edoc.hu-berlin.de/conferences/dc-2008/lauser-boris-43/PDF/lauser.pdf</a></li>
 <li>Mayr, Philipp; Mutschke, Peter; Petras, Vivien (2008): Reducing semantic complexity in distributed digital libraries: Treatment of term vagueness and document re-ranking. In: Library Review 57, No. 3, pp. 213-224. URL: <a href="http://www.ib.hu-berlin.de/~mayr/arbeiten/mayr-etal_LR08.pdf">http://www.ib.hu-berlin.de/~mayr/arbeiten/mayr-etal_LR08.pdf</a></li> 
-<li>Mayr, Philipp; Petras, Vivien (2008): Cross-concordances: terminology mapping and its effectiveness for information retrieval. In: 74th IFLA World Library and Information Congress. QuÈbec, Canada URL: <a href="http://www.ifla.org/IV/ifla74/papers/129-Mayr_Petras-en.pdf">http://www.ifla.org/IV/ifla74/papers/129-Mayr_Petras-en.pdf</a></li> 
+<li>Mayr, Philipp; Petras, Vivien (2008): Cross-concordances: terminology mapping and its effectiveness for information retrieval. In: 74th IFLA World Library and Information Congress. Qu√©bec, Canada URL: <a href="http://www.ifla.org/IV/ifla74/papers/129-Mayr_Petras-en.pdf">http://www.ifla.org/IV/ifla74/papers/129-Mayr_Petras-en.pdf</a></li> 
 </ul>
 
 
@@ -304,14 +304,14 @@ In this paper we want to explore pros and cons of intra- and interdisciplinary c
 
 <a name="tice"></a>
 <p>Rob Tice</p>
-<h4>1 ASPECT Vocabulary Bank for Education ñ overview</h4>
+<h4>1 ASPECT Vocabulary Bank for Education ‚Äì overview</h4>
 <p>
 The ASPECT Vocabulary Bank for Education (VBE) is a repository in which multilingual terms, vocabularies and thesauri can be published and disseminated. The VBE is designed to support a range of exchange formats and retains and exposes all historical information about the terminology.
 </p>
 <p>
 The VBE is part of the ASPECT project and is being developed and improved over the 30 month duration of the project. As such it represents ongoing work.
 </p>
-<h4>2 ASPECT Vocabulary Bank for Education ñ technical summary</h4>
+<h4>2 ASPECT Vocabulary Bank for Education ‚Äì technical summary</h4>
 <h4>2.1 Polyhierarchy</h4>
 <p>
 Terms (curriculum items) shall exist at more than one place in a structure or vocabulary.
@@ -326,11 +326,11 @@ When mapping between different terminology sets and managing change between revi
 </p>
 <h4>2.1.3 Multilingualism</h4>
 <p>
-Multilingualism can be considered as two separate requirements. There is a need to indicate linguistic equivalence between different terms as well as the requirement to provide multilingual ëlabelsí for metadata properties of either terms or vocabularies. The VBE supports both approaches.
+Multilingualism can be considered as two separate requirements. There is a need to indicate linguistic equivalence between different terms as well as the requirement to provide multilingual ‚Äòlabels‚Äô for metadata properties of either terms or vocabularies. The VBE supports both approaches.
 </p>
 <h4>2.1.4 Faceted terminology</h4>
 <p>
-The VBE supports a ëfreely-facetedí approach allowing different contributors to describe facets of their terminology in different ways (even if these are later consolidated).
+The VBE supports a ‚Äòfreely-faceted‚Äô approach allowing different contributors to describe facets of their terminology in different ways (even if these are later consolidated).
 </p>
 <h4>2.1.5 Extensibility</h4>
 <p>
@@ -373,19 +373,19 @@ The second part of the presentation will consist of a live demonstration of the 
 <p>Philipp Schaer &amp; York Sure</p>
 <h4>User Interface Design for Search-Term Recommendation and Interactive Query Expansion Services</h4>
 <p>
-A general problem with searching via keyword matching is the so called Ñvocabulary problemì (Furnas et al., 1987): The same idea or search query can be expressed in a variety of ways. Using current web search engines by typing in the right term typically leads to a list of documents where the ìright oneî is also included. However, even if you are using  a ìwrongî term there is a high probability of getting a non-empty result set ñ simply saying that you will find documents that contain the wrong term. Now letís have a look at todays Digital Library (DL) systems or specific databases where controlled vocabularies, usually a Thesaurus, is used for classifying publications. They often contain the metadata of publications but lack the full texts or even an abstract. In this situation the vocabulary problem can become quite serious. If the search doesnít use one of the controlled terms the document was indexed with the chance of getting relevant documents is very low, there is a higher chance than in the Web of getting an empty result set. For many users this leads to a search strategy to reflect the unnatural nature of keyword querying. In Aula et al. (2005) one expert articulated: ìI choose search terms based not specifically on the information I want, but rather on how I could imagine someone wording [Ö] that information.î
+A general problem with searching via keyword matching is the so called ‚Äûvocabulary problem‚Äú (Furnas et al., 1987): The same idea or search query can be expressed in a variety of ways. Using current web search engines by typing in the right term typically leads to a list of documents where the ‚Äúright one‚Äù is also included. However, even if you are using  a ‚Äúwrong‚Äù term there is a high probability of getting a non-empty result set ‚Äì simply saying that you will find documents that contain the wrong term. Now let‚Äôs have a look at todays Digital Library (DL) systems or specific databases where controlled vocabularies, usually a Thesaurus, is used for classifying publications. They often contain the metadata of publications but lack the full texts or even an abstract. In this situation the vocabulary problem can become quite serious. If the search doesn‚Äôt use one of the controlled terms the document was indexed with the chance of getting relevant documents is very low, there is a higher chance than in the Web of getting an empty result set. For many users this leads to a search strategy to reflect the unnatural nature of keyword querying. In Aula et al. (2005) one expert articulated: ‚ÄúI choose search terms based not specifically on the information I want, but rather on how I could imagine someone wording [‚Ä¶] that information.‚Äù
 </p>
 <p>
 Petras (2006) presented a method to overcome the vocabulary problem called search term recommendation. She used specialized search term recommender (STR), which were trained to map free terms from the users mind to one or more specialized controlled vocabularies (e.g. thesauri or subject headings) using a statistical method (Gey 2001). We implemented such a STR by using a probabilistic latent semantic analysis (pLSA) and support vector machine (SVM) based classification tool. 
 </p>
 <p>
-Modern information-seeking support systems (ISSS) try to make use of automated transformations and expansion of textual queries by using e.g. stopword lists or stemming (Hearst 2009, Petras et al. 2007) but there is often a need for query specification via entry form interfaces. A dynamic query term suggestion is implemented in many modern web search engines but these systems only try to make suggestions based on prefix matches (user types ìcancî and the system suggests ìcancerî, ìcancelî and so on).
+Modern information-seeking support systems (ISSS) try to make use of automated transformations and expansion of textual queries by using e.g. stopword lists or stemming (Hearst 2009, Petras et al. 2007) but there is often a need for query specification via entry form interfaces. A dynamic query term suggestion is implemented in many modern web search engines but these systems only try to make suggestions based on prefix matches (user types ‚Äúcanc‚Äù and the system suggests ‚Äúcancer‚Äù, ‚Äúcancel‚Äù and so on).
 </p>
 <p>
-White and Marchionini (2007) performed a study on a similar interactive method which they called ìreal time query expansionî. After the user types a word and presses the space bar, the system presents terms based on the surrogates of the ten top-ranked documents. Using a very different data foundation for their suggestions this supporting method might be adaptable for the STR. So far, it lacks an evaluated user interface.
+White and Marchionini (2007) performed a study on a similar interactive method which they called ‚Äúreal time query expansion‚Äù. After the user types a word and presses the space bar, the system presents terms based on the surrogates of the ten top-ranked documents. Using a very different data foundation for their suggestions this supporting method might be adaptable for the STR. So far, it lacks an evaluated user interface.
 </p>
 <p>
-A pretest using 125 CLEF topic sets (2003 and 2007) showed, that the training corpus (taken from the social science literature database SOLIS (GESIS 2009) of 370.000 documents (title, abstract and intellectually indexed via a thesaurus) is too large and too scattered to present contextually mapped terms for one-to-one mappings: the pretest showed that looking up only one single free term presents to many controlled terms which leads to an ineffective support for the searcher. This was due to a missing context  (e.g. ìpoliticsî can be in the context of ìforeign affairsì, Ñdisenchantment with politicsì etc.) the free terms can belong to. By adding only 1-2 additional terms, which describe the context in which the original term was meant, the STR returned effective term mappings. Even if Jansen et al. (2007) showed that a normal web searcher uses 2.8 terms per query there still is a need for adding more contextual information to a STR by using an intelligent user interface for this ISSS.
+A pretest using 125 CLEF topic sets (2003 and 2007) showed, that the training corpus (taken from the social science literature database SOLIS (GESIS 2009) of 370.000 documents (title, abstract and intellectually indexed via a thesaurus) is too large and too scattered to present contextually mapped terms for one-to-one mappings: the pretest showed that looking up only one single free term presents to many controlled terms which leads to an ineffective support for the searcher. This was due to a missing context  (e.g. ‚Äúpolitics‚Äù can be in the context of ‚Äúforeign affairs‚Äú, ‚Äûdisenchantment with politics‚Äú etc.) the free terms can belong to. By adding only 1-2 additional terms, which describe the context in which the original term was meant, the STR returned effective term mappings. Even if Jansen et al. (2007) showed that a normal web searcher uses 2.8 terms per query there still is a need for adding more contextual information to a STR by using an intelligent user interface for this ISSS.
 </p>
 <p>
 For the NKOS workshop, we plan to present an overview of the implemented STR and the general techniques to build and design query expansion tools for web search engines and DLs. We will focus on state-of-the-art solutions in interactive query expansion and will show a prototype for such an interactive search term recommendation tool.
@@ -395,15 +395,15 @@ This work was done in the Value-Added Services for Information Retrieval (IRM) p
 </p>
 <h4>References:</h4>
 <ul>
-<li>A. Aula, N. Jhaveri, and M. K‰ki. Information search and re-access strategies of experienced web users. Proceedings of the 14th International Conference on World Wide Web (WWW'05), pages 583ñ592, 2005.</li>
-<li>GW Furnas, TK Landauer, LM Gomez, and ST Dumais (1987). The vocabulary problem in human-system communication. Communications of the ACM, 30(11):964ñ971, 1987.</li>
-<li>GESIS ñ Leibniz Institute for the Social Sciences (2009). SOLIS - Social Science Literature Information System, <a href="http://www.gesis.org/en/services/specialized-information/databases-and-information-systems/solis-social-science-literature-information-system/">http://www.gesis.org/en/services/specialized-information/databases-and-information-systems/solis-social-science-literature-information-system/</a></li> 
-<li>Fredric Gey, Michael Buckland, Aitao Chen, and Ray Larson (2001). Entry vocabulary ñ a technology to enhance digital search. In Proceedings of HLT2001, First International Conference on Human Language Technology, San Diego, pages 91ñ95, March 2001.</li> 
-<li>B.J. Jansen, A. Spink, and S. Koshman (2007). Web searcher interaction with the Dogpile.com metasearch engine. Journal of the American Society for Information Science and Technology, 58(5):744ñ755, 2007.</li> 
+<li>A. Aula, N. Jhaveri, and M. K√§ki. Information search and re-access strategies of experienced web users. Proceedings of the 14th International Conference on World Wide Web (WWW'05), pages 583‚Äì592, 2005.</li>
+<li>GW Furnas, TK Landauer, LM Gomez, and ST Dumais (1987). The vocabulary problem in human-system communication. Communications of the ACM, 30(11):964‚Äì971, 1987.</li>
+<li>GESIS ‚Äì Leibniz Institute for the Social Sciences (2009). SOLIS - Social Science Literature Information System, <a href="http://www.gesis.org/en/services/specialized-information/databases-and-information-systems/solis-social-science-literature-information-system/">http://www.gesis.org/en/services/specialized-information/databases-and-information-systems/solis-social-science-literature-information-system/</a></li> 
+<li>Fredric Gey, Michael Buckland, Aitao Chen, and Ray Larson (2001). Entry vocabulary ‚Äì a technology to enhance digital search. In Proceedings of HLT2001, First International Conference on Human Language Technology, San Diego, pages 91‚Äì95, March 2001.</li> 
+<li>B.J. Jansen, A. Spink, and S. Koshman (2007). Web searcher interaction with the Dogpile.com metasearch engine. Journal of the American Society for Information Science and Technology, 58(5):744‚Äì755, 2007.</li> 
 <li>Gary Marchionini, Ryen White, Nick Belkin, Gene Golovchinsky, Diane Kelly, Peter Pirolli, mc schraefel (2008). Information Seeking Support Systems: An invitational workshop sponsored by the National Science Foundation, <a href="http://ils.unc.edu/ISSS/">http://ils.unc.edu/ISSS/</a></li>
 <li>Vivien Petras (2006). Translating Dialects in Search: Mapping between Specialized Languages of Discourse and Documentary Languages. PhD thesis, University of California, Berkeley, 2006.</li> 
 <li>Petras, Vivien and Baerisch, Stefan and Stempfhuber, Maximillian (2008). The Domain-Specific Track at CLEF 2007. In Advances in Multilingual and Multimodal Information Retrieval: 8th Workshop of the Cross-Language Evaluation Forum, CLEF 2007, Budapest, Hungary, September 19-21, 2007, Revised Selected Papers, pages 160-173, 2008</li>
-<li>Ryen W. White and Gary Marchionini. Examining the effectiveness of real-time query expansion. Inf. Process. Manage., 43(3):685ñ704, 2007.</li>
+<li>Ryen W. White and Gary Marchionini. Examining the effectiveness of real-time query expansion. Inf. Process. Manage., 43(3):685‚Äì704, 2007.</li>
 </ul>
 <p>[<A HREF="./abstracts/Schaer-Sure.pdf">PDF version of abstract</A>]</p>
 <div align="right"><p class="small"><a href="#top">Back to top</a></p></div><hr />
@@ -468,10 +468,10 @@ The problems discussed here are common to all classification schemes and althoug
 
 <a name="dextre-clarke"></a>
 <p>Stella G Dextre Clarke - Project Leader, ISO NP 25964</p>
-<h4>ISO 25964 ñ plans and progress towards the revised international standard for thesauri</h4>
+<h4>ISO 25964 ‚Äì plans and progress towards the revised international standard for thesauri</h4>
 <p>
 In 2007 the final part of BS 8723 was published, completing the following family of standards:<br>
-BS 8723: Structured vocabularies for information retrieval ñ Guide
+BS 8723: Structured vocabularies for information retrieval ‚Äì Guide
 <ul>
 <li>Part 1: Definitions, symbols and abbreviations</li>
 <li>Part 2: Thesauri</li>
