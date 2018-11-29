@@ -1,0 +1,67 @@
+	body
+	{
+		background-color: aliceblue;		
+	}
+	div.container
+	{
+		background-color: white;
+		padding: 20px;
+	}
+	
+	h1,h2,h3,h4,h5,h6	{
+		color: #006699;		
+	}	
+	
+	.center	{
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;			
+	}
+	
+	a {
+		text-decoration: none;
+		padding: 3px;
+	}
+	a:hover {
+		color: darkred;
+		background: #FFFF99;
+	}		
+	
+	.footer {
+		border-top: 1px solid lightgray;		
+	}
+	
+	h3 {
+		border: 1px solid lightgray;
+		border-width: 0px 0px 1px;	
+	}
+	
+	p { 
+		/*text-align: justify; */
+		/* CFB 11/04/18 changed for accessibility - see webaim.org */
+	}
+	
+	.navbar-list {			
+		text-align: center;
+		font-weight: bold;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	.navbar-item {
+		display: inline;
+		padding: 0;
+		margin: 0;		
+	}
+	
+	.navbar-item  a.button { 
+		width: 200px; 
+		border-radius: 100px; 
+	}
+
+	.hilite
+	{
+		color:red;
+		font-weight:bold;
+		background: lightyellow;
+	}	
