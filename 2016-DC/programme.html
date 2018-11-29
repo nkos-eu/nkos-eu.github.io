@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <title>NKOS (Networked Knowledge Organization Systems)</title>
+  <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
+  <link rel="icon" href="../favicon.png" type="image/x-icon">
+  <meta name="Author" content="Ceri Binding, University of South Wales">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <!--<meta charset="utf-8">-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/NKOS2016.css">  
+ 
+ 
+ <!-- schema.org (JSON-LD) to describe the event - alternative approach
+  to inline microdata which was just frankly getting out of hand... -->	  
+  <script type="application/ld+json">
+	{
+		"@context": {
+			"@vocab": "http://schema.org/",
+			"@language": "en"
+		},
+		"@id": "_:NKOS-2016-DC",
+		"@type" : "EducationEvent",
+		"name" : "16th European Networked Knowledge Organization Systems (NKOS) Workshop",
+		"alternateName"	: "NKOS-2016-DC",
+		"startDate" : "2016-10-15T09:00+0200",
+		"endDate" : "2016-10-15T18:00+0200",
+		"duration" : "P8H",
+		"location" : { "@id": "_:DC-2016-location" },
+		"superEvent" : {
+			"@id": "_:DC-2016",	
+			"subEvent" : { "@id": "_:NKOS-2016-DC" },	
+			"name" : "DC-2016 Metadata Summit",
+			"alternateName" : "DC-2016",
+			"startDate" : "2016-10-13T09:00+0200",
+			"endDate" : "2016-09-16T18:00+0200",	
+			"duration" : "P4D",			
+			"location" : {
+				"@id": "_:DC-2016-location",
+				"@type" : "Place",
+				"name" : "Crown Plaza, Copenhagen Towers",
+				"address" : { 
+					"@type" : "PostalAddress",
+					"streetAddress" : "Ørestads Boulevard 114-118",
+					"postalCode" : "2300 Copenhagen", 
+					"addressCountry" : "Denmark"
+				}		  		  
+			}
+		},
+		"attendee" : [				
+			{
+				"@type" : "Person",
+				"name" : "Koraljka Golub",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Linnaeus University",
+					"url" : "http://koraljka.info",
+					"department" : {
+						"name" : "Faculty of Arts and Humanities",
+						"department" : {
+							"name" : "Department of Library and Information Science, School of Cultural Sciences"
+						}
+					},				
+					"address" : {
+						"@type" : "PostalAddress",
+						"name" : "Linnaeus University",
+						"addressLocality" : "351 95 V&auml;xj&ouml;",
+						"addressCountry" : "Sweden"
+					}
+				}			
+			}		
+		] 
+	}
+</script>
+ </head> 
+ 
+ 
+ <body>
+ 
+<!-- div.container is main centered wrapper within body--> 
+<div class="container">
+      
+<div class="header center">
+	<h2>16<sup>th</sup> European Networked Knowledge Organization Systems (NKOS) Workshop</h2>
+	<h3>at the International Conference on Dublin Core and Metadata Applications 2016 (DC-2016)</h3>	
+
+	<div class='menu'>
+		<a href="call-for-papers.html">Call for Papers</a> | Workshop Programme | <a target="_blank" rel="noopener noreferrer" href="http://dcevents.dublincore.org/IntConf/dc-2016/"><abbr title="Dublin Core">DC</abbr>-2016 Metadata Summit</a> |
+		<a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/nkos/" ><abbr title="Networked Knowledge Organisation Systems and Services">NKOS</abbr> Workshops</a> |
+		<a href="http://nkos.slis.kent.edu/" rel="noopener noreferrer" target="_blank"><abbr title="Networked Knowledge Organisation Systems and Services">NKOS</abbr> Network</a>
+	</div><!--end of div.menu-->	
+</div><!--end of div.header-->
+
+<div class="content" ><!--start of content-->
+
+<h3>Workshop Programme</h3>
+<p>Full day workshop: 08:30am – 17:00pm, Saturday, October 15th, 2016.</p>
+
+<table class="programme">
+  <tbody>
+  
+	<tr>
+		<td class="time">08:30 - 08:50</td>
+		<td class="slot">Welcome and introduction - to workshop and participants<br>
+			<i>Koraljka Golub and Joacim Hansson (Linnaeus University)</i>
+			<a target="_blank" href="content/2016NKOS.DC.Golub.pdf">Presentation</a>
+		</td>	
+	</tr> 
+	<tr><td colspan=2><strong>TOPIC 1: NKOS IN RESEARCH DATA MANAGEMENT</strong></td></tr>
+   <tr>
+		<td class="time">08:50 - 09:00</td>
+		<td class="slot">Introduction to Topic 1: Subject Access in Research Data Management<br>
+			<i>Monica Lassi and Maria Johnsson (Lund University)</i>
+			<a target="_blank" href="content/2016NKOS.DC.LassiJohnsson.pdf">Presentation</a>
+		</td>
+  </tr> 
+  <tr>
+    <td class="time">09:00 - 09:30</td>
+    <td class="slot">Linking Bioinformatics Research Data and Publications through Metadata and KOS<br>
+		<i>Jian Qin (Syracuse University) and Marcia Lei Zeng (Kent State University)</i>
+		<a target="_blank" href="content/2016NKOSQinZeng.pdf">Abstract</a>
+		<a target="_blank" href="content/2016NKOS.DC.QinZeng.pdf">Presentation</a>
+	</td>
+  </tr>  
+  <tr>
+    <td class="time">09:30 - 10:00</td>
+    <td class="slot">KOS in Humanities Research and Cultural Heritage Collections<br>
+		<i>Johan Åhlfeldt (Lund University)</i>
+		<a target="_blank" href="content/2016NKOSAhlfeldt.pdf">Abstract</a>
+		<a target="_blank" href="content/2016NKOS.DC.Ahlfeldt.pdf">Presentation</a>
+	</td>
+  </tr> 
+  <tr><td colspan=2>&nbsp;</td></tr> 
+  <tr>
+    <td class="time">10:00 - 10:30</td>
+    <td class="slot">Coffee break</td>
+  </tr> 
+  <tr><td colspan=2>&nbsp;</td></tr> 
+  <tr><td colspan=2><strong>TOPIC 2: NKOS IN INFORMATION RETRIEVAL </strong></td></tr>
+  <tr>
+    <td class="time">10:30 - 11:30</td>
+    <td class="slot">KOS in Information Retrieval Experiments (Invited Talk)<br>
+		<i>Noriko Kando (National Institute of Informatics)</i>
+	</td>
+  </tr> 
+  <tr><td colspan=2><strong>TOPIC 3: NKOS DESIGN</strong></td></tr>
+  <tr>
+    <td class="time">11:30 - 12:30</td>
+    <td class="slot">KOS Design for Healthcare Decision-making Based on Consumer Criteria and User Stories<br>
+		<i>Joseph Busch (Taxonomy Strategies)</i>
+		<a target="_blank" href="content/2016NKOSBusch.pdf">Abstract</a>
+		<a target="_blank" href="content/2016NKOS.DC.Busch.Paper.pdf">Paper</a>
+		<a target="_blank" href="content/2016NKOS.DC.Busch.pdf">Presentation</a>
+	</td>
+  </tr>
+  <tr><td colspan=2>&nbsp;</td></tr>  
+  <tr>
+    <td class="time">12:30 - 13:30</td>
+    <td class="slot">Lunch</td>
+  </tr> 
+  <tr><td colspan=2>&nbsp;</td></tr>
+  <tr><td colspan=2><strong>TOPICS 4 AND 5: INTEROPERABILITY AND LINKED DATA</strong></td></tr>
+  <tr>
+    <td class="time" >13:30 - 14:00</td>
+    <td class="slot">National Library as a Public Sector Metadata Curator -- The Finto Ontology Infrastructure<br>
+		<i>Matias Frosterus, Mikko Lappalainen (The National Library of Finland)</i>
+		<a target="_blank" href="content/2016NKOSFrosterusEtAl.pdf">Abstract</a>
+		<a target="_blank" href="content/2016NKOS.DC.Frosterus.pdf">Presentation</a>
+	</td>
+  </tr>
+  <tr>
+    <td class="time">14:00 - 14:30</td>
+    <td class="slot">Interoperability of KOS Metadata Schemas in BARTOC and JSKOS<br>
+		<i>Jakob Voß (VZG Göttingen) and Andreas Ledl (Basel University Library)</i>
+		<a target="_blank" href="content/2016NKOSVossLedl.pdf">Abstract</a>
+		<a target="_blank" href="content/2016NKOS.DC.VossLedl.pdf">Presentation</a>
+	</td>
+  </tr>
+  <tr>
+    <td class="time" >14:30 - 15:00</td>
+    <td class="slot">Subject Data in National Bibliographies Published as Linked Data<br>
+		<i>Kim Tallerås, Oslo and Akershus University College</i>
+		<a target="_blank" href="content/2016NKOSTalleras.pdf">Abstract</a>
+		<a target="_blank" href="content/2016NKOS.DC.Talleras.pdf">Presentation</a>
+	</td>
+  </tr>
+  <tr><td colspan=2>&nbsp;</td></tr>
+	<tr>
+		<td class="time">15:00 - 15:30</td>
+		<td class="slot">Coffee break</td>
+  </tr>  
+  <tr><td colspan=2>&nbsp;</td></tr>
+  <tr><td colspan=2><strong>TOPICS 5 AND 6: LINKED DATA AND EVALUATION</strong></td></tr>
+  <tr>
+    <td class="time">15:30 - 16:00</td>
+    <td class="slot">Publishing Pre-modern Chinese Classification Schemes as Linked Data: An Experiment Report<br>
+		<i>Haiqing Lin (University of California, Berkeley)</i>
+		<a target="_blank" href="content/2016NKOSLin.pdf">Abstract</a>
+		<a target="_blank" href="content/2016NKOS.DC.Lin.pdf">Presentation</a>
+	</td>
+  </tr>
+  <!--<tr>
+    <td class="time">16:00 - 16:30</td>
+    <td class="slot">Evaluation of Subject Searching in OPACs<br>
+		<i>Drahomira Cupar, Martina Dragija Ivanović, Kristina Berketa (University of Zadar), and Koraljka Golub (Linnaeus University)</i><a target="_blank" href="content/2016NKOSCuparEtAl.pdf">Abstract</a>
+	</td>
+  </tr>-->
+  <tr>
+    <td class="time">16:00 - 16:30</td>
+    <td class="slot">Cost-Benefits of Applying Controlled Vocabularies<br>
+		<i>Jay Ven Eman, Access Innovations, Inc. / Data Harmony (invited talk)</i>
+		<a target="_blank" href="content/2016NKOS.DC.VenEman.pdf">Presentation</a>
+	</td>
+	</tr>
+  <tr>
+    <td class="time">16:30 - 17:00</td>
+    <td class="slot">Conclusions and Discussions</td>
+  </tr>
+  <tr>
+    <td class="time">18:00</td>
+    <td class="slot">Social dinner at a location in Copenhagen (TBA at the workshop)</td>
+  </tr>
+  
+  </tbody>
+ </table>
+ 
+</div><!--end of div.content-->
+</div><!--end of div.container-->
+</body>
+</html>

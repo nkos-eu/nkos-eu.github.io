@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<meta name="generator" content="HTML Tidy, see www.w3.org">
+<style type="text/css">
+BODY {
+  margin: 2em 1em 2em 50px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: black;
+  background: #FFF;
+}
+
+H1, H2, H3, H4, H5, H6 {
+  text-align: left;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  color: #880000;
+}
+
+
+/* NS 4 needs this */
+th, td, p, ol, ul, li, dl, dt, dt, blockquote { font-family: Verdana,  Arial, Helvetica, sans-serif; }
+</style><title>RDF Query by example</title></head><body bgcolor="#ffffff">
+<div align="right">
+<a href="http://www.imesh.org/toolkit">
+<img src="RDF%20Query%20by%20example_files/logo3.gif" alt="IMeshTk" border="0" height="50"></a>
+<a href="http://ilrt.org/"><img src="RDF%20Query%20by%20example_files/nav_logo.gif" alt="ILRT Home" border="0"></a></div>              
+
+
+<h3>RDF Query by example</h3>
+<h4>2002-04-04</h4>
+
+
+<h4>Libby Miller &lt;<a href="mailto:libby.miller@bristol.ac.uk">libby.miller@bristol.ac.uk</a>&gt;</h4>
+
+<p>Latest version: <a href="http://ilrt.org/discovery/2002/04/query/">http://ilrt.org/discovery/2002/04/query/</a></p>
+
+<p>Slides: <a href="http://ilrt.org/discovery/2002/04/query/Overview.html">http://ilrt.org/discovery/2002/04/query/Overview.html</a></p>
+
+<p>RSS demo: <a href="http://sw1.ilrt.org/discovery/2002/04/rss/">http://sw1.ilrt.org/discovery/2002/04/rss/</a></p>
+
+<h4>Acknowledgements</h4>
+
+<p>The <a href="http://sw1.ilrt.org/rdfquery/">SquishQL/Inkling query
+work</a> was part-funded by the <a href="http://metadata.net/harmony/">Harmony
+project</a>
+</p>
+
+<h4>Contents</h4>
+<p>
+<a href="#intro">Introduction</a>
+</p>
+
+<ol>
+<li>
+<a href="#one">Three principles for creating interoperable data</a>
+</li><li>
+<a href="#two">RDF Query: asking questions of very flexible data</a>
+</li><li>
+<a href="#three">Lightweight, hackable interoperability with RDF query:
+two examples</a>
+</li><li>
+<a href="#four">Completer-finisher stage: Getting from hack to
+service</a>
+</li></ol>
+
+<h4><a name="intro">Introduction</a></h4>
+
+<p>This paper is for the 'Netlab and friends' <a href="#%5BNETLAB%5D">[NETLAB]</a> conference in the section on
+interoperability. 'NetLab and friends' is a celebration of ten
+years of Netlab, and of Netlab's contribution to technology on the
+web and in particular to the development of Digital Libraries. This
+paper is about RDF query, and specifically how simple RDF query
+languages can help members of the Digital Libraries community use
+RDF data right now.</p>
+
+<p>RDF is structured data. Instead of putting information in a Word
+document or a simple html file, or in 'vanilla' XML, you store your
+information in XML documents using a particular set of conventions
+for writing that XML, or in such a way that you can export the data
+to XML documents using those conventions (for example in a database
+or a spreadsheet, or even in certain forms of xhtml).</p>
+
+<p>The important thing about RDF is the information model, which is
+a directed label graph, that is, objects in the world are
+represented by nodes, and their properties by arcs that link the
+nodes together. Here is an example of the <a href="http://ilrt.org/discovery/2002/04/query/netlab-paper.rdf">RDF for this paper</a>, expressed as a
+graph:</p>
+
+<img src="RDF%20Query%20by%20example_files/netlab0.jpe"> 
+
+<p>Using the RDF set of conventions for exporting structured data
+has as its goal data-interoperability. RDF's node-arc-node model
+provides a minimal structure for interoperability, because it
+encodes directly information which is often implicit in other
+formats, such as 'vanilla' XML documents or IAFA templates.
+</p>
+
+<p>The first hurdle with RDF is the question: <em>why</em> would
+you want to use RDF as your structured data format for your
+particular project? After all, there are a number of widely used,
+well tested and mature protocols and query and data formats in use
+in the Digital Library community already.</p>
+
+<p>The answer is that if you have control and will always have
+control over your data you don't need RDF. You can use any data
+format and protocol you like: XML format of your own choice, a
+particular profile of Z3950 or Whois++, for example. This applies
+whether the data is private to your organisation (such as internal
+company records or databases), or whether you can control the data
+that is provided for you (for example as with the normalisation of
+data for the Renardus project). There is no one best way of storing
+and retrieving structured data.</p>
+
+<p>However, in many cases you will not control the data you are
+working with. Distributed data is difficult to control, because you
+have to rely on others to provide it. Data is also difficult to
+control over time, as requirements for the data change over time.
+Another example is data from unexpected sources, which might be
+reuseable, but probably isn't in your preferred format.</p>
+
+<p>If you do not control the data you have to deal with, because
+you don't own it, or because it may change over time, or because
+you don't know what you might want to combine it with next, then
+using RDF and associated modeling strategies and tools ('Semantic
+Web technologies') is useful now. Part of the reason for this is
+that the RDF model uses certain principles for modelling data which
+help with interoperability. Three of these are discussed in the
+next section, section 1. Section 2 briefly describes a simple RDF
+query language. In Section 3 we describe two different
+possibilities for combining data from different sources using RDF
+and RDF query.</p>
+
+<h4><a name="one">1.</a> Three principles for creating interoperable
+data</h4>
+
+<p>RDF is defined by its model, not its syntax. Using the RDF model
+for your data from the start can help save time if you ever want to
+combine the data with any other data, whether you decide to use the
+RDF syntax and an RDF database and query language or whether you
+use a relational database or Z39.50 to store and serve up the data.
+There are three basic modeling principles that are used to create
+RDF data:</p>
+
+<ol>
+<li>Use the RDF information model: nodes and arcs</li>
+
+<li>Use universal resource identifiers: URLs, mailtos</li>
+
+<li>Define the structure of information: write schemas</li>
+</ol>
+
+<h3>Principle 1: Use the RDF information model (nodes and
+arcs)</h3>
+
+<p>The RDF model is a good sanity check for interoperable data. RDF
+uses nodes and connecting arcs to talk about objects and their
+properties, so that you start thinking in terms of objects and
+their properties rather than in terms of documents and their
+syntax. This improves extensibility and may help modelling
+style.</p>
+
+<p>For example suppose you have a ROADS SERVICE file format, which
+has the field 'Record-Created-Email'. An addition to the template
+requires a (small) change to the parser, so that the format is not
+very easily extensible. Moreover, the underyling model is implicit
+in the format. 'Record-Created-Email' is a shortcut from the record
+to the person that created the record, to the email address of that
+person. This is just a different modeling style, but it also
+obscures some of the structure of the record that might help
+interoperability. 'Persons' often crop up in different sorts of
+records, but here the fact that a person created the record isn't
+clear. This is also a common problem with 'vanilla' XML: the
+emphasis is on the syntax of the document not the underlying model.
+There is nothing wrong per se with this type of modelling, but it
+can limit extensibility and interoperability.</p>
+
+<p>The RDF/XML syntax has been much criticised, but it is highly
+expressive and extensible, and there are now many tools that
+process it <a href="#%5BJENA%5D">[JENA]</a>, <a href="#%5BSIRPAC%5D">[SIRPAC]</a>. There are also some tools which
+allow you to create arbitrary RDF using a visual editor <a href="#%5BRDFAuthor%5D">[RDFAUTHOR]</a>, <a href="#%5BISAVIZ%5D">[ISAVIZ]</a>. You do not have to use RDF/XML
+syntax as the primary store of your data, but as an interchange
+format, it is very useful.</p>
+
+<h3>Principle 2: Use URIs as identifiers where possible</h3>
+
+<p>Or rather, use <em>well-known, public</em> URIs where possible:
+don't make them up if you can avoid it. In RDF nodes are either
+'blank nodes' or are identified using URIs. RDF processors
+automatically assume that objects with the same URI are the same
+object.</p>
+
+<p>In the case of people and certain documents it is not good
+modelling style to conflate the URI with the thing. A person is not
+their email address, and a document might have several URLs. In
+this case it is useful to use indirection. If the document does not
+have a single URL, then it can still have a dc:identifier pointing
+to a URL. A person can have a foaf:mbox pointing to their email
+address. RDF processors will not merge nodes identified indirectly,
+although schema annotations can be used to do this <a href="#%5BSMUSH%5D">[SMUSH]</a>. Sometimes it may seem simpler to
+forgo modeling accuracy for simplicity, but be careful - things can
+go wrong because RDF will assume that things with the same uri are
+the same object. For example, characteristics of a document might
+get confused with the characteristics of a particular instance of the 
+document retrievable by from a url, if you name the document with the url
+of a retrievable instance of it.
+</p>
+
+<p>For interoperability purposes, it is most helpful to use
+well-known, public identifiers, otherwise you'll have to keep
+stating that 'urn:ilrtperson2356' and 'urn:rdfwebperson347687' are
+the same individual, and processing information form different
+sources will be slow and cumbersome.</p>
+
+<h3>Principle 3: Write schemas</h3>
+
+<p>RDF Schemas describe the broad structure of types of RDF
+documents, such as what types of arcs can link what types of nodes.
+They can also include information about class heirarchies: you can
+build elaborate links describing subclasses of objects. </p>
+
+<p>So for example you could use <a href="http://purl.org/dc/elements/1.1/">Dublin Core</a> to
+represent information about webpages and other documents; the
+experimental <a href="http://xmlns.com/foaf/0.1/">foaf</a>
+vocabulary or <a href="http://www.w3.org/TR/vcard-rdf">vCard in
+RDF</a> for people, addresses, relationships. Reusing vocabularies
+can be difficult if parts of a schema are similar to what you want,
+but do not quite represent it exactly. RDF has <a href="http://www.w3.org/TR/rdf-schema/#ch_subclassof">subClassOf</a>
+and <a href="http://www.w3.org/TR/rdf-schema/#ch_subpropertyof">subPropertyOf</a>
+relationships to accommodate these similarities interoperably.
+These are not currently processed in very many tools but are useful
+for fixing the meaning of classes and properties precisely, and
+will likely be used in the future.</p>
+
+<p>RDF does not require schemas: you can do a great deal without
+using them at all. However for interoperability it is helpful to
+describe what you meant your RDF to represent in machine-readable
+and human-readable form. This enables people to reinterpret your
+data more accurately.</p>
+
+
+<h3>Storing RDF</h3>
+
+<p>Once you have used these methods in your modeling, you have
+various options for actually storing your data. One option is to
+use RDF/XML documents as the primary store of your data and then
+use an RDF processor and a pure RDF database (one designed to store
+RDF). However, you do not have to use a 'pure' RDF database for
+storing the information, and in fact there are significant
+overheads to doing so, in particular the immaturity of the
+technology and the specialist knowledge that will probably be
+required. Another option is to store your data in (say) a
+relational database and export it to RDF/XML files. 
+</p>
+
+<p>Having said that, RDF databases are extremely flexible, and if
+your data structure changes rapidly you may find them very useful.
+For similar reasons, an RDF database can provide an interim
+solution for experimenting with combining different types of data
+until you settle on a good optimised structure in a well-understood
+database. The rest of this paper provides some examples of using
+mixed data with an RDF database that understands an RDF query
+language.</p>
+
+<h3><a name="two">2.</a> RDF Query: asking questions of very flexible
+data</h3>
+
+<p>If you do choose an RDF database, you need a way of accessing
+information that mirrors the flexibility of the RDF information
+model. RDF query languages such as SquishQL <a href="#%5BINKLING%5D">[INKLING]</a> (which I've been working on) all
+query the RDF information model directly, and do not care about how
+the information is stored.</p>
+
+<p>For example, the query below says:</p>
+
+<p>"find me the name of the person whose email address is
+libby.miller@bristol.ac.uk, and also find me the title and
+identifier of anything that she has created"</p>
+
+<pre>select ?name, ?title, ?identifier 
+where 
+(dc::title ?paper ?title)
+(dc::creator ?paper ?creator)
+(dc::identifier ?paper ?uri)
+(foaf::name ?creator ?name) 
+(foaf::mbox ?creator mailto:libby.miller@bristol.ac.uk) 
+using dc for http://purl.org/dc/elements/1.1/
+foaf for http://xmlns.com/foaf/0.1/
+</pre>
+
+<p>Simple RDF queries such as this one just try and match parts of
+the RDF model in the database. Because of this, you can describe
+the query itself as a graph, as below:</p>
+
+<img src="RDF%20Query%20by%20example_files/netlab1.jpe"> 
+
+<p>The query describes the pattern of the information we want to
+match, not the way it is stored in the database. If we find some
+more data about reviews of papers, we can add this to our database
+and query it without redesigning the database structure, and by
+rewriting our query slightly:</p>
+
+<pre>select ?name, ?title, ?identifier, ?content  
+where 
+(dc::title ?paper ?title)
+(dc::creator ?paper ?creator)
+(dc::identifier ?paper ?uri)
+(foaf::name ?creator ?name) 
+(foaf::mbox ?creator mailto:libby.miller@bristol.ac.uk) 
+(foaf::review ?paper ?review)
+(foaf::content ?review ?content)
+using dc for http://purl.org/dc/elements/1.1/
+foaf for http://xmlns.com/foaf/0.1/
+</pre>
+
+<img src="RDF%20Query%20by%20example_files/netlab2.jpe"> 
+
+<p>This differs from the relational model where you have to know
+the structure of tables before you can make the query. The
+relational model ties the data strongly to the way it is stored,
+which means that changes to the structure of the data require
+changes to the structure of the database, as well as changes to the
+query.</p>
+
+<p>In contrast when new information is added to a pure RDF
+database, the structure of the database does not change in a
+relational sense. RDF data is semi-structured and does not rely on
+the presence of a schema for storage or query. This makes pure RDF
+databases very useful for prototyping and for other fast-moving
+data environments.</p>
+
+<h3><a name="three">3.</a> Lightweight, hackable interoperability with RDF
+query: two
+examples</h3>
+
+<p>RDF gets you thinking in terms of combining information, and how
+to make it (relatively) easy. You might start thinking...</p>
+
+<ul>
+<li>what sorts of information do we have lying around that would
+increase the usefulness of our core information set?</li>
+
+<li>how difficult would it be to combine these sets of
+information?</li>
+</ul>
+
+<h4>Example 1: Publications, ROADS editors recommendations and
+bookmarks</h4>
+
+<ul>
+<li>At the University of Bristol, we are supposed to enter our
+publications information into a central database, so that funding
+calculations can be made.</li>
+
+<li>ROADS editing templates <a href="#%5BROADS%5D">[ROADS]</a> contain
+information about who created the record. ROADS templates are used
+in SOSIG <a href="#%5BSOSIG%5D">[SOSIG]</a>, based at the University of
+Bristol in the ILRT. The creator information is currently kept
+private although there are links <a href="#%5BEDITORS%5D">[EDITORS]</a>
+on the SOSIG site to subject editors names and descriptions of
+them, although not on a per-record basis.</li>
+
+<li>Cataloguers often have a bookmarks file, or part of one,
+containing a list of their favourite places to look for new
+information on the web and also possible future sites to
+catalogue.</li>
+</ul>
+
+<p>So, let's find out more about the editors at SOSIG. You can
+already get to a brief description of the editor of a section: why
+not combine this information with papers they have authored, and
+with their current SOSIG-related bookmarks list? Technically this
+is fairly simple.</p>
+
+<ul>
+<li>ROADS templates contain the email addresses of their authors,
+if correctly completed, so that we can trace who created the
+record. ROADS records are faily simple to express as RDF, at least
+in summary format.</li>
+
+<li>The Perl Bookmark module can be used to parse bookmarks files,
+and the format is fairly simple to write as RDF, since it basically
+consists of a list of links.</li>
+
+<li>The publications data at the University of Bristol is available
+in an SQL database dump format to departments in the
+university.</li>
+</ul>
+
+<p>Using Dublin Core and a simple bookmarks schema all these
+formats can be converted to RDF/XML files. They can then be
+harvested into an RDF database and queried (see below for various
+options for storing and querying RDf data). An example query might
+look something like this:</p>
+
+<p>"find me all the bookmarks from the bookmarks file of the person
+with email address 'emma.place@bristol.ac.uk' which are dated more
+recently than 1st April 2002".</p>
+
+<pre>select ?bookmark, ?title, ?date   
+where 
+(foaf::mbox ?person mailto:emma.place@bristol.ac.uk) 
+(bm::bookmarkFile ?person ?file) 
+(bm::bookmark ?file ?bookmark) 
+(dc::title ?bookmark ?title) 
+(dc::date ?bookmark ?date) 
+and ?date &gt; 2002-04-01
+using dc for http://purl.org/dc/elements/1.1/
+foaf for http://xmlns.com/foaf/0.1/
+bm for http://example.com/bookmarks/
+</pre>
+
+<img src="RDF%20Query%20by%20example_files/netlab3.jpe"> 
+
+<p>The results of such a query might look something like this:</p>
+
+<table bgcolor="#dddddd">
+<tbody><tr>
+<td>bookmark</td>
+<td>title</td>
+<td>date</td>
+</tr>
+
+<tr>
+<td>http://www.psychology.ltsn.ac.uk/</td>
+<td>LTSN Psychology</td>
+<td>2002-04-02</td>
+</tr>
+
+<tr>
+<td>http://www.bids.ac.uk/</td>
+<td>BIDS</td>
+<td>2002-04-04</td>
+</tr>
+</tbody></table>
+
+<p>The social constraints on using these pieces of information
+together might be more limiting than the technical aspects.
+Although many people make their bookmarks available publically on
+the web, some would not dream of doing so. People might object to
+such a swathe of information being made available about them.</p>
+
+<b>What benefit might something like this give SOSIG?</b> 
+
+<p>It gets people thinking about different kinds of information
+that might improve the service. Let's say that the editors aren't
+happy with everyone being able to see their bookmarks, but would be
+happy for other editors to see them. Then they could see what other
+subject editors were working on, check for duplicates, and get
+useful ideas for where to go next. Or suppose they're not happy for
+people to see their bookmarks, but would find a blogging tool
+helpful in the cataloging process, the output of which they would
+be happy to share.</p>
+
+<p>The user of the service now has an interesting way of checking
+the credentials of the subject editors. The service does not just
+say: "trust us because we are trustworthy, non-profit making and
+have a long history of providing good resources", but "trust us
+because of the credentials of the named individuals who find and
+catalogue resources for us."</p>
+
+<p>Finally, combining this information together might make
+technical people think about how they might generalise this
+cataloging model to a more inclusive annotating model, and how this
+might be managed, for example:</p>
+
+<p>"select annotations by people that Emma knows of
+professionally"</p>
+
+<pre>select ?annotation, ?content 
+where 
+(ann::annotates ?annotation ?file) 
+(ann::content ?annotation ?content) 
+(dc::creator ?annotation ?knownPerson) 
+(foaf::mbox ?person mailto:emma.place@bristol.ac.uk) 
+(foaf::knowsOfProfessionally ?person ?knownPerson) 
+using dc for http://purl.org/dc/elements/1.1/
+foaf for http://xmlns.com/foaf/0.1/
+ann for http://example.com/annotations/
+</pre>
+
+<img src="RDF%20Query%20by%20example_files/netlab4.jpe"> 
+
+<h5>Example 2: A very simple portal</h5>
+
+<p>For interoperability between organisations, simple is often
+better, especially if there are many organisations involved.</p>
+
+<p>RSS <a href="#%5BRSS%5D">[RSS]</a> is a well-known syndication
+format expressed in RDF/XML, originally designed to syndicate news
+stories. It's very simple indeed, consisting essentially of a list
+of links with titles and descriptions, and a container to hold
+them. As of RSS 1.0, simple RSS files can be extended with modules
+for a particular purpose, for example with a set of Dublin Core
+elements to describe webpages in more detail.</p>
+
+<p>At LTSN Economics <a href="#%5BLTSN-ECON%5D">[LTSN-ECON]</a>, Martin
+Poulter has been experimenting with the RSS 1.0 events module <a href="#%5BRSS-EVENTS%5D">[RSS-EVENTS]</a> to describe conference
+information <a href="#%5BLTSN-EVENTS%5D">[LTSN-EVENTS]</a>. The events
+module adds a start date and an end date to the standard RSS item,
+and a location, and an organiser. Other LTSN centres have also been
+producing ordinary RSS 1.0 feeds <a href="#%5BLTSN-FEEDS%5D">[LTSN-FEEDS]</a>, as have various
+organisations in the subject gateway community, spurred on by
+Ukoln's RSSXpress <a href="#%5BRSSXPRESS%5D">[RSSXPRESS]</a>.</p>
+
+<p>SOSIG's Grapevine service <a href="#%5BGRAPE%5D">[GRAPE]</a> has a
+personalization feature that can display feeds described as RSS
+1.0. But we can do even more interesting things using query. Let's
+suppose we have a list of feeds such as that at UKoln's RSSExpress
+page. Then we produce a piece of RDF describing those feeds, for
+example by classifying them according to their subject within the
+SOSIG classification system. Then we can load all the feeds into an
+RDF database, load in our little RDF description file about the
+feeds, and with just a couple of queries we have a 'portal'.</p>
+
+<p>First we ask: what feed would you like?</p>
+
+<pre>select ?feedUrl, ?title  
+where 
+(dc::subject ?feedUrl ?subject)
+(rss::title ?feedUrl ?title)
+and ?subject ~ "economics"
+using rss for http://purl.org/rss/1.0/
+dc for http://purl.org/dc/elements/1.1/
+</pre>
+
+<p>results</p>
+
+<table bgcolor="#dddddd">
+<tbody><tr>
+<td>feedUrl</td>
+<td>title</td>
+</tr>
+
+<tr>
+<td>http://chewbacca.ilrt.bris.ac.uk/events/events.xml</td>
+<td>LTSN Economics events</td>
+</tr>
+
+<tr>
+<td>http://www.cepr.org/aboutcepr/cepr.rss</td>
+<td>Centre for Economic Policy Research</td>
+</tr>
+
+<tr>
+<td>http://www.bized.ac.uk/homeinfo/whatsnew.htm</td>
+<td>Biz/ed What's New</td>
+</tr>
+</tbody></table>
+
+<p>then we create each feed using another query which asks for the
+items, their urls and titles:</p>
+
+<pre>select ?item, ?ti, ?li 
+where 
+(rss::items http://chewbacca.ilrt.bris.ac.uk/events/events.xml ?seq)
+(?contains ?seq ?item)
+(rss::title ?item ?ti) 
+(rss::link ?item ?li) 
+using rss for http://purl.org/rss/1.0/
+</pre>
+
+<p>And with a little html formatting, we have a portal!</p>
+
+<p>If we have a channel picker like that on SOSIG Grapevine, we
+could store people's selections of feeds as an RDF file, and then
+pull them out again next time using a query like this one:</p>
+
+<pre>select ?feedUrl, ?title  
+where 
+(sosig::profile ?person ?profile)
+(sosig::channel ?profile ?feedUrl)
+(rss::title ?feedUrl ?title)
+(foaf::mbox ?person mailto:libby.miller@bristol.ac.uk)
+using rss for http://purl.org/rss/1.0/
+foaf for http://xmlns.com/foaf/0.1/
+sosig for http://www.sosig.ac.uk/schemas/profiles/
+</pre>
+
+<p>Something as simple as a Perl regex can be used to parse RSS
+files with great effect. The advantage of using RDF query to do it
+is that it makes the query and display of RSS extensions or modules
+very simple. For example, a query of the basic RSS form of the LTSN
+event feed looks just like the query for any other feed:</p>
+
+<pre>select ?item, ?title, ?link  
+where 
+(rss::items http://chewbacca.ilrt.bris.ac.uk/events/events.xml ?seq)
+(?anyPredicate ?seq ?item)
+(rss::title ?item ?title) 
+(rss::link ?item ?link) 
+using rss for http://purl.org/rss/1.0/
+</pre>
+
+<p>adding the events information makes the query look like
+this:</p>
+
+<pre>select ?title, ?link, ?start, ?end, ?location  
+where 
+(rss::items http://chewbacca.ilrt.bris.ac.uk/events/events.xml ?seq)
+(?anyPredicate ?seq ?item)
+(rss::title ?item ?title) 
+(rss::link ?item ?link) 
+(ev::startdate ?item ?start) 
+(ev::enddate ?item ?end) 
+(ev::location ?item ?location) 
+using rss for http://purl.org/rss/1.0/
+ev for http://purl.org/rss/1.0/modules/event/
+</pre>
+
+<p>giving us results that look like this:</p>
+
+<table bgcolor="#dddddd">
+<tbody><tr>
+<td>link</td>
+<td>title</td>
+<td>start</td>
+<td>end</td>
+<td>location</td>
+</tr>
+
+<tr>
+<td>http://crm.hct.ac.ae/tend2002/</td>
+<td>Bridging the Divide - Strategies for Change</td>
+<td>2002-04-07</td>
+<td>2002-04-09</td>
+<td>Dubai, United Arab Emirates</td>
+</tr>
+
+<tr>
+<td>http://www.scoteconsoc.org/ses2002.html</td>
+<td>SEA Annual Conference</td>
+<td>2002-04-11</td>
+<td>2002-04-12</td>
+<td>Dundee, UK</td>
+</tr>
+</tbody></table>
+
+<p>We could even start limiting the scope of our searches and
+combining various feeds, for example:</p>
+
+<p>"find me all the events starting in April 2002 from all feeds
+which can be picked out using the search term economics"</p>
+
+<pre>select ?item, ?title, ?link, ?start, ?end, ?location  
+where 
+(dc::subject ?feedUrl ?subject)
+(rss::items ?feedurl ?seq)
+(?anyPredicate ?seq ?item)
+(rss::title ?item ?title) 
+(rss::link ?item ?link) 
+(ev::startdate ?item ?start) 
+(ev::enddate ?item ?end) 
+(ev::location ?item ?location) 
+and ?subject ~ "economics"
+and ?start ~ "2002-04" 
+using rss for http://purl.org/rss/1.0/
+ev for http://purl.org/rss/1.0/modules/event/
+dc for http://purl.org/dc/elements/1.1/
+</pre>
+
+<p>Simple RDF queries like the SquishQL examples here are not
+particularly powerful: they can't do 'OR' queries for example. But
+they can make queries of flexible data in a fairly easy to
+understand fashion.</p>
+
+<h4><a name="four">4.</a> Completer-finisher stage: Getting from hack to
+service</h4>
+
+<p>You may want to optimise your database for certain queries, once
+you have experimented with combining RDF data. One way of doing
+this is to collect RDF information in one RDF database, and then
+use RDF query to pick out the parts you want to optimise for.</p>
+
+<p>For example, suppose we had a number of interesting economics
+RSS events feeds available. A query such as</p>
+
+<pre>select ?item, ?title, ?link, ?start, ?end, ?location  
+where 
+(dc::subject ?feedUrl ?subject)
+(rss::items ?feedurl ?seq)
+(?anyPredicate ?seq ?item)
+(rss::title ?item ?title) 
+(rss::link ?item ?link) 
+(ev::startdate ?item ?start) 
+(ev::enddate ?item ?end) 
+(ev::location ?item ?location) 
+and ?subject ~ "economics"
+and ?start ~ "2002-04" 
+using rss for http://purl.org/rss/1.0/
+ev for http://purl.org/rss/1.0/modules/event/
+dc for http://purl.org/dc/elements/1.1/
+</pre>
+
+<p>(repeated from above) gives us the raw ingredients of a simple
+flat relational database structure, with one table:</p>
+
+<table bgcolor="#dddddd">
+<tbody><tr>
+<td>id</td>
+<td>link</td>
+<td>title</td>
+<td>start</td>
+<td>end</td>
+<td>location</td>
+</tr>
+</tbody></table>
+
+<p>which we can then query using SQL to create a nice html list of
+conferences for our economics users (or perhaps our own RSS feed).
+In this way, RDF databases and query can be an intermediate step,
+helping us to gather and organise diverse data before
+optimising.</p>
+
+<h4>Summary</h4>
+
+<p>My aim has been to show how RDF tools can be useful to the
+Digital libraries community now. I've suggested that while RDF
+tools may not be as fast and well-understood as more conventional
+databases and protocols, nevertheless they can be used to combine
+information from multiple sources in interesting and practical ways
+that can extend the functionality of services.</p>
+
+<p>Tools you might like to try include Jena <a href="#%5BJENA%5D">[JENA]</a>, SquishQL/Inkling <a href="#%5BINKLING%5D">[INKLING]</a>, SquishQL/Ruby <a href="#%5BRUBY-RDF%5D">[RUBY-RDF]</a> tools for storing and querying
+RDF in SQL databases. RDFStore <a href="#%5BRDFSTORE%5D">[RDFSTORE]</a>
+includes a Perl implementation; RDFdb <a href="#%5BRDFDB%5D">[RDFDB]</a> has a similar query language, on which
+SquishQL was based. Redland <a href="#%5BREDLAND%5D">[REDLAND]</a> is a
+fast RDF database. Many more RDF query languages and databases
+systems are available - see Dave Beckett's RDF resource guide <a href="#%5BBECKETT%5D">[BECKETT]</a>.</p>
+
+<h3>Acknowledgements</h3>
+
+<p>Thanks to Dan Brickley and Damian Steer for helpful comments and
+discussion.</p>
+
+<h3>References</h3>
+
+<p><a id="[NETLAB]" name="[NETLAB]">[NETLAB]</a> <a href="http://www.lub.lu.se/netlab/conf/">http://www.lub.lu.se/netlab/conf/</a></p>
+
+<p><a id="[JENA]" name="[JENA]">[JENA]</a> <a href="http://www.hpl.hp.com/semweb/jena-top.html">http://www.hpl.hp.com/semweb/jena-top.html</a></p>
+
+<p><a id="[SIRPAC]" name="[SIRPAC]">[SIRPAC]</a> <a href="http://www-db.stanford.edu/%7Emelnik/rdf/api.html">http://www-db.stanford.edu/~melnik/rdf/api.html</a></p>
+
+<p><a id="[RDFAUTHOR]" name="[RDFAUTHOR]">[RDFAUTHOR]</a> <a href="http://rdfweb.org/people/damian/RDFAuthor">http://rdfweb.org/people/damian/RDFAuthor</a></p>
+
+<p><a id="[ISAVIZ]" name="[ISAVIZ]">[ISAVIZ]</a> <a href="http://www.w3.org/2001/11/IsaViz/">http://www.w3.org/2001/11/IsaViz/</a></p>
+
+<p><a id="[SMUSH]" name="[SMUSH]">[SMUSH]</a> <a href="http://rdfweb.org/2001/01/design/smush.html">http://rdfweb.org/2001/01/design/smush.html</a></p>
+
+<p><a id="[INKLING]" name="[INKLING]">[INKLING]</a> <a href="http://swordfish.rdfweb.org/rdfquery/">http://swordfish.rdfweb.org/rdfquery/</a></p>
+
+<p><a id="[ROADS]" name="[ROADS]">[ROADS]</a> <a href="http://www.ukoln.ac.uk/metadata/roads/templates/">http://www.ukoln.ac.uk/metadata/roads/templates/</a></p>
+
+<p><a id="[SOSIG]" name="[SOSIG]">[SOSIG]</a> <a href="http://www.sosig.ac.uk/">http://www.sosig.ac.uk/</a></p>
+
+<p><a id="[EDITORS]" name="[EDITORS]">[EDITORS]</a></p>
+
+<p>for example <a href="http://www.sosig.ac.uk/profiles/econ_management.html">http://www.sosig.ac.uk/profiles/econ_management.html</a></p>
+
+<p><a id="[RSSS]" name="[RSSS]">[RSS]</a> <a href="http://www.purl.org/rss/1.0/">http://www.purl.org/rss/1.0/</a></p>
+
+<p><a id="[LTSN-ECON]" name="[LTSN-ECON]">[LTSN-ECON]</a> <a href="http://www.economics.ltsn.ac.uk/">http://www.economics.ltsn.ac.uk/</a></p>
+
+<p><a id="[RSS-EVENTS]" name="[RSS-EVENTS]">[RSS-EVENTS]</a> <a href="http://groups.yahoo.com/group/rss-dev/files/Modules/Proposed/mod_event.html">
+http://groups.yahoo.com/group/rss-dev/files/Modules/Proposed/mod_event.html</a></p>
+
+<p><a id="[LTSN-EVENTS]" name="[LTSN-EVENTS]">[LTSN-EVENTS]</a> <a href="http://chewbacca.ilrt.bris.ac.uk/events/events.xml">http://chewbacca.ilrt.bris.ac.uk/events/events.xml</a></p>
+
+<p><a id="[LTSN-FEEDS]" name="[LTSN-FEEDS]">[LTSN-FEEDS]</a> <a href="http://www.ltsneng.ac.uk/rssfeeds/rsseg.asp">http://www.ltsneng.ac.uk/rssfeeds/rsseg.asp</a></p>
+
+<p><a id="[RSSXPRESS]" name="[RSSXPRESS]">[RSSEXPRESS]</a> <a href="http://rssxpress.ukoln.ac.uk/">http://rssxpress.ukoln.ac.uk/</a></p>
+
+<p><a id="[GRAPE]" name="[GRAPE]">[GRAPE]</a> <a href="http://www.sosig.ac.uk/gv/">http://www.sosig.ac.uk/gv/</a></p>
+
+<p><a id="[RUBY-RDF]" name="[RUBY-RDF]">[RUBY-RDF]</a> <a href="http://www.w3.org/2001/12/rubyrdf/">http://www.w3.org/2001/12/rubyrdf/</a></p>
+
+<p><a id="[RDFSTORE]" name="[RDFSTORE]">[RDFSTORE]</a> <a href="http://rdfstore.sourceforge.net/">http://rdfstore.sourceforge.net/</a></p>
+
+<p><a id="[RDFDB]" name="[RDFDB]">[RDFDB]</a> <a href="http://web1.guha.com/rdfdb/">http://web1.guha.com/rdfdb/</a></p>
+
+<p><a id="[REDLAND]" name="[REDLAND]">[REDLAND]</a> <a href="http://www.redland.opensource.ac.uk/">http://www.redland.opensource.ac.uk/</a></p>
+
+<p><a id="[BECKETT]" name="[BECKETT]">[BECKETT</a> <a href="http://www.ilrt.bris.ac.uk/discovery/rdf/resources/">http://www.ilrt.bris.ac.uk/discovery/rdf/resources/</a></p>
+
+</body></html>

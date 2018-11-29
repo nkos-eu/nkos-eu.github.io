@@ -1,0 +1,35 @@
+	h1,h2,h3,h4,h5,h6	{
+		color: #006699;		
+	}	
+	
+	.center	{
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;			
+	}
+	.menu {
+		padding: 5px;
+		margin: 5px;
+		border-color: lightgray;
+		border-style: solid;
+		border-width: 1px 0px;		
+		text-align: center;
+		font-weight: bold;
+	}
+	a {
+		text-decoration: none;
+		padding: 3px;
+	}
+	a:hover {
+		color: darkred;
+		background: #FFFF99;
+	}	
+	table.programme td {
+		border: 1px solid gray;
+		padding: 5px;
+
+	}
+	table.programme td.time {
+		text-align: center;
+		vertical-align: middle;
+	}

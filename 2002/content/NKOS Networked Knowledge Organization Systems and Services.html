@@ -1,0 +1,1468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<meta name="generator" content="HTML Tidy, see www.w3.org"><title>RDF Thesaurus Draft Specification</title>
+
+<link rel="stylesheet" type="text/css" href="NKOS%20Networked%20Knowledge%20Organization%20Systems%20and%20Services_files/simple.css"></head><body bgcolor="#ffffff">
+
+<div align="right">
+<table summary="navigation" border="0">
+<tbody><tr>
+<td valign="top">
+<a href="http://www.lub.lu.se/netlab/"><img src="NKOS%20Networked%20Knowledge%20Organization%20Systems%20and%20Services_files/netlabmidwhite.gif" alt="NetLab" border="0"></a>
+</td>
+<td valign="top">
+<a href="http://ilrt.org/"><img src="NKOS%20Networked%20Knowledge%20Organization%20Systems%20and%20Services_files/nav_logo.gif" alt="ILRT Home" border="0"></a>
+</td>
+</tr>
+</tbody></table>
+</div>
+
+<h1>RDF Thesaurus Specification (draft)</h1>
+
+<h2>Abstract:</h2>
+
+<p>Conceptual relationships for encoding thesauri, classification
+systems and organised metadata collections and a proposal for
+encoding a core set of thesaurus relationships using an RDF
+Schema</p>
+
+<h2>Authors</h2> 
+
+<ul>
+<li>
+<a href="http://www.ilrt.bris.ac.uk/aboutus/staff?search=cmpac">Phil Cross</a> &lt;phil.cross@bristol.ac.uk&gt; (<a href="http://www.ilrt.bris.ac.uk/">ILRT</a>)</li>
+<li>
+<a href="http://purl.org/net/danbri/">Dan Brickley</a>
+&lt;daniel.brickley@bristol.ac.uk&gt; (<a href="http://www.ilrt.bris.ac.uk/">ILRT</a>)</li>
+ 
+<li>
+<a href="http://www.lub.lu.se/netlab/staff/koch.html">Traugott Koch</a> &lt;traugott.koch@ub2.lu.se&gt;
+(<a href="http://www.lub.lu.se/netlab/">NETLAB</a>,
+Lund University, Sweden)</li>
+</ul>
+
+<h2>Version History</h2>
+
+<p>Previous version: <a href="http://www.desire.org/results/discovery/rdfthesschema.html">2000-06-06</a> (DESIRE II report)
+<br> 
+This version: 2000-01-24</p>
+
+
+<p>Latest version URI: <a href="http://ilrt.org/discovery/2001/01/rdf-thes/">
+http://ilrt.org/discovery/2001/01/rdf-thes/</a>
+</p>
+
+<h2>Status</h2>
+
+<p>
+This document presents a specification for an XML/RDF representation of
+thesauri. We expect this work to evolve through feedback from other
+implementors. Our deployment experience to date suggests that the current
+proposal is both practical and useful; however there are a number of <a href="#openissues">open issues</a> remaining to be resolved. The proposal 
+may change significantly as we attempt to resolve these issues;
+implementors should be aware of this.
+</p>
+
+<p><strong>Note:</strong> 2000-01-24 the document is currently being
+revised; the version online at this address may change as we re-organise
+the structure and content of the proposal (<a href="mailto:danbri@rdfweb.org">danbri</a>).
+</p>
+
+
+<p>Comments and feedback should be directed to the publically archived <a href="http://www.egroups.com/group/rdfthes-dev">rdfthes-dev mailing
+list</a> (<a href="mailto:rdfthes-dev@egroups.com">rdfthes-dev@egroups.com</a>).</p>
+
+
+<h2>1. Introduction</h2>
+
+<p>This paper proposes an RDF representation of various conceptual
+relationships typical of controlled vocabularies such as thesauri,
+classification systems and organised metadata collections. The aim
+is to explore the use of RDF as a common formalism for representing
+a variety of different thesauri and classification systems within
+the same overall framework. By doing so, we expect to leverage
+generic RDF facilities (such as query and storage software
+components), and also to have a basis for mapping between subject
+classifications expressed using these various vocabularies.</p>
+
+<p>The approach taken here is to divide the problem into two
+stages. Firstly we define a simple core RDF representation of
+concepts such as 'broader term' and 'narrower term' typically used
+in classification and thesauri systems. Then we extend this with a
+range of more semantically meaningful relationships expressed in
+terms of classes of objects. Many vocabulary systems have a tacit
+or unarticulated semantic model obscured behind relatively
+uninformative relationships such as 'broader' and 'narrower'. It is
+usually impossible to mechanically derive a richer set of
+relationships from a system based around these vague, generic
+relation types. General hierarchical relationships are frequently
+used to indicate one of several actual relationships. The
+relationships 'is a', 'has instantiation', and 'has part', for
+example, might all be encoded using the less informative 'narrower'
+relation.</p>
+
+<p>The simpler 'core' relations are best thought of as being
+relationships between named concepts or terms, rather than as
+relations between real world (or abstract) entities. In other
+words, while we might say that "Fido is a dog" using a rich,
+semantic relationship, we would say that "the-term-Fido
+<i>has-broader-term</i> the-term-dog". The vague 'broader term'
+relation in this case subsumes the more informative 'is a'
+relation. The proposal in this document separates out these two
+approaches since it is crucial to remain unambiguous about when a
+node ('resource') in an RDF data model represents a named concept
+or term rather than some less abstract entity, i.e. the "<i>thing
+in itself</i>".</p>
+
+<p>A further reason for creating two distinct RDF representations
+for these vocabulary systems is that RDF itself includes some
+common core vocabulary elements which have some overlap in
+functionality with the semantic modelling facilities required to
+transform simple flat vocabulary systems into richer knowledge
+bases. In particular, the RDF specifications define notions of
+'Class', 'Property', 'subClassOf', 'type', 'domain' and 'range',
+which may be applicable to the task described above. By first
+addressing the need to find a simple RDF representation for the
+broader/narrow/preferred relationships, i.e. those simple relations
+which make sense in the context of terms/concepts rather than
+semantically modelled entities, we should be able to make some
+initial progress without having to solve the entire problem of
+'knowledge modelling in RDF'.</p>
+
+<p>The next section walks through the desired set of relationships,
+using bold type to indicate candidates for the simple core RDF
+vocabulary. The following section sketches how a
+machine-processable RDF representation of the simple term-oriented
+concepts of a thesaurus might look, and finally, we give a
+machine-readable RDF Schema for the simple vocabulary.</p>
+
+<p>In the definitions given below, the term <i>Category</i> is used
+when the relationship applies to classification systems,
+<i>Term</i> when the relationship applies to thesauri, and
+<i>Document</i> when the relationship can be used with individual
+documents.</p>
+
+<h2>2. Conceptual relationships for encoding thesauri,
+classification systems and organised metadata collections</h2>
+
+<p><b>A HIERARCHICAL RELATIONSHIPS</b></p>
+
+<p><b>Label: BroaderTerm</b></p>
+
+<p><b>Term: Broader term</b></p>
+
+<p><b>Member of: A</b></p>
+
+<p><b>Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Term
+one level up in a hierarchy, without specification of the type of
+hierarchical relationship</b></p>
+
+<p><b>Label: NarrowerTerm</b></p>
+
+<p><b>Term: Narrower term</b></p>
+
+<p><b>Member of: A</b></p>
+
+<p><b>Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Term
+one level down in a hierarchy, without specification of type of
+hierarchical relationship</b></p>
+
+<p><b>(For inclusion in the simple core vocabulary)</b></p>
+
+<p><b>A1 GENERIC RELATIONSHIP</b></p>
+
+<p>Label: IsA</p>
+
+<p>Term: is a (instance of)</p>
+
+<p>Member of: A1</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Term/Category is an instance of a term/category one level up in the
+hierarchy</p>
+
+<p>Label: HasInstantiation</p>
+
+<p>Term: has instantiation</p>
+
+<p>Member of: A1</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Term/Category has an instantiation one level below in the
+hierarchy</p>
+
+<p><b>A2 Whole-part relationships</b></p>
+
+<p>Label: IsPartOf</p>
+
+<p>Term: is part of</p>
+
+<p>Member of: A2</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Document/Category/Term represents a (unspecified) part of a
+document/category/term one level up in the hierarchy</p>
+
+<p>Label: HasPart</p>
+
+<p>Term: has part</p>
+
+<p>Member of: A2</p>
+
+<p>Definition:Document/Category/Term has a (unspecified) part one
+level below in the hierarchy</p>
+
+<p>Label: IsSpatialPartOf</p>
+
+<p>Term: is spatial part of</p>
+
+<p>Member of: A2</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Term/Category represents a spatial/geographical part of a
+term/category one level up in the hierarchy</p>
+
+<p>Label: HasSpatialPart</p>
+
+<p>Term: has spatial part</p>
+
+<p>Member of: A2</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Term/Category has a spatial/geographical subterm/subcategory one
+level below in the hierarchy</p>
+
+<p>Label: IsConceptuallyPartOf</p>
+
+<p>Term: is conceptually part of</p>
+
+<p>Member of: A2</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Term/Category is a subconcept to a term/category one level up in
+the hierarchy</p>
+
+<p>Label: HasConceptualPart</p>
+
+<p>Term: has conceptual part</p>
+
+<p>Member of: A2</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Term/Category has a subterm/subcategory one level below in the
+hierarchy</p>
+
+<p>Label: IsCollectionMemberOf</p>
+
+<p>Term: is collection member of</p>
+
+<p>Member of: A2</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Document/Category/Term is member of a group of
+documents/categories/terms</p>
+
+<p>Label: HasCollectionMember</p>
+
+<p>Term: has collection member</p>
+
+<p>Member of: A2</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Group of documents/categories/terms has member</p>
+
+<p><b>B EQUIVALENCE RELATIONSHIPS</b></p>
+
+<p><b>B1 Single directional equivalence</b></p>
+
+<p><b>Label: Use</b></p>
+
+<p><b>Term: use, see</b></p>
+
+<p><b>Member of: B1</b></p>
+
+<p><b>Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The
+term/category pointed to should be preferred</b></p>
+
+<p><b>Label: UsedFor</b></p>
+
+<p><b>Term: used for</b></p>
+
+<p><b>Member of: B1</b></p>
+
+<p><b>Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The
+term/category pointed to is the non-preferred term/category</b></p>
+
+<p><b>(For inclusion in the simple core vocabulary)</b></p>
+
+<p>Label: IsVersionOf</p>
+
+<p>Term: is version of</p>
+
+<p>Member of: B1</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document/category/term pointed to is a version of another
+document/category/term</p>
+
+<p>Label: HasVersion</p>
+
+<p>Term: has version</p>
+
+<p>Member of: B1</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document/category/term has another version</p>
+
+<p><b>B2 Bi-directional equivalence</b></p>
+
+<p>Label: IsSynonymOf</p>
+
+<p>Term: is synonym of</p>
+
+<p>Member of: B2</p>
+
+<p>Definition: The term is a synonym of the one pointed to</p>
+
+<p>Label: IsFormatOf</p>
+
+<p>Term: is format of</p>
+
+<p>Member of: B2</p>
+
+<p>Definition:The document is a result of a format transformation
+of the one pointed to</p>
+
+<p><b>C ASSOCIATIVE RELATIONSHIPS</b></p>
+
+<p><b>Label: RelatedTerm</b></p>
+
+<p><b>Term: related term, see also, similar to</b></p>
+
+<p><b>Member of: C</b></p>
+
+<p><b>Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The
+document/category/term pointed to is related (in an unspecified
+way)</b></p>
+
+<p><b>(For inclusion in the simple core vocabulary)</b></p>
+
+<p>Label: IsReferencedBy</p>
+
+<p>Term: is referenced by</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document is referenced by the document pointed
+to</p>
+
+<p>Label: References</p>
+
+<p>Term: references</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document is referencing the document pointed
+to</p>
+
+<p>Label: IsRequiredBy</p>
+
+<p>Term: is required by</p>
+
+<p>Member of: C</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document/object is required by/dependent on the document
+pointed to</p>
+
+<p>Label: Requires</p>
+
+<p>Term: requires</p>
+
+<p>Member of: C</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document requires/is dependent on the document/object pointed
+to</p>
+
+<p>Label: IsBasedOn</p>
+
+<p>Term: is based on</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/term is based on the
+document/term/object pointed to</p>
+
+<p>Label: IsBasisFor</p>
+
+<p>Term: is basis for</p>
+
+<p>Member of: C</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document/term/object is the basis for the document/term pointed
+to</p>
+
+<p>Label: IsDerivedFrom</p>
+
+<p>Term: is derived from</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/term is derived from the document/term
+pointed to</p>
+
+<p>Label: HasDerivate</p>
+
+<p>Term: has derivate</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/term has the derivate pointed to</p>
+
+<p>Label: IsTranslatedFrom</p>
+
+<p>Term: is translated from</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/term is translated from the
+document/term pointed to</p>
+
+<p>Label: HasTranslation</p>
+
+<p>Term: has translation</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/term has the translation pointed to</p>
+
+<p>Label: IsInterpretationOf</p>
+
+<p>Term: is interpretation of</p>
+
+<p>Member of: C</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document is a (creative, artistic) interpretation of the
+document/object pointed to</p>
+
+<p>Label: HasInterpretation</p>
+
+<p>Term: has interpretation</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document has a (creative, artistic)
+interpretation pointed to</p>
+
+<p>Label: IsMappedTo</p>
+
+<p>Term: is mapped to</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/category/term is mapped to the
+document/category/term pointed to</p>
+
+<p>Label: HasMapping</p>
+
+<p>Term: has mapping</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/category/term has this
+document/category/term mapped to it</p>
+
+<p>Label: IsLinkedFrom</p>
+
+<p>Term: is linked from</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/category/term is linked to from the
+document/category/term pointed to</p>
+
+<p>Label: HasLinkTo</p>
+
+<p>Term: has link to</p>
+
+<p>Member of: C</p>
+
+<p>Definition: The document/category/term is linking to the
+document/category/term pointed to</p>
+
+<p>Label: IsSameLevelNeighbour</p>
+
+<p>Term: is same level neighbour</p>
+
+<p>Member of: C</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document/category/term is a neighbour on the same level of a
+organisational structure to the document/category/term pointed
+to</p>
+
+<p>Label: IsTopologicalNearestNeighbour</p>
+
+<p>Term: is topological nearest neighbour</p>
+
+<p>Member of: C</p>
+
+<p>
+Definition:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+The document/category/term is a topologically nearest neighbour in
+a organisational structure to the document/category/term pointed
+to</p>
+
+<h2>3. RDF core vocabulary</h2>
+
+<p>The relationships in bold above are candidates for a simple core
+set of relationships for a thesaurus. They are:</p>
+
+<p style="margin-left: 36pt; text-indent: -18pt;">
+BroaderTerm</p>
+
+<p style="margin-left: 36pt; text-indent: -18pt;">
+<!--[if !supportLists]-->� <!--[endif]-->NarrowerTerm</p>
+
+<p style="margin-left: 36pt; text-indent: -18pt;">
+<!--[if !supportLists]-->� <!--[endif]-->Use</p>
+
+<p style="margin-left: 36pt; text-indent: -18pt;">
+<!--[if !supportLists]-->� <!--[endif]-->UsedFor</p>
+
+<p style="margin-left: 36pt; text-indent: -18pt;">
+<!--[if !supportLists]-->� <!--[endif]-->RelatedTerm</p>
+
+<p>This terminology is taken from ISO 2788: Guidelines for the
+establishment and development of monolingual thesauri
+(International Organization for Standardisation, 1986).</p>
+
+<p>The terminology deals with the terms themselves, that is, the
+lexical representation of concepts. For the creation of an RDF
+schema for storing structured vocabularies, we decided to
+differentiate between the lexical representation of a concept and
+the concept itself. It was felt that the unique resource should be
+the <i>concept</i>, each concept resource being <i>indicated</i> by
+one or more <i>term</i> resources. Thus the RDF resource used to
+represent cats, would be <i>indicated</i> by a term whose value was
+the word "cats". This is represented by the graph in figure 3
+below.</p>
+
+<p style="text-align: center;" align="center"><img alt="diagrammatic representation of schema" id="_x0000_i1025" src="NKOS%20Networked%20Knowledge%20Organization%20Systems%20and%20Services_files/Image7.gif" height="118" width="489"></p>
+
+<p style="text-align: center;" align="center"><i>Figure 3. RDF graph
+representation of the concept representing a cat (concept
+5)</i></p>
+
+<p>In figure 3, concept_5 represents the concept of <i>cats</i>.
+Its <i>indicator</i> is a term (term_7) whose value is the text
+string "cats". Another term indicating the concept might have the
+value "chats".</p>
+
+<p>As a result of the above approach, the RDF schema refers to
+relationships between concepts rather than between terms, and this
+is reflected in the vocabulary used below, e.g. broaderConcept
+rather than broaderTerm.</p>
+
+<p>Whilst the relationships: 'broader', 'narrower', and 'related'
+are still meaningful when considering concepts rather than terms,
+the relationships 'use' and 'used for' refer only to terms. This is
+because 'use' and 'used for' indicate which particular term has
+been chosen to be used to represent the relevant concept when
+indexing some resource. For the core RDF vocabulary then, these
+relationships have instead been represented by properties of the
+term resources. This is referred to using the attribute
+'termUsage', which has values of 'preferred' or 'nonPreferred'. The
+second issue considered was that since broaderTerm and narrowerTerm
+are commutative, i.e.</p>
+
+<p>A narrowerTerm B implies</p>
+
+<p>B broaderTerm A,</p>
+
+<p>utilising both relationships when storing or transferring the
+vocabulary data would be inefficient. We therefore decided to
+create a relationship 'broaderConcept' for the RDF Schema but not
+'narrowerConcept', as this is implied; it being the responsibility
+of any application using the data to deduce the opposite
+relationship and present it to the user.</p>
+
+<p>The second relationship between concepts chosen for the schema
+was 'relatedConcept'. This term is bi-directional, and hence if the
+relationship</p>
+
+<p>A relatedConcept B exists, then it is implied that</p>
+
+<p>B relatedConcept A is also true.</p>
+
+<p>Hence we only add one of the two possible pairs to the
+datastore.</p>
+
+<p>A further attribute often used within thesauri, is 'top term'.
+This indicates a term that is at the top of a hierarchy within the
+thesaurus. Since this is a property that may be deduced by an
+application from the lack of a broaderConcept property for that
+concept, this attribute is also left out of the schema.</p>
+
+<p><b>broaderConcept and relatedConcept</b> were therefore selected
+as the only two core relationships between concepts that would be
+required for a basic RDF vocabulary schema. Other properties are
+required however to allow the encoding of thesauri, taking into
+account the recommendations of ISO 2788 (International Organization
+for Standardisation , 1986) and general thesaurus usage. These are
+listed in the next section which describes the RDF thesaurus schema
+proposed.</p>
+
+<h2>4. RDF Thesaurus Schema</h2>
+
+<h3>4.1. Resource Description Framework Schemas</h3>
+
+<p>The Resource Description Framework (RDF) is a <a href="http://www.w3.org/">W3C</a> (World Wide Web Consortium, 2000)
+recommendation for representing structured data on the Web. RDF,
+like both the Web and thesaurus systems, is based around a strategy
+of managing information as a collection of links between uniquely
+named entities. RDF's Web-based information model uses the term
+'resource' to refer to the entities that it models, and provides an
+application-neutral framework within which various kinds of
+entities and relationships can be described. A general introduction
+to RDF is beyond the scope of this document. The W3C home page for
+<a href="http://www.w3.org/RDF/">RDF</a> (Swick, 2000) lists a
+number of introductory tutorials as well as the RDF
+specifications.</p>
+
+<p>In this document we describe the application of RDF to the
+description of thesaurus-like data structures. Specifically, we
+show how the RDF data model can represent a Web of inter-related
+concepts and terms from one or more thesauri. To do this, we define
+a simple RDF vocabulary that uses Web identifiers (Universal
+Resource Identifiers) to name some relationships and resource types
+useful for the description of concepts and terms in a thesaurus. It
+should be noted that we do not here attempt to model the richer
+semantic relationships that hold between the entities
+<i>denoted</i> by such concepts, although RDF itself can also be
+used to represent this kind of information.</p>
+
+<h3>4.2. Proposal for an RDF Thesaurus Schema</h3>
+
+<p>The XML/RDF thesaurus schema is set out in Appendix A. An
+example set of XML/RDF thesaurus data is given in Appendix B.</p>
+
+<p>As described above, the schema consists of two main resources:
+Concept and Term. Concept resources are related by the properties:
+'broaderConcept' and 'relatedConcept'. Concepts have a property
+'indicator' which points to one or more term resources. The value
+of each Term resource will be the actual text string.</p>
+
+<p>As noted above, the Term resources have an optional property
+called 'termUsage', which can be used with those thesauri that have
+non-preferred terms linked to preferred terms through the use/'used
+for' relationships. The value of termUsage must be either the
+string 'preferred' or 'nonPreferred'.</p>
+
+<p>A second Term property is 'lang', which can be used to indicate
+the language of the term; thus a single concept can be 'indicated'
+by both preferred and non-preferred terms, and by terms from
+different languages (there is likely to be one preferred term for
+each language). The thesaurus schema therefore provides a mechanism
+for storing multilingual thesauri. If an English term and a German
+term both 'indicate' the same concept resource, it is implied that
+the two terms are either equivalent, or at least are treated as
+such for indexing purposes.</p>
+
+<p>It may be considered necessary to recognise relationships
+between terms of different languages other than 'exactly
+equivalent', such as recognising that the <i>equivalent</i> term is
+broader in meaning, or where a single term in one language can be
+represented by two or more terms in another. In such a case,
+separate sets of concepts could be used for the different
+languages, with a new set of properties devised to indicate the
+different types of relationship between them, rather than using the
+'lang' property.</p>
+
+<p>There are two further optional properties that are permissible
+for Concept resources: 'scope' and 'conceptCode'.</p>
+
+<p style="margin-left: 36pt; text-indent: -18pt;">
+<!--[if !supportLists]-->� <!--[endif]-->The value of the scope
+property is a resource called 'ScopeNote', which also has a 'lang'
+property, and whose value is an optional scope note for the term. A
+scope note is defined in ISO 2788 as "a note attached to a term to
+indicate its meaning within an indexing language" (International
+Organization for Standardisation, 1986).</p>
+
+<p style="margin-left: 36pt; text-indent: -18pt;">
+<!--[if !supportLists]-->� <!--[endif]-->The property 'conceptCode'
+can be used for any code that is assigned to the preferred terms in
+a systematic thesaurus. In ISO 2788, the property 'address code' is
+defined as a code which links terms in an alphabetical index to
+their location in the systematic section. They "should have obvious
+filing values &#8230; may consist simply of running numbers
+&#8230; or may comprise a system of hierarchically expressive
+notation" (International Organization for Standardisation, 1986).
+Such a code will be unique for each concept in an RDF version of
+the thesaurus and might perhaps be useful in providing a language
+neutral method for indexing documents. In other thesauri, there may
+be non-unique codes, such as notations that associate the terms to
+broad subject categories, and such codes could also be held as
+values of the conceptCode attribute. Any unique code associated
+with the preferred terms in a thesaurus could also be usefully
+incorporated into the URI of the Concept resources, as this would
+be an aid in future management of the data (for instance for
+updates to the database). However, the conceptCode property has
+also been provided as a means of storing such information if
+required.</p>
+
+
+
+<h2>Appendix A: RDF/XML Thesaurus Schema</h2>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;rdf:RDF xml:lang="en"</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;
+xmlns:rdfs="http://www.w3.org/TR/1999/PR-rdf-schema-19990303#"&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdfs:Class
+rdf:ID="Concept"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A unique concept
+defined within a thesaurus. Instances</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; use the
+rdfs:isDefinedBy property with a vocabulary</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; namespace as its
+value, to indicate the vocabulary to</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; which the concept
+belongs.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:subClassOf</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf:resource="http://www.w3.org/TR/1999/PR-rdf-schema-</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19990303#Resource"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdfs:Class&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdfs:Class
+rdf:ID="Term"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Instances of
+this class represent the written forms of</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Concepts.
+The string is given by the rdf:value of Term.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:subClassOf</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf:resource="http://www.w3.org/TR/1999/PR-rdf-schema-</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19990303#Resource"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdfs:Class&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdfs:Class
+rdf:ID="ScopeNote"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The value of
+this optional resource is a scope note:</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a note
+attached to a term to indicate its meaning within</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; an indexing
+language</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:subClassOf</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rdf:resource="http://www.w3.org/TR/1999/PR-rdf-schema-</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19990303#Resource"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdfs:Class&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdfs:Class
+rdf:ID="TermUsageValue"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The value of the
+property: termUsage. It can take one of two</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; values:
+'preferred' or 'nonPreferred'.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:subClassOf</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf:resource="http://www.w3.org/TR/1999/PR-rdf-schema-</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19990303#Resource"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdfs:Class&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Property
+ID="broaderConcept"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This schema
+does not define a property 'narrowerConcept',</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; but
+applications can assume the existence of a property</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+narrowerConcept such that if:</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{broaderConcept,ConceptA,ConceptB}, then</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{narrowerConcept,ConceptB,ConceptA} is true.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:domain rdf:resource="#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:range rdf:resource="#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdf:Property&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Property
+ID="relatedConcept"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The
+relatedConcept is commutative, such that if:</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{relatedConcept,ConceptA,ConceptB}, then</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+{relatedConcept,ConceptB,ConceptA} is true.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:domain rdf:resource="#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:range rdf:resource="#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdf:Property&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Property
+ID="indicator"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A mandatory
+property of a Concept whose value is</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the Term
+instance representing a written form of the</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Concept. A
+Concept may have as an indicator more than</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; one Term. A
+Term may only be an indicator of one</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Concept.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:domain rdf:resource="#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:range rdf:resource="#Term"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdf:Property&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Property
+ID="conceptCode"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; An optional
+property for any code assigned to the</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; thesaurus
+concepts.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:domain rdf:resource="#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:range</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf:resource="http://www.w3.org/TR/1999/PR-rdf-schema-</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19990303#Literal"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdf:Property&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Property
+ID="scope"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This
+optional property has as its value an instance of</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the resource
+ScopeNote.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:domain rdf:resource="#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:range</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf:resource="#ScopeNote"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdf:Property&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Property
+ID="lang"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Optional property
+that can be used to give the language</p>
+
+<p class="MsoNormal">&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of a Term instance. The
+codes from "ISO 639:1988,</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Code for the
+representation of names of languages" should</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; be used as the
+values for this property.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:domain rdf:resource="#Term"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:range</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf:resource="http://www.w3.org/TR/1999/PR-rdf-schema-</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+19990303#Literal"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdf:Property&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Property
+ID="termUsage"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:comment&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This
+optional property indicates whether the Term</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; instance is
+the 'preferred or 'nonPreferred' textual</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; expression
+of the Concept instance that is 'indicated'</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; by the Term,
+for a given language.</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/rdfs:comment&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:domain rdf:resource="#Term"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:range rdf:resource="#TermUsageValue"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;/rdf:Property&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Description
+rdf:ID="preferred"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;rdf:type
+rdf:resource="#TermUsageValue"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;
+&lt;/rdf:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp; &lt;rdf:Description
+rdf:ID="nonPreferred"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;rdf:type
+rdf:resource="#TermUsageValue"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;
+&lt;/rdf:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;/rdf:RDF&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<h2>Appendix B: Sample Thesaurus Metadata Expressed Using the
+RDF/XML Thesaurus Schema</h2>
+
+<p class="MsoNormal">The example below shows the relationships
+between three concepts, whose term values are: 'Interpersonal
+Attraction', 'Interpersonal Relations', and 'Friends'. A graph
+representation of the RDF follows the XML representation (excluding
+the scopeNote property).</p>
+
+<p class="MsoNormal">&lt;web:RDF xml:lang="en"</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+xmlns:thes="http://snowball.ilrt.bris.ac.uk/~pldab/rdf-</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; dot/Thes/Thes.xrdf#"</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+xmlns:web="http://www.w3.org/1999/02/22-rdf-syntax-ns#"</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+xmlns:rdfs="http://www.w3.org/TR/1999/PR-rdf-schema-19990303#"&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;web:Description
+about="http://sosig.ac.uk/hasset/terms/TID_3"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:type
+resource="http://snowball.ilrt.bris.ac.uk/~pldab</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/rdf-dot/Thes/Thes.xrdf#Term"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&lt;thes:lang&gt;en&lt;/thes:lang&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:value&gt;Interpersonal
+Attraction&lt;/web:value&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:termUsage
+web:resource="http://snowball.ilrt.bris.ac.uk</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/~pldab/rdf-dot/Thes/Thes.xrdf#preferred"/&gt;</p>
+
+<p class="MsoNormal">&lt;/web:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;web:Description
+about="http://sosig.ac.uk/hasset/concepts/CID_6"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:type
+resource="http://snowball.ilrt.bris.ac.uk/~pldab/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf-dot/Thes/Thes.xrdf#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;rdfs:isDefinedBy
+web:resource="http://sosig.ac.uk/hasset/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+concepts/"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:indicator
+web:resource="http://sosig.ac.uk/hasset/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+terms/TID_3"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&lt;thes:conceptCode&gt;768&lt;/thes:conceptCode&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:broaderConcept&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;web:Description about="http://sosig.ac.uk/hasset/</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+concepts/CID_8"&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;rdfs:isDefinedBy web:resource="http://sosig.ac.uk/</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+hasset/concepts/"/&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;thes:indicator
+web:resource="http://sosig.ac.uk/</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+hasset/terms/TID_15"/&gt;</p>
+
+<p class="MsoNormal">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;thes:conceptCode&gt;769&lt;/thes:conceptCode&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/web:Description&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;/thes:broaderConcept&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:relatedConcept
+web:resource="http://sosig.ac.uk/hasset/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+concepts/CID_15"/&gt;</p>
+
+<p class="MsoNormal">&lt;/web:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;web:Description
+about="http://sosig.ac.uk/hasset/concepts/CID_15"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:type
+resource="http://snowball.ilrt.bris.ac.uk/~pldab/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf-dot/Thes/Thes.xrdf#Concept"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;rdfs:isDefinedBy
+web:resource="http://sosig.ac.uk/hasset/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+concepts/"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:indicator
+web:resource="http://sosig.ac.uk/hasset/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+terms/TID_21"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&lt;thes:conceptCode&gt;780&lt;/thes:conceptCode&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:scope
+web:resource="http://sosig.ac.uk/hasset/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+scopenotes/SN_12"/&gt;</p>
+
+<p class="MsoNormal">&lt;/web:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;web:Description
+about="http://sosig.ac.uk/hasset/terms/TID_15"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:type
+resource="http://snowball.ilrt.bris.ac.uk/~pldab/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;
+rdf-dot/Thes/Thes.xrdf#Term"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&lt;thes:lang&gt;en&lt;/thes:lang&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:value&gt;Interpersonal
+Relations&lt;/web:value&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:termUsage
+web:resource="http://snowball.ilrt.bris.ac.uk/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+~pldab/rdf-dot/Thes/Thes.xrdf#preferred"/&gt;</p>
+
+<p class="MsoNormal">&lt;/web:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;web:Description
+about="http://sosig.ac.uk/hasset/terms/TID_21"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:type
+resource="http://snowball.ilrt.bris.ac.uk/~pldab/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+rdf-dot/Thes/Thes.xrdf#Term"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&lt;thes:lang&gt;en&lt;/thes:lang&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&lt;web:value&gt;Friends&lt;/web:value&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;thes:termUsage
+web:resource="http://snowball.ilrt.bris.ac.uk/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+~pldab/rdf-dot/Thes/Thes.xrdf#preferred"/&gt;</p>
+
+<p class="MsoNormal">&lt;/web:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;web:Description
+about="http://sosig.ac.uk/hasset/scopenotes/SN_12"&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:type
+resource="http://snowball.ilrt.bris.ac.uk/</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+~pldab/rdf-dot/Thes/Thes.xrdf#ScopeNote"/&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp;
+&lt;thes:lang&gt;en&lt;/thes:lang&gt;</p>
+
+<p class="MsoNormal">&nbsp;&nbsp; &lt;web:value&gt;To be used only
+for platonic relationships&lt;/web:value&gt;</p>
+
+<p class="MsoNormal">&lt;/web:Description&gt;</p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]--> <!--[endif]--></p>
+
+<p class="MsoNormal">&lt;/web:RDF&gt;</p>
+
+<p style="text-align: center;" align="center"><img id="_x0000_i1026" src="NKOS%20Networked%20Knowledge%20Organization%20Systems%20and%20Services_files/Image6.gif" alt="HASSET Data" border="0" height="554" width="466"></p>
+
+<a name="openissues" id="openissues"></a>	
+
+<h3>Appendix B: Open Issues</h3>
+
+<p>
+The following issues require further attention. Future versions of this
+document might attempt this (but then again, they might not...)
+</p>
+
+<dl>
+
+<dt>(1) URIs for 'nodes' in the thesaurus graph.
+</dt>
+
+<dd>
+Should we remain agnostic about whether the nodes (resources) are assigned
+public, well known URI identifiers, or should we explicitly articulate
+alternative idenfification strategies for use with (so-called) anonymous
+resources?
+</dd>
+
+<dt>(2) XML Schemata</dt>
+
+<dd>We should write some XML schemas to support various message formats 
+using our proposed thesaurus information model. For applications that
+prefer predictable, high constrained data structures to open-ended,
+extensible ones, this would be particularly useful. We could use W3C XML
+Schema and/or something like Schematron, which might be more useful for
+mixed-namespace specifications, eg. RSS newsfeed taxonomy data.
+</dd>
+
+
+<dt>(3) Implementation overview</dt>
+
+<dd>An appendix describing the ILRT implementation would be useful,
+particularly if we showed use of the thesaurus data via RDF query and RDF
+graph API interfaces.
+</dd>
+
+<dt>(4) Analysis: thesaurus vs class hierarchy</dt>
+
+<dd> 
+Any modeling environment that has the notion of a class/type hierarchy
+presents a challenge for thesaurus apps: when to use the 'built in'
+hierarchy versus when to layer on top using application-specific machinery
+('broader-term' versus 'rdfs:subClassOf'). More guidance for implementors
+is needed on this topic. Use WordNet to illustrate this.
+</dd>
+
+</dl>
+
+<h3>References:</h3>
+
+<p>International Organization for Standardisation. 1986. <i>ISO
+2788: Guidelines for the establishment and development of
+monolingual thesauri</i>, 2<sup>nd</sup> ed., Geneva: ISO.</p>
+
+<p>Swick, Ralph et al. (Accessed June 2000). <i>W3C Resource
+Description Framework</i>. <a href="http://www.w3.org/RDF/">http://www.w3.org/RDF/</a></p>
+
+<p>World Wide Web Consortium. (Accessed June 2000). <i>W3C &#8211;
+The World Wide Web Consortium</i>. <a href="http://www.w3.org/">http://www.w3.org/</a></p>
+
+
+</body></html>

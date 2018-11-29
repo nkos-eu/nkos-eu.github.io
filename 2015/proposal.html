@@ -1,0 +1,370 @@
+﻿<!doctype html>
+<html lang="en">
+ <head>
+  <title>NKOS 2015 (Networked Knowledge Organization Systems)</title>
+  <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
+  <link rel="icon" href="../favicon.png" type="image/x-icon">
+  <meta name="Author" content="Ceri Binding, University of South Wales">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/NKOS2015.css">
+  
+  <!-- schema.org (JSON-LD) to describe the event - alternative approach
+  to the inline microdata which was just frankly getting out of hand -->	  
+  <script type="application/ld+json">
+	[{
+		"@context": {
+			"@vocab": "http://schema.org/",
+			"@language": "en"
+		},
+		"@id": "_:NKOS2015",
+		"@type" : "EducationEvent",
+		"name" : "14th European Networked Knowledge Organization Systems Workshop",
+		"alternateName"	: "NKOS 2015",
+		"startDate" : "2015-09-18T09:00+0200",
+		"endDate" : "2015-09-18T17:00+0200",
+		"duration" : "P8H",
+		"location" : { "@id": "_:TPDL2015-location" },
+		"superEvent" : {
+			"@id": "_:TPDL2015",	
+			"subEvent" : { "@id": "_:NKOS2015" },	
+			"name" : "19th International Conference on Theory and Practice of Digital Libraries",
+			"alternateName" : "TPDL 2015",
+			"startDate" : "2015-09-14T09:00+0200",
+			"endDate" : "2015-09-18T17:00+0200",	
+			"duration" : "P5D",			
+			"location" : {
+				"@id": "_:TPDL2015-location",
+				"@type" : "Place",
+				"name" : "Centrum Wykładowo-Konferencyjne Politechniki Poznańskiej",
+				"address" : { 
+					"@type" : "PostalAddress",
+					"addressLocality" : "Piotrowo 2",
+					"postalCode" : "60-965", 
+					"addressRegion" : "Poznań",
+					"addressCountry" : "Poland"
+				}		  		  
+			}
+		},
+		"attendee" : [		
+			{
+				"@type" : "Person",
+				"name" : "Philipp Mayr",
+				"url" : "http://www.ib.hu-berlin.de/~mayr/",
+				"email" : "philipp.mayr@gesis.org",			
+				"affiliation" : {
+					"@type" : "EducationalOrganization",
+					"name" : "GESIS - Leibniz Institute for the Social Sciences",
+					"url" : "http://www.gesis.org/en/institute/",				
+					"address" : {
+						"@type" : "PostalAddress",
+						"addressLocality" : "Unter Sachsenhausen 6-8",
+						"addressRegion" : [{ "@value" : "Cologne", "@language" : "en" }, { "@value" : "Köln", "@language" : "de" }],						
+						"postalCode" : "50667", 
+						"addressCountry" : [{ "@value" : "Germany", "@language" : "en" }, { "@value" : "Deutschland", "@language" : "de" }]
+					}
+				}
+			},
+			{
+				"@type" : "Person",
+				"name" : "Douglas Tudhope",
+				"honorificPrefix" : "Professor",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of South Wales",
+					"url" : "http://hypermedia.research.southwales.ac.uk/kos/",
+					"department" : {
+						"name" : "Faculty of Computing, Engineering and Science",
+						"department" : {
+							"name" : "Hypermedia Research Group"
+						}
+					},				
+					"address" : {
+						"@type" : "PostalAddress",
+						"name" : "University of South Wales",
+						"addressLocality" : "Pontypridd",
+						"addressRegion" : "Mid Glamorgan",
+						"postalCode" : "CF37 1DL", 
+						"addressCountry" : "UK"
+					}
+				}
+			}
+		] //unfinished!
+	}]
+</script>
+ </head> 
+ <body>
+ 
+<!-- div.container is main centered wrapper within body--> 
+<div class="container" itemscope itemtype="http://schema.org/EducationEvent">
+      
+<!--header is using schema.org microdata markup to describe the event-->	  
+<div class="header center">
+	<h2 itemprop="name">14<sup>th</sup> European Networked Knowledge Organization Systems (NKOS) Workshop</h2>
+	<h4 itemprop="location">To be held during the TPDL 2015 Conference in Pozna&#324;, Poland</h4>			
+	<h5>Friday 18<sup>th</sup> September 2015</h5>
+
+	<div class='menu'>
+		Workshop Proposal |	<a href="call-for-papers.html">Call for Papers</a> | <a href="programme.html">Workshop Programme</a> |
+		<a target="_blank" href="http://tpdl2015.info/">TPDL2015 Conference</a> |
+		<a target="_blank" href="http://hypermedia.research.southwales.ac.uk/kos/nkos/" ><abbr title="Networked Knowledge Organisation Systems and Services">NKOS</abbr> Workshops</a> |
+		<a href="http://nkos.slis.kent.edu/" target="_blank">NKOS Network</a>
+	</div><!--end of div.menu-->	
+</div><!--end of div.header-->
+
+<div class="content">
+
+<h3>Proposers:</h3>
+
+<p itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+<strong itemprop="name">Philipp Mayr (primary contact)</strong><br>
+<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+	GESIS - Leibniz Institute for the Social Sciences<br>
+	Unter Sachsenhausen 6-8, 50667<br>
+	<span itemprop="addressLocality">Cologne</span>, <span itemprop="addressCountry">Germany</span><br>
+</span>
+<a itemprop="email" href="mailto:philipp.mayr@gesis.org">philipp.mayr@gesis.org</a><br>
+<a itemprop="url" target="_blank" href="http://www.ib.hu-berlin.de/~mayr/">http://www.ib.hu-berlin.de/~mayr/</a>
+</p>
+
+<p itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+<strong itemprop="name">Douglas Tudhope</strong><br>
+<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+	<span itemprop="name">Hypermedia Research Group</span><br>
+	<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+		Faculty of Computing, Engineering and Science<br>
+		University of South Wales,<br>
+		<span itemprop="addressLocality">Pontypridd</span>,
+		<span itemprop="postalCode">CF37 1DL</span>,
+		<span itemprop="addressCountry">UK</span><br>
+	</span>
+</span>
+<a itemprop="email" href="mailto:douglas.tudhope@southwales.ac.uk">douglas.tudhope@southwales.ac.uk</a><br>
+<a itemprop="url" target="_blank" href="http://hypermedia.research.southwales.ac.uk/kos/">http://hypermedia.research.southwales.ac.uk/kos/</a>
+</p>
+
+<p>
+Duration: <time itemprop="duration" content="P1D">1 day</time><br>
+Expected number of participants: 30
+</p>
+<h3>Extended abstract</h3>
+
+<p>
+We propose a full-day workshop of research projects and development related to next-generation Networked Knowledge Organization Systems/Services (NKOS) in digital libraries. This proposal builds on the well-attended NKOS workshops at previous <abbr title="European Conference on Digital Libraries">ECDL</abbr>, <abbr title="Theory and Practice of Digital Libraries ">TPDL</abbr>, <abbr title="Joint Conference on Digital Libraries">JCDL</abbr> conferences (see <a target="_blank" href="http://nkos.slis.kent.edu/">NKOS website</a> for details). We expect approximately 30 attendees at this workshop. The proposal is supported by the international NKOS network, its website and discussion list. Presentations are made available on the workshop website.
+</p>
+
+<p>
+Knowledge Organization Systems (KOS), in the form of classification systems, thesauri, lexical databases, ontologies, and taxonomies, play a crucial role in digital information management and applications generally. Carrying semantics in a well-controlled and documented way, Knowledge Organisation Systems serve a variety of important functions: tools for representation and indexing of information and documents, knowledge-based support to information searchers, semantic road maps to domains and disciplines, communication tool by providing conceptual framework, and conceptual basis for knowledge based systems, e.g. automated classification systems.
+</p>
+
+<h3>Brief description of the workshop and its aims</h3>
+<p itemprop="description">
+The proposed NKOS workshop at TPDL2015 will explore the potential of Knowledge Organization Systems, such as classification systems, taxonomies, thesauri, ontologies, and lexical databases in the context of current developments and possibilities. These tools help to model the underlying semantic structure of a domain for purposes of information retrieval, knowledge discovery, language engineering, and the Semantic Web. The workshop provides an opportunity to discuss projects, research and development activities, evaluation approaches, lessons learned, and research findings. A further objective is to systematically engage in discussions in common areas of interest with selected related communities and to investigate potential co-operation.
+</p>
+
+<p>
+The workshop will also allow major projects to report results, newcomers to interact with established people in the field and discussion of topical issues, requiring consensus or coordination, including standards efforts, to take place. Thus previous workshops have seen focused discussion on early drafts of <abbr title="British Standards Institution">BSI</abbr> and <abbr title="International Organization for Standardization">ISO</abbr> KOS standards, the <abbr title="World Wide Web Consortium">W3C</abbr> <abbr title="Simple Knowledge Organization System">SKOS</abbr> standard, the interface between traditional Library Science vocabularies and Semantic Web efforts, KOS linked data, social tagging and its relation to established vocabularies, KOS metadata and the different types of KOS. The TPDL venue affords participation by KOS researchers and developers from different perspectives (reflecting the different conference threads), such as KOS design and construction, API and service developers, user oriented issues, management of KOS in registries.
+</p>
+<p>
+The proposed workshop will have two themes as the main focus, together with topical presentations arising from the workshop call for presentations.
+</p>
+
+<h3>Workshop themes</h3>
+<p>
+1) <strong>KOS Alignment</strong>. KOS alignment or terminology mapping plays a vital role in NKOS for many years and fits very well to the general theme “Connecting Digital Collections” of TPDL 2015. This year we want to sort out the needs (use cases) of KOS alignments in the new environment of Linked Open Data. We plan to collect methodologies, best practices, guidelines and tools. This includes manual and automatic alignments.
+</p>
+<p>
+2) <strong>KOS Linked Open Data</strong>. Recent years have seen an increasing trend to publication of KOS as Linked Data vocabularies. We need discussion of practical initiatives to link between congruent vocabularies and provide effective web services and APIs so that applications can build upon them.
+</p>
+<p>
+Further timely presentations/demonstrations will be selected from the following topics in the CfP:
+</p>
+<p>
+3) KOS-based recommender systems. The suggestion of the right meaningful concepts is a mission critical phase for searchers in modern DL.
+</p>
+<p>
+4) Meaningful Concept Display and Meaningful Visualization of KOS.
+</p>
+<p>
+5) Standards developments.
+</p>
+<p>
+6) Evaluation of KOS-based systems – methods and practical experience.
+</p>
+<p>
+KOS applications are a regular and important part of NKOS workshops. Example topics include:
+</p>
+<p>
+7) KOS in e-Research metadata contexts - intersection between research data, KOS, Semantic web.
+</p>
+<p>
+8) Social tagging. What is the role of social tagging and informal knowledge structures versus established KOS? (How) can tagging be guided and informed by KOS?
+</p>
+<p>
+9) Users interaction with KOS in the online environment. 
+</p>
+<p>
+10) KOS and learning. What is required to use KOS effectively to convey meaning, to assist users to express their information needs to assist in sense making and learning?
+</p>
+<p>
+11) Multilingual and Interdisciplinary KOS applications and tools.
+</p>
+<p>
+12) Specific domains, such as environmental, medical, new application contexts, etc.
+</p>
+
+
+
+
+
+
+
+
+<h3>Workshop structure</h3>
+<p>
+An open <a href="call-for-papers.html">call for papers and demonstrations</a> will be combined with selected invitations from major projects and professional societies with an interest in this field. The workshop is planned to consist of an introduction, technical presentations, demonstrations, and a concluding directed discussion. The program committee will assist the review process as first-tier reviewers. The organisers will coordinate the process and promote the workshop through the workshop website, their various contacts and discussion lists, including the NKOS list and digital library lists.
+</p>
+<p><strong>Indicative agenda structure, covering approximately 8 hours</strong></p>
+<ul>
+	<li>Session 1: Welcome, introduction, mutual presentations (hrs 0:30)</li>
+	<li>Session 2: Presentations on the main themes (hrs: 2)</li>
+	<li>Session 3: Directed discussion emerging from the main session (hrs: 1)</li>
+	<li>Session 4: Presentation and discussion of submitted papers on timely and related topics according to the <a href="call-for-papers.html">call for papers</a>, including demonstrations (hrs: 2)</li>
+	<li>Session 5: Directed discussion emerging from the session 4 (hrs 1)</li>
+	<li>Session 6: Concluding discussion, including options for co-operation (hrs 0.30)</li>
+</ul>
+<p>
+Supporting material for the workshop would, following standard NKOS practice, be available via the NKOS website. This would include abstracts of presentations, information on participants, list of resources, projects and plans for the workshop before the conference. After the workshop, copies of presentations will be made available on the website and via the main NKOS network website. Authors presenting significant results at the workshop will be encouraged to submit papers for consideration in future issues of the International Journal on Digital Libraries and the New Review of Hypermedia and Multimedia (Tudhope is Editor) depending on the candidate papers.
+</p>
+<h3>Program committee (to be confirmed)</h3>
+<ul>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<span itemprop="name">Vladimir Alexiev</span>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/Organization">
+		<span itemprop="name">Ontotext Corporation, Bulgaria</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a target="_blank" itemprop="name" href="http://hypermedia.research.southwales.ac.uk/people/binding/" >Ceri Binding</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">University of South Wales, UK</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a target="_blank" itemprop="name" href="http://www-dimat.unipv.it/gnoli/">Claudio Gnoli</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">University of Pavia, Italy</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a target="_blank" itemprop="name" href="http://bernhardhaslhofer.info/">Bernhard Haslhofer</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">University of Vienna, Austria</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a target="_blank" itemprop="name" href="http://www.gesis.org/das-institut/mitarbeiterverzeichnis/?alpha=H&name=daniel%2Chienert">Daniel Hienert</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/Organization">
+		<span itemprop="name">GESIS, Germany</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<span itemprop="name">Gail Hodge</span>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/Organization">
+		<span itemprop="name">Information International Associates, Inc., USA</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a itemprop="name" target="_blank" href="http://www.few.vu.nl/~aisaac/">Antoine Isaac</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">Vrije Universiteit Amsterdam and National Library of the Netherlands, The Netherlands</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<span itemprop="name" target="_blank">Kora Golub</span>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">Department of Library and Information Science, Linnaeus University, Sweden</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<span itemprop="name">Eva M&eacute;ndez Rodr&iacute;guez</span>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">Universidad Carlos III de Madrid, Spain</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a itemprop="name" target="_blank" href="http://www.schaer.de/">Philipp Schaer</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/Organization">
+		<span itemprop="name">GESIS, Germany</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<span itemprop="name">Aida Slavic</span>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name"><abbr title="Universal Decimal Classification">UDC</abbr> Consortium, London, UK</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<span itemprop="name">Johan De Smedt</span>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/Organization">
+		<span itemprop="name">Tenforce.com, Belgium</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a itemprop="name" target="_blank" href="http://www.dsoergel.com/">Dagobert Soergel</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">University of Buffalo, USA</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a itemprop="name" target="_blank" href="http://ischool.uw.edu/people/faculty/jtennis">Joseph Tennis</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/EducationalOrganization">
+		<span itemprop="name">Information School, University of Washington, USA</span>
+	</span>
+</li>
+<li itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+	<a itemprop="name" target="_blank" href="http://www.oclc.org/research/people/vizine-goetz.html">Diane Vizine-Goetz</a>,
+	<span itemprop="affiliation" itemscope itemtype="http://schema.org/Organization">
+		<span itemprop="name">OCLC Research, USA</span>
+	</span>
+</li>
+</ul>
+<h3>Technical requirements</h3>
+<p>The usual PC and projector, 2-3 side tables for demonstrations if possible, Internet connections.</p>
+<h3>Expected participants</h3>
+<ul>
+<li>Digital library and information infrastructure developers,</li>
+<li>Resource discovery service providers (search engines, subject gateways, portals, repositories etc.),</li>
+<li>Metadata professionals, designers and researchers,</li>
+<li>Information scientists, library, museum and archive professionals,</li>
+<li>Thesaurus, taxonomy and ontology developers,</li>
+<li>Standard developers in the area of terminology usage and exchange,</li>
+<li>Computer scientists interested in semantic web/grid issues, linked data, topic maps, <abbr title="Extensible Markup Language">XML</abbr>/<abbr title="Resource Description Framework">RDF</abbr> technologies, web engineering, peer-to-peer researchers</li>
+<li>User interface designers for KOS and Semantic Web applications</li>
+<li>Social tagging and community-based application developers and users</li>
+<li>Language engineering and terminology studies researchers and developers</li>
+<li>Knowledge managers</li>
+</ul>
+<h3>Previous NKOS Workshops</h3>
+<p>
+See <a target="_blank" href="http://hypermedia.research.southwales.ac.uk/kos/nkos/">http://hypermedia.research.southwales.ac.uk/kos/nkos/</a> and <a target="_blank" href="http://nkos.slis.kent.edu/">http://nkos.slis.kent.edu/</a> for previous NKOS workshops and information about NKOS generally.
+</p>
+
+<h3>Workshop organisers (short CVs)</h3>
+
+<p itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+<strong itemprop="name">Philipp Mayr</strong> is  <span itemprop="description">a postdoctoral researcher and team leader at the GESIS department Knowledge Technologies for the Social Sciences. Since October 2009 he serves as a visiting professor for knowledge representation at University of Applied Sciences in Darmstadt, Department of Information Science &amp; Engineering. Philipp Mayr is a graduate of the Berlin School of Library and Information Science at Humboldt University Berlin where he finished his doctoral research in 2009. He studied <abbr title="Library &amp; Information Science">LIS</abbr>, computer science and sociology. Since November 2004 he has been working in the internationally recognized projects "Competence Center Modelling and Treatment of Heterogeneity" (KoMoHe) and "Value-Added Services for Information Retrieval" (IRM) as a researcher and PI. Philipp has presented at several NKOS workshops and is a member of the European NKOS network. Philipp published widely in the areas Informetrics, Information Retrieval and Digital Libraries. He is member of the editorial board of the journals Scientometrics and Information Wissenschaft &amp; Praxis. His research interests are non-textual ranking in digital libraries, bibliometric methods, evaluation of information systems and KOS, applied informetrics.</span> <a itemprop="url" target="_blank" href="http://www.ib.hu-berlin.de/~mayr/">http://www.ib.hu-berlin.de/~mayr/</a>
+</p>
+
+<p itemprop="attendee" itemscope itemtype="http://schema.org/Person">
+<strong itemprop="name">Douglas Tudhope</strong> is <span itemprop="description">Professor in the Faculty of Advanced Technology, <span itemprop="affiliation">University of South Wales</span> and leads the Hypermedia Research Group. His main current research interests are the intersecting areas of information science, digital libraries and hypermedia and the semantic web. He was PI on the <abbr title="Arts and Humanities Research Council">AHRC</abbr> funded <abbr title="Semantic Tools for Archaeological Resources">STAR</abbr>, <abbr title="Semantic Technologies Enhancing Links and Linked data for Archaeological Resources">STELLAR</abbr> and <abbr title="Semantic ENrichment Enabling Sustainability of arCHAeological Links">SENESCHAL</abbr> projects, in collaboration with English Heritage and the preceding <abbr title="Engineering and Physical Sciences Research Council">EPSRC</abbr> funded <abbr title="Faceted Acess to Cultural hEritage Terminology ">FACET</abbr> project, in collaboration with the UK Science Museum, investigating thesaurus-based query expansion. He leads the Linking Archaeological Data Work Package for the <abbr title="Advanced Research Infrastructure for Archaeological Dataset Networking in Europe">ARIADNE</abbr> FP7 Infrastructures Project. Since 1977, he has been Editor of the journal, New Review of Hypermedia and Multimedia. He serves as a reviewer for various journals and international programme committees. He is a member of the Networked Knowledge Organisation Systems/Services (NKOS) network and has organised or co-organised all 13 NKOS workshops at <abbr title="European Conference on Digital Libraries">ECDL</abbr>. He co-authored the <abbr title="Joint Information Systems Committee">JISC</abbr> State of the Art Review on Terminology Services and Technology and the <abbr title="Joint Information Systems Committee">JISC</abbr> Terminology Registry Scoping Study. He was a member ISO TC46/SC9/SC8 (and <abbr title="National Information Standards Organization">NISO</abbr>) working group developing a new thesaurus standard (<abbr title="International Organization for Standardization">ISO</abbr> 25964).</span> <a itemprop="url" target="_blank" href="http://hypermedia.research.southwales.ac.uk/kos/">http://hypermedia.research.southwales.ac.uk/kos/</a>
+</p>
+
+</div><!--end of div.content-->
+ </body>
+</html>

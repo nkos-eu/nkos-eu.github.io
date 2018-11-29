@@ -1,0 +1,872 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The ADL Thesaurus Protocol</title></head><body bgcolor="white" text="black">
+<center>
+<table width="564">
+<tbody><tr>
+<td>
+
+<p>&nbsp;</p>
+
+<h1>The ADL Thesaurus Protocol</h1>
+
+<h3><a href="http://www.alexandria.ucsb.edu/%7Egjanee/">Greg
+Janée</a>, Satoshi Ikeda, <a href="http://www.alexandria.ucsb.edu/%7Elhill/">Linda L. Hill</a><br>
+<font size="-1"><a href="http://www.alexandria.ucsb.edu/">Alexandria
+Digital Library Project</a></font></h3>
+
+<h3>Version 1.0</h3>
+
+<hr noshade="noshade" size="3">
+
+<h3>Contents</h3>
+
+<ul>
+
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#definitions">Definitions</a></li>
+<li><a href="#xml-formats">XML formats</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#http-binding">HTTP binding</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#revision-history">Revision history</a></li>
+
+</ul>
+
+<h3><a name="introduction">Introduction</a></h3>
+
+<p>This document describes an XML- and HTTP-based protocol for
+accessing <em>thesauri</em>: structured, controlled vocabularies of
+words and phrases that represent conceptual categories.</p>
+
+<p>The protocol is intended to allow programmatic clients to easily
+access and utilize existing thesauri, and thus the services offered by
+the protocol are oriented around querying thesauri and navigating
+within thesauri.  The protocol does not support creation, maintenance,
+or sharing of thesauri, or mapping between thesauri.</p>
+
+<h3><a name="definitions">Definitions</a></h3>
+
+<p>The protocol's model of a thesaurus closely follows that of <a href="http://www.niso.org/standards/resources/Z39-19.html">ANSI/NISO
+Z39.19-1993: Guidelines for the Construction, Format, and Management
+of Monolingual Thesauri</a>.</p>
+
+<p>A <em>thesaurus</em> is a set of terms and a set of standardized,
+reciprocal relations on those terms.</p>
+
+<p>A <em>term</em> is a word or phrase that represents a conceptual
+category.  A term may have an associated human-readable description,
+or <em>scope note</em>, that defines the concept represented by the
+term and indicates the term's intended usage.  Other, arbitrary
+information may also be associated with a term, but such information
+is outside the protocol's scope.</p>
+
+<p>There are two varieties of terms, <em>preferred</em> (or valid) and
+<em>nonpreferred</em> (or invalid or lead-in).  Preferred terms
+participate in all the relations described below; nonpreferred terms
+participate in the equivalence relations only.</p>
+
+<p>A pair of reciprocal hierarchical relations is the primary means by
+which thesauri are structured.  The <em>narrower</em> (NT) relation
+relates a preferred term <em>P</em> to another preferred term
+<em>C</em> that is in some sense a subset of <em>P</em>: as suggested
+by Z39.19, the concept represented by <em>C</em> may be more specific
+than that of <em>P</em>, or <em>C</em> may be a component of the whole
+represented by <em>P</em>, or <em>C</em> may be an instance of the
+general class represented by <em>P</em>.  The narrower relation must
+be non-reflexive (a term must not be narrower than itself),
+non-symmetric (two terms must not be mutually narrower than each
+other), and non-transitive (the narrower relation is logically
+transitive, that is, if <em>G</em> is narrower than <em>C</em> and
+<em>C</em> is in turn narrower than <em>P</em> then <em>G</em> is
+logically narrower than <em>P</em>, but transitive closures must not
+be reflected in the protocol; rather, they must be left to the client
+to deduce from first-order relations).  The <em>broader</em> (BT)
+relation is the reciprocal of the narrower relation.  A preferred term
+may be related to any number of broader and narrower terms.  The
+directed graph induced by the narrower relation (equivalently, the
+broader relation) must be acyclic.</p>
+
+<p>The <em>related</em> (RT) relation relates a preferred term
+<em>P</em> to another preferred term <em>Q</em> that in some sense
+intersects <em>P</em>: the concepts represented by <em>P</em> and
+<em>Q</em> may overlap, or <em>P</em> and <em>Q</em> may be suggestive
+of each other.  The relation must be non-reflexive (a term must not be
+related to itself), symmetric (if <em>P</em> is related to <em>Q</em>
+then <em>Q</em> must be related to <em>P</em>), and transitive (if
+<em>P</em> is related to <em>Q</em> and <em>Q</em> is in turn related
+to <em>R</em>, then <em>P</em> must be related to <em>R</em>).  A
+preferred term may be related by the <em>related</em> relation to any
+number of other preferred terms.</p>
+
+<p>A pair of reciprocal equivalence relations ties equivalent terms
+together.  The <em>use-instead</em> (USE) relation maps a nonpreferred
+term <em>N</em> to a preferred term <em>P</em> that is equivalent to
+<em>N</em> and that has been designated by the thesaurus as the
+preferred or canonical term to use in place of <em>N</em>.  The
+<em>used-for</em> (UF) relation is the reciprocal relation that maps
+<em>P</em> to <em>N</em>.  Every nonpreferred term <em>N</em> must be
+related to at least one preferred term; if more than one, the entire
+set of <em>N</em>'s relations can optionally be designated as a
+conjunction if <em>N</em> is equivalent to the logical conjunction of
+the preferred terms.</p>
+
+<h3><a name="xml-formats">XML formats</a></h3>
+
+<p>Eight XML formats are utilized by the protocol.  The XML elements
+defined below all reside in namespace
+"<code>http://www.alexandria.ucsb.edu/thesaurus</code>", but for
+brevity we elide namespace declarations in this section.  Complete
+examples that include namespace declarations are given under <a href="#examples">Examples</a>, below.  An XML DTD that defines the XML
+formats can be found in <a href="http://www.alexandria.ucsb.edu/thesaurus/protocol/thesaurus-protocol.dtd">thesaurus-protocol.dtd</a>;
+<a href="http://www.alexandria.ucsb.edu/thesaurus/protocol/thesaurus-protocol.xsd">thesaurus-protocol.xsd</a>
+is an equivalent XML schema.</p>
+
+<dl>
+
+<dt><code><strong>&lt;properties&gt;</strong></code></dt>
+
+<dd>
+
+<p>Describes overall properties of the thesaurus: the thesaurus's name
+and version; a human-readable description (which should include the
+thesaurus's scope and purpose as well as details on how the thesaurus
+implements the protocol); an indication of which query operators the
+thesaurus supports; and the URL of the thesaurus's XML schema for
+extended term descriptions.  All properties but the supported query
+operators are optional.</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT properties (name?, version?, description?,<br>
+&nbsp;&nbsp;query-operators, extended-schema?)&gt;<br>
+<br>
+&lt;!ELEMENT name (#PCDATA)&gt;<br>
+&lt;!ELEMENT version (#PCDATA)&gt;<br>
+&lt;!ELEMENT description (#PCDATA)&gt;<br>
+&lt;!ELEMENT extended-schema (#PCDATA)&gt;<br>
+<br>
+&lt;!ELEMENT query-operators EMPTY&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST query-operators<br>
+&nbsp;&nbsp;&nbsp;&nbsp;equals&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(true
+| false) #REQUIRED<br>
+&nbsp;&nbsp;&nbsp;&nbsp;contains-all-words&nbsp;(true | false) #REQUIRED<br>
+&nbsp;&nbsp;&nbsp;&nbsp;contains-any-words&nbsp;(true | false) #REQUIRED<br>
+&nbsp;&nbsp;&nbsp;&nbsp;matches-regexp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(true | false) #REQUIRED&gt;
+
+</code></blockquote>
+
+<p>For example:</p>
+
+<blockquote><code>
+
+&lt;properties&gt;<br>
+&nbsp;&nbsp;&lt;name&gt;ADL Feature Type Thesaurus&lt;/name&gt;<br>
+&nbsp;&nbsp;&lt;version&gt;1.4&lt;/version&gt;<br>
+&nbsp;&nbsp;&lt;description&gt;Thesaurus for...&lt;/description&gt;<br>
+&nbsp;&nbsp;&lt;query-operators<br>
+&nbsp;&nbsp;&nbsp;&nbsp;equals="true"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;contains-all-words="true"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;contains-any-words="true"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;matches-regexp="false"/&gt;<br>
+&nbsp;&nbsp;&lt;extended-schema&gt;http://...&lt;/extended-schema&gt;<br>
+&lt;/properties&gt;
+
+</code></blockquote>
+
+</dd>
+
+<dt><code><strong>&lt;term&gt;</strong></code></dt>
+
+<dd>
+
+<p>Briefly describes a term by its name and preferredness.</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT term (#PCDATA)&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST term<br>
+&nbsp;&nbsp;&nbsp;&nbsp;preferred (true | false) "true"&gt;
+
+</code></blockquote>
+
+<p>Examples:</p>
+
+<blockquote><code>
+
+&lt;term&gt;rivers&lt;/term&gt;<br>
+<br>
+&lt;term preferred="false"&gt;riverbanks&lt;/term&gt;
+
+</code></blockquote>
+
+</dd>
+
+<dt><code><strong>&lt;term-description&gt;</strong></code></dt>
+
+<dd>
+
+<p>More fully describes a term.  In addition to the attributes
+described under <code>&lt;term&gt;</code> above, the description
+includes the term's immediate relationships to other terms in the
+thesaurus and zero or more human-readable descriptive notes.  The
+<code>&lt;note&gt;</code> element's <code>type</code> attribute can be
+used to indicate the type of note (scope note, historical note, etc.).
+The <code>&lt;use-instead&gt;</code> element must be employed if and
+only if the term is nonpreferred.</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT term-description (term, note*,<br>
+&nbsp;&nbsp;((broader, narrower, used-for, related) |<br>
+&nbsp;&nbsp;&nbsp;use-instead))&gt;<br>
+<br>
+&lt;!ELEMENT note (#PCDATA)&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST note<br>
+&nbsp;&nbsp;&nbsp;&nbsp;type CDATA #IMPLIED&gt;<br>
+<br>
+&lt;!ELEMENT broader (term*)&gt;<br>
+&lt;!ELEMENT narrower (term*)&gt;<br>
+&lt;!ELEMENT used-for (term*)&gt;<br>
+&lt;!ELEMENT related (term*)&gt;<br>
+<br>
+&lt;!ELEMENT use-instead (term+)&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST use-instead<br>
+&nbsp;&nbsp;&nbsp;&nbsp;conjunction (true | false) "false"&gt;
+
+</code></blockquote>
+
+<p>Example description of a preferred term:</p>
+
+<blockquote><code>
+
+&lt;term-description&gt;<br>
+&nbsp;&nbsp;&lt;term&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;note type="scope note"&gt;Flowing water...&lt;/note&gt;<br>
+&nbsp;&nbsp;&lt;broader&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;streams&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/broader&gt;<br>
+&nbsp;&nbsp;&lt;narrower&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;bends (river)&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rapids&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;waterfalls&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/narrower&gt;<br>
+&nbsp;&nbsp;&lt;used-for&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;rios&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/used-for&gt;<br>
+&nbsp;&nbsp;&lt;related&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;channels&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;guts&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/related&gt;<br>
+&lt;/term-description&gt;
+
+</code></blockquote>
+
+<p>Example description of a nonpreferred term:</p>
+
+<blockquote><code>
+
+&lt;term-description&gt;<br>
+&nbsp;&nbsp;&lt;term preferred="false"&gt;rios&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;note type="scope note"&gt;Agua...&lt;/note&gt;<br>
+&nbsp;&nbsp;&lt;use-instead&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/use-instead&gt;<br>
+&lt;/term-description&gt;
+
+</code></blockquote>
+
+<p>Example description of a nonpreferred term that is equivalent to a
+conjunction of preferred terms:</p>
+
+<blockquote><code>
+
+&lt;term-description&gt;<br>
+&nbsp;&nbsp;&lt;term preferred="false"&gt;dry stream beds&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;use-instead conjunction="true"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;streams&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;historical sites&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/use-instead&gt;<br>
+&lt;/term-description&gt;
+
+</code></blockquote>
+
+</dd>
+
+<dt><code><strong>&lt;extended&gt;</strong></code></dt>
+
+<dd>
+
+<p>An optional, thesaurus-specific format that describes a single
+term.  The format is undefined by the protocol; the only requirement
+is that the report's structure be described by an XML schema, and that
+the URL of that schema be returned by the thesaurus's
+<code>get-properties</code> service.</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT extended ANY&gt;
+
+</code></blockquote>
+
+</dd>
+
+<dt><code><strong>&lt;list&gt;</strong></code></dt>
+
+<dd>
+
+<p>A list of zero or more terms.</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT list (term* | term-description* |<br>
+&nbsp;&nbsp;extended*)&gt;
+
+</code></blockquote>
+
+<p>For example:</p>
+
+<blockquote><code>
+
+&lt;list&gt;<br>
+&nbsp;&nbsp;&lt;term&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;term preferred="false"&gt;river bends&lt;/term&gt;<br>
+&lt;/list&gt;
+
+</code></blockquote>
+
+</dd>
+
+<dt><code><strong>&lt;hierarchy&gt;</strong></code></dt>
+
+<dd>
+
+<p>Describes the hierarchy of terms above (broader than) or below
+(narrower than) a starting preferred term, including the starting term
+itself.  The hierarchy is indicated by the nesting of XML elements.
+Specifically, each <code>&lt;node&gt;</code> element <em>N</em>
+describes a term, and the <code>&lt;node&gt;</code> elements nested
+immediately within <em>N</em> indicate the term's immediate broader
+terms or immediate narrower terms, and so on recursively.  If a term
+appears multiple times in the hierarchy, each subsequent appearance
+must be indicated by a <code>&lt;noderef&gt;</code> element that
+refers back to the first occurrence's node.</p>
+
+<p>The <code>direction</code> attribute indicates the direction of the
+hierarchy.  The <code>max-levels</code> attribute, an integer, is an
+upper bound on the number of levels in the hierarchy (using the
+convention that zero levels corresponds to just the starting term).  A
+negative value indicates that the hierarchy is unbounded.</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT hierarchy (node)&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST hierarchy<br>
+&nbsp;&nbsp;&nbsp;&nbsp;direction (broader | narrower) #REQUIRED<br>
+&nbsp;&nbsp;&nbsp;&nbsp;max-levels CDATA #REQUIRED&gt;<br>
+<br>
+&lt;!ELEMENT node ((term | term-description | extended),<br>
+&nbsp;&nbsp;(node | noderef)*)&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST node<br>
+&nbsp;&nbsp;&nbsp;&nbsp;id ID #IMPLIED&gt;<br>
+<br>
+&lt;!ELEMENT noderef EMPTY&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST noderef<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ref IDREF #REQUIRED&gt;
+
+</code></blockquote>
+
+<p>For example:</p>
+
+<blockquote><code>
+
+&lt;hierarchy direction="narrower" max-levels="-1"&gt;<br>
+&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;bends (river)&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rapids&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;roaring rapids&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;waterfalls&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&lt;/node&gt;<br>
+&lt;/hierarchy&gt;
+
+</code></blockquote>
+
+<p>The same example, but with an upper bound placed on the hierarchy
+depth:</p>
+
+<blockquote><code>
+
+&lt;hierarchy direction="narrower" max-levels="1"&gt;<br>
+&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;bends (river)&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rapids&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;waterfalls&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&lt;/node&gt;<br>
+&lt;/hierarchy&gt;
+
+</code></blockquote>
+
+<p>The example below demonstrates the use of node references.  Term
+"images" has two narrower terms, "photographs" and "remote-sensing
+images", both of which have "aerial photographs" as a narrower
+term.</p>
+
+<blockquote><code>
+
+&lt;hierarchy direction="narrower" max-levels="-1"&gt;<br>
+&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;images&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;photographs&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node id="n1"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;aerial photographs&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;remote-sensing images&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;noderef ref="n1"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&lt;/node&gt;<br>
+&lt;/hierarchy&gt;
+
+</code></blockquote>
+
+</dd>
+
+<dt><code><strong>&lt;error&gt;</strong></code></dt>
+
+<dd>
+
+<p>Describes an invocation or processing error by a code and/or a
+human-readable description.</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT error (code?, description?)&gt;<br>
+<br>
+&lt;!ELEMENT code (#PCDATA)&gt;<br>
+&lt;!ELEMENT description (#PCDATA)&gt;
+
+</code></blockquote>
+
+<p>For example:</p>
+
+<blockquote><code>
+
+&lt;error&gt;<br>
+&nbsp;&nbsp;&lt;code&gt;914&lt;/code&gt;<br>
+&nbsp;&nbsp;&lt;description&gt;Bad input...&lt;/description&gt;<br>
+&lt;/error&gt;
+
+</code></blockquote>
+
+</dd>
+
+<dt><code><strong>&lt;response&gt;</strong></code></dt>
+
+<dd>
+
+<p>Contains the response from a thesaurus service.  The
+<code>version</code> attribute indicates the version of the protocol
+employed by the thesaurus, and must be "<code>1.0</code>".</p>
+
+<blockquote><code>
+
+&lt;!ELEMENT response (properties | list | hierarchy |<br>
+&nbsp;&nbsp;error)&gt;<br>
+&nbsp;&nbsp;&lt;!ATTLIST response<br>
+&nbsp;&nbsp;&nbsp;&nbsp;version CDATA #REQUIRED&gt;
+
+</code></blockquote>
+
+<p>For example:</p>
+
+<blockquote><code>
+
+&lt;response version="1.0"&gt;<br>
+&nbsp;&nbsp;&lt;list&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;river bends&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/list&gt;<br>
+&lt;/response&gt;
+
+</code></blockquote>
+
+</dd>
+
+</dl>
+
+<h3><a name="services">Services</a></h3>
+
+<p>The protocol provides five independent, stateless services.  Each
+service follows the classical model of function invocation: zero or
+more arguments are passed to the service, the service executes
+synchronously, and a result is returned.  In this section we describe
+the services abstractly.  In the next section, <a href="#http-binding">HTTP binding</a>, we describe the specific means
+by which the services are invoked over the HTTP protocol.</p>
+
+<p>For clarity, in the descriptions below we depict the services as
+returning certain nominal results.  In actuality, the response from
+each service is a <code>&lt;response&gt;</code> element containing
+either the nominal result or an error.</p>
+
+<dl>
+
+<dt><em>properties</em><code> &lt;-
+<strong>get-properties</strong>()</code></dt>
+
+<dd>
+
+<p>Returns the thesaurus's properties.</p>
+
+</dd>
+
+<dt><em>list</em><code> &lt;-
+<strong>download</strong>(</code><em>include-nonpreferred</em><code>,
+</code><em>format</em><code>)</code></dt>
+
+<dd>
+
+<p>Returns a list of all terms in the thesaurus.
+<em>include-nonpreferred</em>, a boolean, indicates if nonpreferred
+terms should be included; if false, only preferred terms are returned.
+<em>format</em> is the requested return format, and must be either
+"<code>term</code>", "<code>term-description</code>", or
+"<code>extended</code>".</p>
+
+</dd>
+
+<dt><em>list</em><code> &lt;-
+<strong>query</strong>(</code><em>operator</em><code>,
+</code><em>text</em><code>, </code><em>fuzzy</em><code>,
+</code><em>format</em><code>)</code></dt>
+
+<dd>
+
+<p>Queries the thesaurus by term name and returns a list of the
+matching terms.  <em>operator</em> is the matching operator to employ,
+and must be one of:</p>
+
+<ul>
+<li><code>equals</code></li>
+<li><code>contains-all-words</code></li>
+<li><code>contains-any-words</code></li>
+<li><code>matches-regexp</code></li>
+</ul>
+
+<p><em>text</em> is the text to match, and is interpreted either as a
+string (under the "<code>equals</code>" operator), as one or more
+words separated by whitespace (under the
+"<code>contains-all-words</code>" and
+"<code>contains-any-words</code>" operators), or as a Perl-like
+regular expression (under the "<code>matches-regexp</code>" operator).
+<em>fuzzy</em>, a boolean, indicates if the matching should be
+performed in a forgiving manner, e.g., by employing word stemming or
+spelling correction.  <em>format</em> is the requested return format,
+and must be either "<code>term</code>",
+"<code>term-description</code>", or "<code>extended</code>".</p>
+
+<p>A query that produces zero matching terms must not be treated by
+the thesaurus as an error.  A query specifying a non-fuzzy
+"<code>equals</code>" operator must be treated by the thesaurus as a
+simple term lookup, i.e., the thesaurus must return either zero terms
+or the one matching term.</p>
+
+<p>The exact semantics of the query operators (exactly what sequence
+of characters constitutes a word, if and how fuzziness is implemented,
+etc.) are not defined by the protocol; the descriptions above
+are intended to be a guideline.  A thesaurus should document its
+interpretation of the operators in the
+<code>&lt;description&gt;</code> element of its properties.</p>
+
+</dd>
+
+<dt><em>hierarchy</em><code> &lt;-
+<strong>get-broader</strong>(</code><em>starting-term</em><code>,
+</code><em>max-levels</em><code>,
+</code><em>format</em><code>)</code></dt>
+
+<dd>
+
+<p>Returns the hierarchy of terms above (broader than) a given
+starting term.  <em>starting-term</em> is the name of the starting
+term, which must be a preferred term.  <em>max-levels</em>, an
+integer, is the maximum number of levels to include in the hierarchy.
+A value of zero corresponds to just the starting term; a negative
+value places no upper bound.  <em>format</em> is the requested return
+format, and must be either "<code>term</code>",
+"<code>term-description</code>", or "<code>extended</code>".</p>
+
+</dd>
+
+<dt><em>hierarchy</em><code> &lt;-
+<strong>get-narrower</strong>([</code><em>starting-term</em><code>,]
+</code><em>max-levels</em><code>,
+</code><em>format</em><code>)</code></dt>
+
+<dd>
+
+<p>Returns the hierarchy of terms below (narrower than) a given
+starting term.  If specified and not the empty string,
+<em>starting-term</em> is the name of the starting term, which must be
+a preferred term.  If absent or the empty string, the starting term is
+the fictitious "root" term that is broader than all of the thesaurus's
+top (broadest) preferred terms.  <em>max-levels</em>, an integer, is
+the maximum number of levels to include in the hierarchy.  A value of
+zero corresponds to just the starting term; a negative value places no
+upper bound.  <em>format</em> is the requested return format, and must
+be either "<code>term</code>", "<code>term-description</code>", or
+"<code>extended</code>".</p>
+
+</dd>
+
+</dl>
+
+<h3><a name="http-binding">HTTP binding</a></h3>
+
+<p>A thesaurus service is invoked over the <a href="http://www.ietf.org/rfc/rfc1945.txt">HTTP</a> protocol by
+submitting an HTTP GET request to a base URL that represents the
+thesaurus's common access point for all services.  The name of the
+service is appended to the base URL as the final path component, and
+arguments to the service are encoded and appended as URL query
+parameters.  The signatures of the five services are as follows:</p>
+
+<blockquote><code>
+
+/get-properties<br>
+<br>
+/download?<br>
+&nbsp;&nbsp;include-nonpreferred={true|false}&amp;<br>
+&nbsp;&nbsp;format=</code><em>format</em><code><br>
+<br>
+/query?<br>
+&nbsp;&nbsp;operator=</code><em>operator</em><code>&amp;<br>
+&nbsp;&nbsp;text=</code><em>text</em><code>&amp;<br>
+&nbsp;&nbsp;fuzzy={true|false}&amp;<br>
+&nbsp;&nbsp;format=</code><em>format</em><code><br>
+<br>
+/get-broader?<br>
+&nbsp;&nbsp;starting-term=</code><em>name</em><code>&amp;<br>
+&nbsp;&nbsp;max-levels=</code><em>n</em><code>&amp;<br>
+&nbsp;&nbsp;format=</code><em>format</em><code><br>
+<br>
+/get-narrower?<br>
+&nbsp;&nbsp;[starting-term=</code><em>name</em><code>&amp;]<br>
+&nbsp;&nbsp;max-levels=</code><em>n</em><code>&amp;<br>
+&nbsp;&nbsp;format=</code><em>format</em><code>
+
+</code></blockquote>
+
+<p>For example, to invoke the <code>get-properties</code> service of
+the thesaurus located at base URL
+"<code>http://host.com/mythes/</code>", a client would issue an HTTP
+GET request to the URL:</p>
+
+<blockquote><code>
+
+http://host.com/mythes/get-properties
+
+</code></blockquote>
+
+<p>Complete examples can be found under <a href="#examples">Examples</a>, below.</p>
+
+<p>The HTTP response from a thesaurus service has MIME type
+<code>text/xml</code> and consists of an XML document containing a
+single <code>&lt;response&gt;</code> element.</p>
+
+<p>Thesaurus services should generally return HTTP status code 200
+(OK), and should use HTTP error codes only for low-level errors such
+as connectivity and authentication problems.  Higher-level errors
+should be returned using the <code>&lt;error&gt;</code> element
+described under <a href="#xml-formats">XML formats</a>, above.</p>
+
+<h3><a name="examples">Examples</a></h3>
+
+<p>In this section we present three complete examples of protocol
+service requests and responses.</p>
+
+<p>Suppose first that a client would like brief term records for the
+broadest terms in the thesaurus located at base URL
+"<code>http://host.com/mythes/</code>".  The client would issue the
+following HTTP GET request:</p>
+
+<blockquote><code>
+
+http://host.com/mythes/get-narrower?max-levels=1&amp;<br>
+format=term
+
+</code></blockquote>
+
+<p>The thesaurus might respond with the following:</p>
+
+<blockquote><code>
+
+HTTP/1.0 200 OK<br>
+Content-Type: text/xml; charset=UTF-8<br>
+Content-Length: 683<br>
+<br>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;!DOCTYPE response SYSTEM "http://www.alexandria..."&gt;<br>
+&lt;response<br>
+&nbsp;&nbsp;xmlns="http://www.alexandria.ucsb.edu/thesaurus"<br>
+&nbsp;&nbsp;version="1.0"&gt;<br>
+&nbsp;&nbsp;&lt;hierarchy direction="narrower" max-levels="1"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;administrative areas&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;hydrographic features&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;land parcels&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;manmade features&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;physiographic features&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;regions&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&lt;/hierarchy&gt;<br>
+&lt;/response&gt;
+
+</code></blockquote>
+
+<p>Suppose next that the client would like to find all terms
+containing the words "river" and/or "bends" in the thesaurus.  The
+client would like the word matching to be forgiving, and would like
+brief term records returned.  The client would issue the following
+HTTP GET request:</p>
+
+<blockquote><code>
+
+http://host.com/mythes/query?operator=contains-any-words&amp;<br>
+text=river+bends&amp;fuzzy=true&amp;format=term
+
+</code></blockquote>
+
+<p>The thesaurus might respond with the following:</p>
+
+<blockquote><code>
+
+HTTP/1.0 200 OK<br>
+Content-Type: text/xml; charset=UTF-8<br>
+Content-Length: 572<br>
+<br>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;!DOCTYPE response SYSTEM "http://www.alexandria..."&gt;<br>
+&lt;response<br>
+&nbsp;&nbsp;xmlns="http://www.alexandria.ucsb.edu/thesaurus"<br>
+&nbsp;&nbsp;version="1.0"&gt;<br>
+&nbsp;&nbsp;&lt;list&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="true"&gt;bends (river)&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;canal bends&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;lost rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;road bends&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;river bends&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="true"&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;stream bends&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;term preferred="false"&gt;wadi bends&lt;/term&gt;<br>
+&nbsp;&nbsp;&lt;/list&gt;<br>
+&lt;/response&gt;
+
+</code></blockquote>
+
+<p>Finally, suppose that the client would like brief term records for
+the entire upward (broader) hierarchy of terms starting from term
+"bends (river)".  The client would issue the following HTTP GET
+request:</p>
+
+<blockquote><code>
+
+http://host.com/mythes/get-broader?starting-term=<br>
+bends%20%28river%29&amp;max-levels=-1&amp;format=term
+
+</code></blockquote>
+
+<p>The thesaurus might respond with the following:</p>
+
+<blockquote><code>
+
+HTTP/1.0 200 OK<br>
+Content-Type: text/xml; charset=UTF-8<br>
+Content-Length: 421<br>
+<br>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;!DOCTYPE response SYSTEM "http://www.alexandria..."&gt;<br>
+&lt;response<br>
+&nbsp;&nbsp;xmlns="http://www.alexandria.ucsb.edu/thesaurus"<br>
+&nbsp;&nbsp;version="1.0"&gt;<br>
+&nbsp;&nbsp;&lt;hierarchy direction="broader" max-levels="-1"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;bends (river)&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;rivers&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;term&gt;streams&lt;/term&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/node&gt;<br>
+&nbsp;&nbsp;&lt;/hierarchy&gt;<br>
+&lt;/response&gt;
+
+</code></blockquote>
+
+<h3><a name="revision-history">Revision history</a></h3>
+
+<dl>
+
+<dt>1.0</dt>
+<dd>Original version.</dd>
+
+</dl>
+
+<hr noshade="noshade" size="1">
+
+<address>
+<a href="http://www.alexandria.ucsb.edu/%7Egjanee/">Greg
+Janée<script type="text/javascript"><!--
+var a = 'ixegbaa@j..naaeudlndcreeus';
+var b = '';
+var i = 3;
+do {
+    b += a.charAt(i);
+    i = (i+5) % a.length;
+} while (i != 3);
+document.write(' &lt;' + b + '&gt;');
+//--></script> &lt;gjanee@alexandria.ucsb.edu&gt;</a>
+</address>
+
+Created: 2002-05-01<br>
+Last modified: <!--mtime-->2004-10-18 09:31<!--/mtime-->
+
+</td>
+</tr>
+</tbody></table>
+</center>
+
+</body></html>

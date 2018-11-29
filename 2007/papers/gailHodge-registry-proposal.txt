@@ -1,0 +1,63 @@
+Doug,
+ 
+I'll see what I can do about getting there. Your proposals sound really interesting and appropriate for some of our current work. The terminology registry issue is of keen interest. We are working on a metadata scheme for terminology registries with FAO and USGS as part of the Ecoterm group. FAO has a registry up now, we did one for Ecoterm and USGS has these kinds of resources in their catalog, so we want to see where the core lies and whether we can come to an agreement on a scheme before we all go off in so many directions. By the way, there was interest among the TC37 folks in this because it seems to fill a gap in their Data Categories standard (I think that is 12620). The implementation is going to be in the area of the environment and we're hoping to have something real soon.
+ 
+Gail
+ 
+-----------------------------------------
+
+Gail - be great if you could make it over for the workshop.
+We had a couple JISC proposals accepted, one on linking social tagging to KOS (DDC) and one on a scoping study for a terminology registry. Would love to pick your brain at some time on these.
+hope all well
+Doug
+
+
+
+-----Original Message-----
+From: Tudhope D S (AT) 
+To: gailhodge@aol.com
+Sent: Thu, 31 May 2007 1:20 pm
+Subject: FW: NKOS 2007 workshop at ECDL 2007
+
+
+Gail - be great if you could make it over for the workshop.
+We had a couple JISC proposals accepted, one on linking social tagging to KOS (DDC) and one on a scoping study for a terminology registry. Would love to pick your brain at some time on these.
+hope all well
+Doug
+
+
+--------------------------------------------------------------------------------
+From: Tudhope D S (AT)
+Sent: Thu 31/05/2007 18:18
+To: NKOS@dli2.nsf.gov
+Subject: cfp: NKOS 2007 workshop at ECDL 2007
+
+
+The NKOS workshop was accepted for ECDL in Budapest - hope to see some of you there - Doug
+---
+ 
+The 6th European NKOS Workshop will take place on September 21st, as part of ECDL 2007 in Budapest. It builds on the previous NKOS Workshops at ECDL 2000, 2003, 2004, 2005 and 2006. Proposals are invited for presentations (typically 20 minutes plus discussion time, potentially longer if the substance and importance warrant it) on work or projects related to the themes of the workshop or to NKOS more generally. 
+ 
+Presentations from the Workshop may be invited to submit as extended papers to the electronic peer reviewed journal: Journal of Digital Information, JoDI (http://jodi.tamu.edu/).
+Please email proposals (approx. 500 words including aims, methods, main findings) by June 29th to Douglas Tudhope (dstudhope@glam.ac.uk). Advance indication that you intend to submit a presentation would be helpful. Proposals will be peer-reviewed by the program committee and notification of acceptance will be given by July 17th. The early registration deadline for the conference and the workshop is July 31st.
+The workshop aims to address key challenges for NKOS posed by the overlapping themes of
+Social tagging 
+Semantic Web applications and implications of KOS 
+Terminology for language-oriented applications 
+Terminology registry 
+Terminology services 
+KOS Interoperability 
+User-centred design issues 
+
+Other NKOS related topics can also be proposed and more details can be found on the workshop website: http://www.comp.glam.ac.uk/pages/research/hypermedia/nkos/nkos2007/. For inspiration, visit the NKOS network website at: http://nkos.slis.kent.edu/. After the workshop, copies of presentations will be made available on the workshop website.
+Main Contact:  
+Douglas Tudhope,
+Hypermedia Research Unit, Faculty of Advanced Technology,
+University of Glamorgan
+Pontypridd, CF37 1DL, Wales, UK
+Email: dstudhope@glam.ac.uk
+http://www.comp.glam.ac.uk/pages/staff/dstudhope
+ 
+Co-organisers:
+Traugott Koch Max Planck Digital Library, Invalidenstr. 35, D-101 15 Berlin, Germany, traugott.koch@mpdl.mpg.de
+Marianne Lykke Nielsen,  Royal School of Library and Information Science, Aalborg Branch, Aalborg, Denmark, mln@db.dk

@@ -1,0 +1,142 @@
+/*clear any default box settings*/
+{border:0px;margin:0px;padding:0px;}
+
+body 
+{
+	margin:0;
+	padding:0;
+	background-color: #eee;
+	/*color: #335;	*/	
+	color: #505050;	
+	font-family:Verdana,Helvetica,Arial,sans-serif;
+	font-size:small;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+		color: steelblue;		
+}
+
+.italic
+{
+	font-style: italic;
+}
+
+hr
+{
+	border:  1px dashed #eee;
+}
+li
+{
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.slideslink, .abstractlink
+{
+	border:  1px solid steelblue;
+	padding: 1px;
+	margin: 1px;
+	background-color: #eee;
+}
+
+	
+#container
+{
+	margin:0 auto;
+	text-align: center;
+	width: 1000px;			
+	background: url(img/background.png) repeat-y;  					
+}
+		
+#content
+{	
+	line-height:1.2em;
+	width: 850px;
+	background: white;
+	text-align: left;
+	margin:0 auto;		
+	padding: 10px;
+}	
+		
+#footer
+{
+	height:35px;
+	margin:0 auto;
+	width:1000px;
+	background:url(img/footer.png) top left repeat-y;  			
+}
+li.blankabove
+{
+	margin-top: 15px;		
+}
+li.blankbelow
+{
+	margin-bottom: 15px;
+}
+	
+.hilite
+{
+	background: lightyellow;
+}
+
+	a
+	{
+		color: steelblue;
+		text-decoration: none;
+	}
+	a:hover
+	{
+		text-decoration: underline;
+		color: red;
+	}
+
+	.center
+	{
+		margin-left : auto;
+		margin-right: auto;
+		text-align: center;
+	}	
+	
+	ul
+	{
+		list-style-type: square;
+	}
+
+	ul.menu
+	{
+		padding: 5px;		
+		border: 1px solid steelblue;
+		background: url(img/4682B4B0C4DE30sinusoidalFull.png);
+	}
+
+	ul.menu li
+	{	
+		display:inline;
+	}
+
+	ul.menu li a
+	{
+		background: aliceblue;
+		text-decoration: none;
+		padding:2px;
+		margin: 1px;		
+	}
+	ul.menu li a:hover
+	{
+		background: lightsteelblue;
+		text-decoration: none;		
+	}
+
+	#newbox
+	{
+		border: 2px dashed lightsteelblue;
+		padding: 3px;
+		margin: 2px;
+	}
+	#newbox span
+	{
+		color:red;
+		font-weight:bold;
+	}
+	

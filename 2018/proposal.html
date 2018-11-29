@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <title>NKOS 2018</title>
+  <meta name="author" content="Ceri Binding, University of South Wales">
+  <meta name="description" content="Networked Knowledge Organization Systems (NKOS) 2018 workshop, held as part of TPDL 2018 and DCMI 2018 in Porto, Portugal">
+  
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="shortcut icon" href="../favicon.png" type="image/x-icon">
+  <link rel="icon" href="../favicon.png" type="image/x-icon">
+      
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="Skeleton-2.0.4/css/normalize.css">
+  <link rel="stylesheet" href="Skeleton-2.0.4/css/skeleton.css">
+  <link rel="stylesheet" href="css/NKOS2018.css">
+   
+  <!-- schema.org (JSON-LD) to describe the event -->	  
+  <script type="application/ld+json">
+  [{
+		"@context": "https://schema.org/",				
+		"@id": "./NKOS2018",
+		"@type" : "EducationEvent",
+		"name" : "18th European Networked Knowledge Organization Systems (NKOS) Workshop",
+		"alternateName"	: "NKOS 2018",
+		"eventStatus" : "EventScheduled",
+		"description" : "A full-day workshop of research projects and development related to next-generation Networked Knowledge Organization Systems/Services",
+		"url" : "https://at-web1.comp.glam.ac.uk/pages/research/hypermedia/nkos/nkos2018/",		
+		"image" : "http://nkos.slis.kent.edu/NKOSLogo.png",
+		"startDate" : "2018-09-13T09:00+0100",
+		"endDate" : "2018-09-13T18:00+0100",
+		"doorTime" : "2018-09-13T08:30+0100",
+		"duration" : "PT8H",
+		"location" : { "@id": "./TPDL2018-location" },		
+		"superEvent" : {
+			"@id": "./TPDL2018",	
+			"@type" : "EducationEvent",
+			"subEvent" : { "@id": "./NKOS2018" },	
+			"name" : "22nd International Conference on Theory and Practice of Digital Libraries",
+			"alternateName" : "TPDL 2018",
+			"eventStatus" : "EventScheduled",
+			"description" : "22nd International Conference on Theory and Practice of Digital Libraries",
+			"url" : "http://www.tpdl.eu/tpdl2018/",
+			"image" : "http://www.tpdl.eu/tpdl2018/wp-content/themes/tpdl18/images/logo_v1.svg",
+			"startDate" : "2018-09-10T09:00+0100",
+			"endDate" : "2018-09-13T18:00+0100",	
+			"duration" : "P4D",			
+			"location" : {
+				"@id": "./TPDL2018-location",
+				"@type" : "Place",
+				"name" : [
+					{ "@value" : "Faculty of Engineering of the University of Porto (FEUP)", "@language" : "en"}, 
+					{ "@value" : "Faculdade de Engenharia da Universidade do Porto (FEUP)", "@language" : "pt" }
+				],
+				"address" : { 
+					"@type" : "PostalAddress",
+					"streetAddress" : "Rua D. Frei Vicente da Soledade e Castro",					
+					"addressRegion" : "Porto", 
+					"postalCode" : "4200-465", 
+					"addressCountry" : "Portugal"
+				}		  		  
+			}
+		},
+		"organizer" : [	
+			{ "@id" : "./NKOS2018-program-committee" },				
+			{
+				"@type" : "Person",
+				"name" : "Philipp Mayr",
+				"honorificPrefix" : "Doctor",
+				"url" : "https://philippmayr.github.io/",
+				"email" : "philipp.mayr@gesis.org",			
+				"affiliation" : {
+					"@type" : "EducationalOrganization",
+					"name" : "GESIS - Leibniz Institute for the Social Sciences",
+					"url" : "http://www.gesis.org/en/institute/",				
+					"address" : {
+						"@type" : "PostalAddress",
+						"addressLocality" : [{ "@value" : "Lower Saxony 6-8", "@language" : "en" }, { "@value" : "Unter Sachsenhausen 6-8", "@language" : "de" }],
+						"addressRegion" : [{ "@value" : "Cologne", "@language" : "en" }, { "@value" : "K&ouml;ln", "@language" : "de" }],						
+						"postalCode" : "50667", 
+						"addressCountry" : [{ "@value" : "Germany", "@language" : "en" }, { "@value" : "Deutschland", "@language" : "de" }]
+					}
+				}
+			},
+			{
+				"@type" : "Person",
+				"name" : "Douglas Tudhope",
+				"honorificPrefix" : "Professor",
+				"url" : "http://hypermedia.research.southwales.ac.uk/people/tudhope/",
+				"email" : "douglas.tudhope@southwales.ac.uk",	
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of South Wales",
+					"url" : "http://hypermedia.research.southwales.ac.uk/kos/",
+					"department" : {
+						"@type" : "EducationalOrganization",
+						"name" : "Faculty of Computing, Engineering and Science",
+						"department" : {
+							"@type" : "EducationalOrganization",
+							"name" : "Hypermedia Research Group"
+						}
+					},				
+					"address" : {
+						"@type" : "PostalAddress",
+						"name" : "University of South Wales",
+						"addressLocality" : "Pontypridd",
+						"postalCode" : "CF37 1DL", 
+						"addressCountry" : [{ "@value" : "United Kingdom", "@language" : "en" }]
+					}
+				}
+			},
+			{
+				"@type" : "Person",
+				"name" : "Koraljka Golub",
+				"honorificPrefix" : "Doctor",
+				"url" : "http://koraljka.info",
+				"email" : "Koraljka.golub@lnu.se",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Linnaeus University",					
+					"department" : {
+						"@type" : "EducationalOrganization",
+						"name" : "Faculty of Arts and Humanities",
+						"department" : {
+							"@type" : "EducationalOrganization",
+							"name" : "Department of Library and Information Science, School of Cultural Sciences"
+						}
+					},				
+					"address" : {
+						"@type" : "PostalAddress",
+						"name" : "Linnaeus University",
+						"addressLocality" : "351 95 V&auml;xj&ouml;",
+						"addressCountry" : [{ "@value" : "Sweden", "@language": "en"}, { "@value" : "Sverige", "@language": "sv"}]
+					}
+				}
+			}				
+		]
+	},
+	
+	{
+		"@context": "https://schema.org/",			
+		"@id": "./NKOS2018-program-committee",
+		"@type" : "EducationalOrganization",
+		"name" : "NKOS 2018 Program Committee",
+		"member" : [
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},
+				"name" : "Vladimir Alexiev",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Ontotext Corporation, Bulgaria"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},
+				"name" : "Ceri Binding",				
+				"url" : "http://hypermedia.research.southwales.ac.uk/people/binding/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of South Wales, UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Ina Bl&uuml;mel",
+				"url" : "http://f3.hs-hannover.de/personen/lehrende/bluemel-ina-dr-v-profin/",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "TIB, Hannover, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Stella Dextre-Clarke",
+				"url" : "http://www.iskouk.org/content/stella-dextre-clarke",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "ISKO UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Claudio Gnoli",
+				"url" : "http://www-dimat.unipv.it/gnoli/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of Pavia, Italy"
+				}
+			},
+						
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Bernhard Haslhofer",
+				"url" : "http://bernhardhaslhofer.info/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of Vienna, Austria"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Steffen Hennicke",
+				"url" : "http://www.gei.de/mitarbeiter/steffen-hennicke.html",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Georg-Eckert-Institut, Braunschweig, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Daniel Hienert",
+				"url" : "http://www.gesis.org/das-institut/mitarbeiterverzeichnis/?alpha=H&name=daniel%2Chienert",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "GESIS, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Gail Hodge",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Information International Associates, Inc., USA"
+				}
+			},
+
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Antoine Isaac",
+				"url" : "http://www.few.vu.nl/~aisaac/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Europeana and Vrije Universiteit Amsterdam, Netherlands"
+				}
+			},			
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Eva M&eacute;ndez Rodr&iacute;guez",
+				"url" : "http://www.uc3m.com/ss/Satellite/UC3MInstitucional/en/Detalle/Organismo_C/1371206549156/1371206549244/Eva_Mendez_Rodriguez",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Universidad Carlos III de Madrid, Spain"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Philipp Schaer",
+				"url" : "http://www.schaer.de/",
+				"affiliation" : {
+					"@type" : "EducationalOrganization",
+					"name" : "GESIS, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Ryan Shaw",
+				"url" : "https://sils.unc.edu/people/faculty/ryan-shaw",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of North Carolina, USA"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Aida Slavic",
+				"url" : "http://www.udcc.org/index.php/site/page?view=editorinchief",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "UDC Consortium, London, UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Dagobert Soergel",
+				"url" : "http://www.dsoergel.com/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of Buffalo, USA"
+				}
+			},		
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Lena-Luise Stahn",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Georg-Eckert-Institut, Braunschweig, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Armando Stellato",
+				"url" : "http://art.uniroma2.it/stellato/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Universit&agrave; Tor Vergata, Rome, Italy"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Joseph Tennis",
+				"url" : "http://ischool.uw.edu/people/faculty/jtennis",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Information School, University of Washington, USA"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Andreas Vlachidis",
+				"url" : "https://people.uwe.ac.uk/Pages/person.aspx?accountname=campus%5Ca-vlachidis",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of the West of England (UWE), UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Diane Vizine-Goetz",
+				"url" : "http://www.oclc.org/research/people/vizine-goetz.html",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "OCLC Research, USA"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Jakob Vo&szlig;",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Verbundzentrale des GBV (VZG), Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},	
+				"name" : "Christian Wartena",
+				"honorificPrefix" : "Prof. Dr.",
+				"url" : "http://f3.hs-hannover.de/personen/lehrende/wartena/",
+				"email" : "christian.wartena@hs-hannover.de",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Hochschule Hannover"
+				}
+			},		
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Marcia Zeng",
+				"url" : "http://faculty-l.slis.kent.edu/~mzeng/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Kent State University, USA"
+				}
+			}		
+		]
+	}]  
+  </script>  
+  </head> 
+ <body>
+ 
+<!-- div.container is main centered wrapper within body--> 
+<div id="main" class="container">      
+<!--container has header, content, and (possibly) footer-->	  
+<section class="header center" role="banner">
+	<h2 class="title">18<sup>th</sup> European Networked Knowledge Organization Systems (NKOS) Workshop</h2>
+	<h4>To be held as part of TPDL 2018 and DCMI 2018 in Porto, Portugal</h4>	
+	<h5>Thursday 13<sup>th</sup> September 2018</h5>	
+</section><!--end of section.header-->		
+
+<section>  
+	<ul class="navbar-list">
+		<li class="navbar-item">
+			<a role="button" class="button button-primary">Workshop Proposal</a>
+		</li>
+		<li class="navbar-item">
+			<a role="button" class="button" href="call-for-papers.html">Call for Papers</a>
+		</li>
+		<li class="navbar-item">
+			<a role="button" class="button" href="programme.html">Programme</a>
+		</li>
+	</ul>
+	<ul class="navbar-list">
+		<li class="navbar-item">
+			<a class="button" target="_blank" rel="noopener noreferrer" href="http://www.tpdl.eu/tpdl2018/" >TPDL 2018 Conference</a>
+		</li>
+		<li class="navbar-item">
+			<a class="button" target="_blank" rel="noopener noreferrer" href="http://dublincore.org/conference/2018/">DCMI 2018 Conference</a>
+		</li>
+		<li class="navbar-item">
+			<a class="button" target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/nkos/" >NKOS Workshops</a>
+		</li>
+		<li class="navbar-item">
+			<a class="button" target="_blank" rel="noopener noreferrer" href="http://nkos.slis.kent.edu/">NKOS Network</a>
+		</li>
+	</ul><!--.navbar-list"-->
+</section> 
+	
+<div class="content">
+<h3>Organizers</h3>
+<div class="row">
+
+<div class="one-half column">
+	<strong>Joseph A Busch</strong><br>
+	Taxonomy Strategies<br>
+	5253 Nebraska Ave NW<br>
+	Washington, D.C. 20015, USA<br>
+	<a href="mailto:jbusch@taxonomystrategies.com">jbusch@taxonomystrategies.com</a>
+	<a target="_blank" rel="noopener noreferrer" href="http://taxonomystrategies.com/about-us/">http://taxonomystrategies.com/about-us/</a>
+	<br>
+</div><!--.one-half column-->
+
+<div class="one-half column">
+	<strong>Philipp Mayr </strong><br>
+	<abbr title="Gesellschaft Sozialwissenschaftlicher Infrastruktureinrichtungen">GESIS</abbr> - Leibniz Institute for the Social Sciences<br>
+	Unter Sachsenhausen 6-8, 50667<br>
+	Cologne, Germany<br>
+	<a href="mailto:philipp.mayr@gesis.org">philipp.mayr@gesis.org</a><br>
+	<a target="_blank" rel="noopener noreferrer" href="https://philippmayr.github.io/">https://philippmayr.github.io/</a>
+	<br>
+</div><!--.one-half column-->
+
+</div><!--.row-->
+
+<div class="row">&nbsp;</div>
+
+<div class="row">
+<div class="one-half column">
+	<strong>Koraljka Golub</strong><br>
+	Department of Library and Information Science<br>
+	School of Cultural Sciences<br>
+	Faculty of Arts and Humanities<br>
+	Linnaeus University<br>
+	351 95 V&auml;xj&ouml;, Sweden<br>	
+	<a href="mailto:Koraljka.golub@lnu.se">Koraljka.golub@lnu.se</a><br>
+	<a target="_blank" rel="noopener noreferrer" href="http://koraljka.info">http://koraljka.info</a>
+	<br>
+</div><!--.one-half column-->
+
+<div class="one-half column">
+	<strong>Douglas Tudhope (primary contact)</strong><br>
+	Hypermedia Research Group<br>
+	Faculty of Computing, Engineering and Science<br>
+	University of South Wales<br>
+	Pontypridd,	CF37 1DL, UK<br>	
+	<a href="mailto:douglas.tudhope@southwales.ac.uk">douglas.tudhope@southwales.ac.uk</a><br>
+	<a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/">http://hypermedia.research.southwales.ac.uk/kos/</a>
+	<br>
+</div><!--.one-half column-->
+</div><!--.row-->
+
+<div class="row">&nbsp;</div>
+
+<div class="row">
+
+<div class="one-half column">
+	<strong>Marge Hlava</strong><br>
+	Access Innovations<br>
+	Albuquerque, NM, USA<br>
+	<a href="mailto:mhlava@accessinn.com">mhlava@accessinn.com</a><br>
+	<a target="_blank" rel="noopener noreferrer" href="http://www.accessinn.com">http://www.accessinn.com</a><br>
+	<a target="_blank" rel="noopener noreferrer" href="http://www.accessinn.com/products/">http://www.dataharmony.com</a>
+	<br>
+</div><!--.one-half column-->
+
+<div class="one-half column">
+	<strong>Marcia L. Zeng</strong><br>
+	School of Information<br>
+	Kent State University<br>
+	Kent, OH, USA<br>
+	<a href="mailto:mzeng@kent.edu">mzeng@kent.edu</a><br>
+	<a target="_blank" rel="noopener noreferrer" href="http://marciazeng.slis.kent.edu/">https://marciazeng.slis.kent.edu/</a>
+	<br>
+</div><!--.one-half column-->	
+
+</div><!--.row-->
+
+<div class="row">&nbsp;</div>
+
+<div class="row">&nbsp;</div>
+<div class="row"><strong>Duration: 1 day. Expected number of participants: 30</strong></div><!--.row-->
+<div class="row">&nbsp;</div>
+
+<h3>Extended abstract</h3>
+<p>
+We propose a full-day workshop of research projects and development related to next-generation Networked Knowledge Organization Systems (NKOS) in digital libraries. This proposal builds on the well-attended NKOS workshops at previous <abbr title="European Conference on Digital Libraries">ECDL</abbr>, <abbr title="Theory and Practice of Digital Libraries ">TPDL</abbr>, <abbr title="Joint Conference on Digital Libraries">JCDL</abbr>, Dublin Core <abbr title="Dublin Core Metadata Initiative">DCMI</abbr> conferences (see <a target="_blank" rel="noopener noreferrer" href="http://nkos.slis.kent.edu/">NKOS website</a> for details). We expect approximately 30 attendees at this workshop. The proposal is supported by the international NKOS network, its website and discussion list. Presentations are made available on the workshop website. 
+</p>
+<p>
+Knowledge Organization Systems (KOS), in the form of classification systems, taxonomies, thesauri, ontologies, and lexical databases, play a crucial role in digital information management and applications generally. Carrying semantics in a well-controlled and documented way, Knowledge Organization Systems serve a variety of important functions: tools for representation and indexing of information and documents, knowledge-based support to information searchers, semantic road maps to domains and disciplines, communication tool by providing conceptual framework, and conceptual basis for knowledge-based systems, e.g. automated classification systems.
+</p>
+<h3>Brief description of the workshop and its aims</h3>
+<p>
+The proposed joint NKOS workshop at <a target="_blank" rel="noopener noreferrer" href="http://www.tpdl.eu/tpdl2018/"><abbr title="Theory and Practice of Digital Libraries">TPDL</abbr>2018</a> / <a target="_blank" rel="noopener noreferrer" href="http://dublincore.org/conference/2018/"><abbr title="Dublin Core Metadata Initiative">DCMI</abbr>2018</a> will explore the potential of KOS such as classification systems, taxonomies, thesauri, ontologies, and lexical databases, in the context of current developments and possibilities. These tools help to model the underlying semantic structure of a domain for purposes of information retrieval, knowledge discovery, language engineering, and the Semantic Web. The workshop provides an opportunity to discuss projects, research and development activities, evaluation approaches, lessons learned, and research findings. A further objective is to systematically engage in discussions in common areas of interest with selected related communities and to investigate potential cooperation.  
+</p>
+<p>
+The workshop will also allow major projects to report results, newcomers to interact with established people in the field, while facilitating the discussions of topical issues which require consensus or coordination, including standards efforts. Thus, for example,  previous workshops have seen focused discussion on early drafts of <abbr title="British Standards Institution">BSI</abbr> and <abbr title="International Organization for Standardization">ISO</abbr> KOS standards, the <abbr title="World Wide Web Consortium">W3C</abbr> <abbr title="Simple Knowledge Organization System">SKOS</abbr> standard, the interface between traditional library and information science vocabularies and Semantic Web efforts, KOS linked data, social tagging and its relation to established vocabularies, KOS metadata and the different types of KOS. The <abbr title="Theory and Practice of Digital Libraries">TPDL</abbr> / <abbr title="Dublin Core Metadata Initiative">DCMI</abbr> venue affords participation by KOS researchers and developers from different perspectives (reflecting the different conference threads), such as KOS design and construction, API and service developers, user oriented issues, management of KOS in registries. 
+</p>
+<p>
+In 2016 we published a special issue on Networked Knowledge Organization Systems in the International Journal on Digital Libraries (<abbr title="International Journal of Digital Libraries">IJDL</abbr>, see <a target="_blank" rel="noopener noreferrer" href="http://doi.org/10.1007/s00799-015-0167-x">Mayr et al. 2016</a>). This special issue evolved from the 13th NKOS workshop held at the joint Digital Libraries conference 2014 in London. We are preparing a further NKOS special issue in <abbr title="International Journal of Digital Libraries">IJDL</abbr> for 2018, building on NKOS workshops at <abbr title="Theory and Practice of Digital Libraries">TPDL</abbr> 2017 and Dublin Core 2017. We will discuss the potential for a further NKOS special issue at the proposed <abbr title="Theory and Practice of Digital Libraries">TPDL</abbr> / <abbr title="Dublin Core Metadata Initiative">DCMI</abbr> 2018 workshop.
+</p>
+
+<p>
+The proposed workshop will have three themes as the main focus, together with topical presentations arising from the workshop call for presentations. <strong>A particular feature of this year’s workshop will be the combination of European and US perspectives</strong>; the co-location of <abbr title="Theory and Practice of Digital Libraries">TPDL</abbr> with <abbr title="Dublin Core Metadata Initiative">DCMI</abbr> facilitates the coming together of NKOS communities from the USA and Europe.
+</p>
+<h3>Workshop themes</h3>
+<!--09/04/18 check this list against new text-->
+<ol>
+<li><strong>Alignment/enrichment of metadata to existing KOS Linked Open Data.</strong> Recent years have seen an increasing trend to publication of KOS as Linked Data vocabularies. We need discussion of relevant issues and examples of KOS-driven metadata enrichment for a variety of data collection providers, including libraries, archives, museums, publishers, government agencies, international organizations, and also commercial organizations.</li>
+<li><strong>KOS alignment/interoperability.</strong> KOS alignment or terminology mapping has been playing a vital role in NKOS for many years. We will continue this theme with discussion of specific case studies.</li>
+<li><strong>Automatic KOS-based subject indexing / classification /entity-extracting</strong> is a classic KOS topic which has seen renewed interest regarding evaluation methodologies.
+<br><br>Further timely presentations/demonstrations will be selected from the following topics in the CfP:</li>
+
+
+<li>KOS-based recommender systems. The suggestion of the right meaningful concepts is a mission critical phase for searchers in modern <abbr title="Digital Libraries">DL</abbr>.</li> 
+<li>Observatory for Knowledge Organization Systems – following recent <a target="_blank" rel="noopener noreferrer" href="http://knowescape.org/event/observatory-knowledge-organisation-systems/">Knowescape workshop</a> with its main topics of KOS provenance and versioning.</li>
+<li>Meaningful concept display and meaningful visualization of KOS.</li>
+<li>Standards developments.</li>
+<li>Evaluation of KOS-based systems – methods and practical experience.
+<br><br>KOS applications are a regular and important part of NKOS workshops. Example topics include:
+</li>
+ 
+<li>KOS in e-Research metadata contexts - intersection between research data and KOS</li>
+<li>Social tagging. What is the role of social tagging and informal knowledge structures versus established KOS? (How) can tagging be guided and informed by KOS?</li> 
+<li>Users interaction with KOS in the online environment.</li> 
+<li>KOS and learning. What is required to use KOS effectively to convey meaning, to assist users to express their information needs to assist in sense making and learning?</li> 
+<li>Multilingual and interdisciplinary KOS applications and tools.</li> 
+<li>Specific domains, such as environmental, medical, new application contexts, etc.</li>
+</ol>
+
+<h3>Workshop structure</h3>
+<p>
+An open call for papers and demonstrations (submission deadline June 12<sup>th</sup>, notification July 10<sup>th</sup>) will be combined with selected invitations from major projects and professional societies with an interest in this field. The workshop is planned to consist of an introduction, technical presentations, demonstrations, and a concluding directed discussion. The program committee will assist the review process as first-tier reviewers. The organisers will coordinate the process and promote the workshop through the workshop website, their various contacts and discussion lists, including the NKOS list and digital library lists. 
+</p>
+<h4>Indicative agenda structure, covering approximately 8 hours</h4>
+<ul>
+<li>Session 1: Welcome, introduction, mutual presentations (hrs 0:30)</li>
+<li>Session 2: Presentations on the main themes (hrs: 2:00)</li> 
+<li>Session 3: Directed discussion emerging from the main session (hrs: 1:00)</li> 
+<li>Session 4: Presentation and discussion of submitted papers on timely and related topics according to the CfP, including demonstrations (hrs: 2:00)</li>
+<li>Session 5: Directed discussion emerging from the session 4 (hrs 1:00) </li>
+<li>Session 6: Concluding discussion, including options for co-operation (hrs 0:30)</li>
+</ul>
+<p>
+Supporting material for the workshop would, following standard NKOS practice, be available via the NKOS website. This would include abstracts of presentations, information on participants, list of resources, projects and plans for the workshop before the conference. 
+</p>
+
+<p>
+Workshop proceedings will be deposited online in the CEUR workshop proceedings publication service (ISSN 1613-0073) - This way the proceedings will be permanently available and citable (digital persistent identifiers and long term preservation). After the workshop, copies of presentations will be made available on the website and via the main NKOS network website. There will also be an option for presenters to produce a short paper for publication in CEUR Proceedings of the workshop (see References). 
+</p>
+<h3>Program committee (to be confirmed)</h3> 
+
+<div class="row">
+<div class="one-half column">
+<ul>
+<li><a target="_blank" rel="noopener noreferrer" href="https://ontotext.com/author/vladimir/">Vladimir Alexiev</a>, Ontotext Corporation, Bulgaria</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/people/binding/">Ceri Binding</a>, University of South Wales, UK</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://f3.hs-hannover.de/personen/lehrende/bluemel-ina-dr-v-profin/">Ina Bl&uuml;mel</a>, Hochschule Hannover, Germany</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.ernestodeluca.de/">Ernesto William De Luca</a>, Georg-Eckert-Institut, Germany</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.iskouk.org/content/stella-dextre-clarke">Stella Dextre-Clarke</a>, <abbr title="International Society for Knowledge Organization">ISKO</abbr> UK</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www-dimat.unipv.it/gnoli/">Claudio Gnoli</a>, University of Pavia, Italy</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://bernhardhaslhofer.info/">Bernhard Haslhofer</a>, University of Vienna, Austria</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.gei.de/mitarbeiter/steffen-hennicke.html">Steffen Hennicke</a>, Georg-Eckert-Institute, Germany</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://www.gesis.org/en/institute/staff/person/?tx_gextstaffdir_staffdirectory%5Bemail%5D=daniel.hienert%40gesis.org">Daniel Hienert</a>, GESIS, Germany</li> 
+<li>Gail Hodge, Information International Associates, Inc., USA</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.few.vu.nl/~aisaac/">Antoine Isaac</a>, Europeana and Vrije Universiteit Amsterdam, Netherlands</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://portal.uc3m.es/portal/page/portal/biblioteconomia_documentacion/profesores/emendez">Eva M&eacute;ndez</a>, Universidad Carlos III de Madrid, Spain</li>
+</ul>
+</div>
+<div class="one-half column">
+<ul>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.zbw.eu/en/about-us/key-activities/linked-open-data/joachim-neubert/">Joachim Neubert</a>, ZBW, Germany</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.schaer.de/">Philipp Schaer</a>, GESIS, Germany</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://sils.unc.edu/people/faculty/ryan-shaw">Ryan Shaw</a>, University of North Carolina, USA</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.udcc.org/index.php/site/page?view=editorinchief">Aida Slavic</a>, <abbr title="Universal Decimal Classification">UDC</abbr> Consortium, London, UK</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.dsoergel.com/">Dagobert Soergel</a>, University of Buffalo, USA</li>
+<li>Lena-Luise Stahn, Georg-Eckert-Institute, Germany</li>
+<li><a target="_blank" rel="noopener noreferrer" href="http://art.uniroma2.it/stellato/">Armando Stellato</a>, Universit&agrave; Tor Vergata, Rome, Italy</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://ischool.uw.edu/people/faculty/profile/jtennis">Joseph Tennis</a>, Information School, University of Washington, USA</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://people.uwe.ac.uk/Pages/person.aspx?accountname=campus%5Ca-vlachidis">Andreas Vlachidis</a>, University of the West of England, UK</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://www.oclc.org/research/people/vizine-goetz.html">Diane Vizine-Goetz</a>, OCLC Research, USA</li> 
+<li><a target="_blank" rel="noopener noreferrer" href="https://tools.wmflabs.org/sqid/#/view?id=Q15303972">Jakob Vo&szlig;</a>, Verbundzentrale des GBV (VZG), Germany</li>
+<li><a target="_blank" rel="noopener noreferrer" href="https://f3.hs-hannover.de/personen/lehrende/wartena/">Christian Wartena</a>, Hochschule Hannover, Germany</li>
+</ul>
+</div><!--end div.one-half column-->
+</div><!--end div.row-->
+
+<h3>Technical requirements</h3> 
+<p>
+The usual PC and projector, 2-3 side tables for demonstrations if possible, Internet connections.
+</p>
+<h3>Expected participants</h3> 
+<ul>
+<li>Digital library and information infrastructure developers</li> 
+<li>Resource discovery service providers (search engines, subject gateways, portals, repositories etc.)</li> 
+<li>Metadata professionals, designers and researchers</li> 
+<li>Information scientists, library, museum and archive professionals</li> 
+<li>Thesaurus, taxonomy and ontology developers</li> 
+<li>Standard developers in the area of terminology usage and exchange</li> 
+<li>Computer scientists interested in semantic web/grid issues, linked data, topic maps, XML/RDF technologies, web engineering, peer-to-peer researchers</li> 
+<li>User interface designers for KOS and Semantic Web applications</li> 
+<li>Social tagging and community-based application developers and users</li>
+<li>Language engineering and terminology studies researchers and developers</li> 
+<li>Knowledge management professionals</li> 
+</ul>
+<h3>Previous NKOS Workshops</h3> 
+<<p>
+see <a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/nkos/">http://hypermedia.research.southwales.ac.uk/kos/nkos/</a> and <a target="_blank" rel="noopener noreferrer" href="http://nkos.slis.kent.edu/">http://nkos.slis.kent.edu/</a> for previous NKOS workshops and information about NKOS generally. 
+</p>
+
+<h3>Workshop organisers (short CVs)</h3>
+
+<p>
+<strong>Joseph A Busch</strong> is the Founder and Principal Consultant of Taxonomy Strategies. For the past 14 years Taxonomy Strategies has been guiding organizations such as Deloitte, the Center for Medicare and Medicaid Services, and the Robert Wood Johnson Foundation in developing frameworks that help improve information capture, preservation, search, retrieval, and governance. Mr. Busch has just started a new company called Semantic Staffing, a recruiting service for information management professionals. Before founding Taxonomy Strategies, Joseph Busch was: 
+</p>
+<ul>
+<li>Vice President for Infoware at Metacode Technologies which was an early developer of commercial semantic technology applications based on latent semantic indexing (LSI) and other methods. Metacode was acquired by Interwoven in 2000.</li>
+<li>The Getty's Program Manager for Standards and Research Databases, including the Getty Vocabulary Program from 1993-98. The Getty began publishing the vocabulary resources as linked open data in 2014.</li>
+</ul>
+<p>
+Mr. Busch is a Past President of the ASIS&amp;T, and a past member of the Dublin Core Metadata Initiative Executive Committee.<br> 
+<a target="_blank" rel="noopener noreferrer" href="http://taxonomystrategies.com/about-us/">http://taxonomystrategies.com/about-us/</a>
+</p>
+
+<p>
+<strong>Koraljka Golub</strong> is an Associate Professor at the Department of Library and Information Science, School of Cultural Sciences, Faculty of Arts and Humanities, Linnaeus University. She also serves as an adjunct at the School of Information Studies, Charles Sturt University, Australia. For over five years in the recent past she worked as an information science researcher at UKOLN, University of Bath, United Kingdom. Koraljka is a researcher in the field of digital libraries and information retrieval. Her research has in particular focused on topics related to knowledge organization, integrating existing knowledge organization systems with social tagging and/or automated subject indexing, and evaluating resulting end-user information retrieval. She is currently running a Digital Humanities initiative at Linnaeus University, and is also exploring establishment of an iSchool at the same university. Three of her major research projects from the past are: 
+</p>
+<ol>
+<li>EASTER which dealt with evaluation of algorithms for automated subject classification and indexing in the context of information retrieval</li>
+<li>EnTag, on the potential of combining social tagging with Dewey Decimal Classification and Library of Congress Subject Headings</li>
+<li>TRSS, a scoping study of terminology registries for UK further and higher education needs.</li>
+</ol>
+<p><a target="_blank" rel="noopener noreferrer" href="http://koraljka.info">http://koraljka.info</a></p>
+
+<p>
+<strong>Marjorie Hlava</strong> is President and Chief Scientist at Access Innovations, Inc. She is past president of NFAIS and past president of the ASIS&T, and the recipient of ASIS&T 1996 Watson Davis Award and the ASIS&T 2014 Award of Merit.  She has also received the MIles Conrad Award from NFAIS and both the John Cotton Dana and Presidents Award from the SLA.  She is the author of six books and over 200 articles, including her newest publication, The Taxobook, a three-volume collection on the history and implementation of taxonomies.  She holds two U.S. patents encompassing 21 patent claims. Her research areas include furthering the productivity of content creation and the governance layer for information access through automated indexing, thesaurus development, taxonomy creation, natural language processing, machine translations, and machine aided indexing. She is a popular speaker on topics involving information organization, semantic enrichment, and taxonomy and thesaurus creation.  Her latest area is inverting the cataloging process in libraries to a metadata driven methodology where MARC and OPAC are exports of a richer semantic coverage to the materials held, leading to better discovery and retrieval.
+</p>
+<ul>  
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.accessinn.com/team-view/margie-hlava/">http://www.accessinn.com/team-view/margie-hlava/</a></li> 
+<li><a target="_blank" rel="noopener noreferrer" href="http://www.accessintegrity.com">http://www.accessintegrity.com</a></li>
+<li>Blog: <a target="_blank" rel="noopener noreferrer" href="http://taxodiary.com">http://taxodiary.com</a></li>
+<li>Blog: <a target="_blank" rel="noopener noreferrer" href="http://ICDTagger.com">http://ICDTagger.com</a></li>
+<li>Twitter: <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/mmkhlava">@mmkhlava</a></li> 
+<li>Skype: mmkhlava</li>
+<li>Book: <a target="_blank" rel="noopener noreferrer" href="https://www.amazon.com/The-Taxobook-Principles-Practices-Taxonomies/dp/1627055800">https://www.amazon.com/The-Taxobook-Principles-Practices-Taxonomies/dp/1627055800</a></li>
+</ul>
+
+<p>
+<strong>Philipp Mayr</strong> is a deputy department head and a team leader at the GESIS - Leibniz-Institute for the Social Sciences department Knowledge Technologies for the Social Sciences (WTS). He has been a visiting professor for knowledge representation at University of Applied Sciences in Darmstadt, Department of Information Science & Engineering during 2009-2011. Philipp Mayr received his PhD in applied informetrics and information retrieval from the Berlin School of Library and Information Science at Humboldt University Berlin in 2009. To date, he has been awarded substantial research funding (PI, Co-PI) from national and European funding agencies. He is a member of the Networked Knowledge Organization Systems/Services (NKOS) network and has organised or co-organised many NKOS workshops at ECDL/TPDL. Philipp Mayr has published in top conferences and prestigious journals in the areas informetrics, information retrieval and digital libraries. His research group focuses on methods and techniques for interactive information retrieval. His research interests are interactive information retrieval, scholarly recommendation systems, non-textual ranking, bibliometric and scientometric methods, applied informetrics, science models in digital libraries, knowledge representation, semantic technologies, user studies, information behaviour and NKOS.<br>
+<a target="_blank" rel="noopener noreferrer" href="https://philippmayr.github.io/">https://philippmayr.github.io/</a> 
+</p>
+
+<p>
+<strong>Douglas Tudhope</strong> is Professor in the Faculty of Computing, Engineering and Science, University of South Wales and leads the Hypermedia Research Group. He was PI on the <abbr title="Arts and Humanities Research Council">AHRC</abbr> funded <a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/STAR">STAR</a>, <a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/STELLAR">STELLAR</a> and <a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/SENESCHAL">SENESCHAL</a> projects (Semantic Tools for Archaeological Resources), in collaboration with English Heritage and the preceding <abbr title="Engineering and Physical Sciences Research Council">EPSRC</abbr> funded <a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/FACET">FACET</a> project, in collaboration with the Science Museum, investigating thesaurus-based query expansion. He led the Linking Archaeological Data Work Package for the ARIADNE FP7 Infrastructures Project. Since 1977, he has been Editor of the journal, New Review of Hypermedia and Multimedia. He serves as a reviewer for various journals and international programme committees. He is a member of the Networked Knowledge Organization Systems/Services (NKOS) network and has organised or co-organised all NKOS workshops at ECDL. He co-authored the JISC State of the Art Review on Terminology Services and Technology and the JISC Terminology Registry Scoping Study. He was a member ISO TC46/SC9/SC8 (and NISO) working group developing a new thesaurus standard (ISO 25964).<br>
+<a target="_blank" rel="noopener noreferrer" href="http://hypermedia.research.southwales.ac.uk/kos/">http://hypermedia.research.southwales.ac.uk/kos/</a> 
+</p>
+
+<p>
+<strong>Marcia Lei Zeng</strong> is a Professor of School of Information at Kent State University. She holds a Ph.D. from the School of Information Sciences at the University of Pittsburgh and an M.A. from Wuhan University in China. Her major research interests include knowledge organization systems (KOS), Linked Data, metadata, smart data and big data, database quality control, semantic technologies, and digital humanities. Her scholarly publications consist of more than 90 papers and five books, as well as over 200 national and international conference presentations and invited lectures. Her research projects have received funding from the National Science Foundation (NSF), Institute of Museum and Library Services (IMLS), OCLC Online Computer Library Center, Fulbright Scholar Program, and other foundations. Dr. Zeng has chaired or served on committees, working groups, and executive boards for the International Federation of Library Associations and Institutions (IFLA), Special Libraries Association (SLA), Association for Information Science and Technology (ASIS&T), the U.S. National Information Standards Organization (NISO), the International Organization for Standardization (ISO), Dublin Core Metadata Initiative (DCMI), and the World Wide Web Consortium (W3C). Currently she is serving as an Executive Board Member of the International Society for Knowledge Organization (ISKO).<br>
+<a target="_blank" rel="noopener noreferrer" href="http://marciazeng.slis.kent.edu/">http://marciazeng.slis.kent.edu/</a>
+</p>
+
+
+</div><!--end of div.content-->
+<div class="footer"><a href="#main">[Back to top]</a></div>
+</div><!--end of div.container-->
+</body>
+</html>

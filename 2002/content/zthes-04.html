@@ -1,0 +1,1620 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html><head><!-- SCCSID ("@(#)/home/staff/mike/src/zthes/SCCS/s.zthes.html 1.12") --><title>Zthes: a Z39.50 Profile for Thesaurus Navigation</title>
+
+
+
+
+<meta name="Author" content="Mike Taylor">
+<meta name="Date" content="15th November 2000">
+<meta name="Description" content="Zthes: a Z39.50 Profile for Thesaurus Navigation">
+<meta name="Keywords" content="Z39.50, Profile, Thesaurus, Navigation">
+<script type="text/javascript" src="zthes-04_files/triggerParams.js"></script><script type="text/javascript" src="zthes-04_files/stdLauncher.js"></script><script type="text/javascript">Poll();</script></head><body bgcolor="white">
+<h1><a name="top">Zthes: a Z39.50 Profile for Thesaurus Navigation</a></h1>
+
+<p>
+Mike Taylor
+</p><p>
+15th November 2000
+</p><p>
+Version 0.4<br>
+<small>(SCCSID "@(#)/home/staff/mike/src/zthes/SCCS/s.zthes.html 1.12")</small>
+</p><p>
+</p><hr>
+<p>
+
+</p><ul type="disc">
+    <li><a href="#0">0.  Version History</a>
+    <ul type="disc">
+	<li><a href="#0.1">0.1.  Changes between version 0.2 and 0.3b</a>
+	</li><li><a href="#0.2">0.2.  Changes between version 0.3b and 0.4</a>
+    </li></ul>
+    </li><li><a href="#1">1.  Introduction</a>
+    <ul type="disc">
+	<li><a href="#1.1">1.1.  Overview</a>
+	</li><li><a href="#1.2">1.2.  Status</a>
+	</li><li><a href="#1.3">1.3.  Scope</a>
+	</li><li><a href="#1.4">1.4.  Acknowledgements</a>
+    </li></ul>
+    </li><li><a href="#2">2.  Abstract Model</a>
+    <ul type="disc">
+	<li><a href="#2.1">2.1.  Overview</a>
+	</li><li><a href="#2.2">2.2.  Schema</a>
+	</li><li><a href="#2.3">2.3.  Searching</a>
+    </li></ul>
+    </li><li><a href="#3">3.  Z39.50 Specification</a>
+    <ul type="disc">
+	<li><a href="#3.1">3.1.  Overview</a>
+	</li><li><a href="#3.2">3.2.  tagSet-Zthes</a>
+	</li><li><a href="#3.3">3.3.  Schema</a>
+	</li><li><a href="#3.4">3.4.  Element Sets</a>
+	<ul type="disc">
+	    <li><a href="#3.4.1">3.4.1.  Element Set ``f''</a>
+	    </li><li><a href="#3.4.2">3.4.2.  Element Set ``b''</a>
+	</li></ul>
+	</li><li><a href="#3.5">3.5.  The Zthes-1 Attribute Set</a>
+	</li><li><a href="#3.6">3.6.  Searching</a>
+	</li><li><a href="#3.7">3.7.  Explain</a>
+	<ul type="disc">
+	    <li><a href="#3.7.1">3.7.1.  Overview</a>
+	    </li><li><a href="#3.7.2">3.7.2.  Identifying a Zthes Database</a>
+	    </li><li><a href="#3.7.3">3.7.3.  Locating a Relevant Zthes Database</a>
+	</li></ul>
+    </li></ul>
+    </li><li><a href="#4">4.  Future Directions</a>
+    </li><li><a href="#A">Appendix A.  References</a>
+    </li><li><a href="#B">Appendix B.
+			XML Implementation of the Zthes Abstract Model</a>
+    <ul type="disc">
+	<li><a href="#B.1">Appendix B.1.  The Zthes DTD for XML</a>
+	</li><li><a href="#B.2">Appendix B.2.  Sample Zthes-in-XML Document</a>
+    </li></ul>
+    </li><li><a href="#C">Appendix C.  Implementations</a>
+    </li><li><a href="#D">Appendix D.  Applications</a>
+</li></ul>
+
+<p>
+</p><hr>
+
+<h2><a name="0">0.  Version History</a></h2>
+
+<h3><a name="0.1">0.1.  Changes between version 0.2 and 0.3b</a></h3>
+(0.2 was the first public version of the profile.)
+<ul>
+<li>Add this ``changes'' section.
+</li><li>Note the author's change of affiliation and email address.
+</li><li>Add <tt>postings</tt> sub-record.
+</li><li>Change <tt>termType</tt> representation of Preferred Term from
+	``NT'' to ``PT'' (to avoid confusion with ``NT'', meaning
+	Narrower Term).
+</li><li>Remove the ``TT'' value of <tt>termType</tt> (which is redundant,
+	since it's always true when there are no ``BT'' relations.)
+</li><li>Add multilingual support, in the form of the new ``LE'' value of
+	the <tt>relationType</tt> element.
+</li><li>Add <tt>thesAdmin</tt> access point, used to find
+	records which are considered suitable starting points for
+	browsing, and to find whole-thesaurus information.
+</li><li>Add the <tt>relatedTermID</tt> access point, used to find all the
+	records related to a specified one in a specified way.
+</li><li>Specify the OIDs of objects defined in this profile.
+</li><li>Remove <tt>sourceDb</tt>, <tt>createdBy</tt> and
+	<tt>modifiedBy</tt> from tagSet-Zthes: equivalents are being
+	added to tagSet-M and/or tagSet-G; the schema now uses these
+	new generic elements in place of the old tagSet-Zthes ones.
+</li><li>Remove <tt>createdBy</tt> and <tt>modifiedBy</tt> from the Zthes-1
+	attribute set: equivalents are being added to the utility
+	and/or cross-domain attribute sets; searching now uses these
+	new generic access points, together with appropriate
+	functional qualifiers, in place of the old Zthes-1 ones.
+</li><li>Some utility attribute-set access points have been renumbered
+	and/or renamed: this version of the Zthes profile uses the new
+	numbers and names.
+</li><li>Add section 3.7 about Explain (contributed by Denis Lynch).
+</li><li>Add the use of Scan to the section on future directions.
+</li><li>Remove lightweight support for non-preferred terms, use of the
+	Z39.50 date/time structure and alternative representation of
+	<tt>relationType</tt> from the section on future directions.
+</li><li>Update the reference to the utility attribute set.
+</li><li>Update Appendix C to describe current implementations, including
+	URLs to running systems.
+</li><li>Add Appendix D to describe current applications.
+</li><li>Minor editorial changes and corrections.
+</li></ul>
+
+<h3><a name="0.2">0.2.  Changes between version 0.3b and 0.4</a></h3>
+(0.3b was the only member of the 0.3x series to be publicly released.)
+<ul>
+<!-- note the need for an OID for the AuthorityFileInfo External -->
+<li>Change the access point used for <i>all elements</i>
+	<a href="#3.6">searching</a>
+	in accordance with the re-ordering of attributes in
+	the final <i>Utility Attribute Set</i> document.
+</li><li>Change the function qualifier strings used for
+	<a href="#3.6">searching</a>
+	in accordance with those specified in
+	the final <i>Utility Attribute Set</i> document.
+</li><li>Update reference to the <i>Utility Attribute Set</i>.
+</li><li>Add an OID for the <tt>AuthorityFileInfo</tt> External.
+</li><li>Add a paragraph noting that the abstract model need have no impact
+	on local data representation.
+</li><li>Add description of the UNIverse project to
+	<a href="#D">Appendix D</a>.
+</li><li>Add more detail to the description of the Natural History Museum's
+	use of Zthes
+	<a href="#D">Appendix D</a>.
+</li><li>Minor editorial changes and corrections.
+</li></ul>
+
+<h2><a name="1">1.  Introduction</a></h2>
+
+<h3><a name="1.1">1.1.  Overview</a></h3>
+This document describes an abstract model for representing and
+searching thesauri - semantic hierarchies of terms as described in
+ISO 2788 <a href="#r2">[2]</a> - and specifies how this model may be
+implemented using the
+Z39.50 <a href="#r1">[1]</a>
+protocol.  It also suggests how the model may be implemented using
+other protocols and formats.
+
+<h3><a name="1.2">1.2.  Status</a></h3>
+This document will be reviewed and perhaps altered
+before being re-released as version 1.0.  All feedback is very welcome, and
+should be emailed to the author
+	(<a href="mailto:mike@tecc.co.uk">mike@tecc.co.uk</a>).
+
+<h3><a name="1.3">1.3.  Scope</a></h3>
+This profile is laid out in two main sections.  The first is concerned
+solely with the abstract representation of thesaurus terms and how
+they may be searched; and the second with the implementation of these
+abstract concepts in Z39.50: how thesaurus terms are encoded in the
+GRS-1 record structure, how searches are encoded in the type-1 query,
+etc.
+<p>
+It is intended that the abstract model described here is sufficiently
+general that it can also be implemented by protocols and data formats
+other than Z39.50.  As an example, an appendix defines an XML DTD for
+thesaurus terms based on the model, and includes an example XML
+document using that DTD.
+</p><p>
+Because the model is abstract, it will generally have little or no
+effect on the data model used by a server's local representation of
+its thesaurus.  In particular, pre-existing thesaurus databases may
+well represent a more complete model of a term than what's required by
+this profile's abstract model.  That's fine: the additional
+information is not be representable in the Zthes model, but may be
+used in any number of other ways beyond the scope of this profile.
+</p><p>
+This profile does not mandate any
+relationship between a thesaurus and any other database.  The model is that
+terms from any thesaurus database may be used to search any other
+database (called a <i>target database</i>).
+
+</p><h3><a name="1.4">1.4.  Acknowledgements</a></h3>
+This document represents the consensual outcome of extensive
+discussions between the members of the informally convened Zthes
+working group:
+<ul type="disc">
+<li>Mike Taylor
+	(<a href="mailto:mike@tecc.co.uk">mike@tecc.co.uk</a>),
+	<a href="http://www.tecc.co.uk/">TECC Ltd.</a>
+</li><li>Thomas Place
+	(<a href="mailto:t.w.place@kub.nl">t.w.place@kub.nl</a>),
+	<a href="http://www.kub.nl/">Tilburg University</a>.
+</li><li>Denis Lynch
+	(<a href="mailto:Dlynch@ACM.org">Dlynch@ACM.org</a>),
+	Silver Platter.
+</li><li>Sebastian Hammer
+	(<a href="mailto:quinn@indexdata.dk">quinn@indexdata.dk</a>),
+	<a href="http://www.indexdata.dk/">Index Data ApS.</a>
+</li><li>Ralph LeVan
+	(<a href="mailto:levan@oclc.org">levan@oclc.org</a>),
+	<a href="http://www.oclc.org/">OCLC</a>.
+</li><li>Pat Stevens
+	(<a href="mailto:Pat_Stevens@oclc.org">Pat_Stevens@oclc.org</a>),
+	<a href="http://www.oclc.org/">OCLC</a>.
+</li></ul>
+
+<h2><a name="2">2.  Abstract Model</a></h2>
+
+<h3><a name="2.1">2.1.  Overview</a></h3>
+This profile represents a thesaurus as a database of inter-linked
+terms.  If multiple thesauri are to be supported by a single server,
+then they must be presented as separate databases.
+<p>
+Each individual term in a thesaurus is represented by a record in the
+database.
+<!-- ##NPT This next bit is controversial and perhaps still up for
+	grabs.  If we change our minds, we'll need to add prose about
+	the status of NPTs, how to link from them, etc. -->
+In the interests of simplicity and orthogonality, even non-preferred
+terms must be represented by their own records.
+
+</p><p>
+Term records consist of an initial part describing the term itself
+(with information such as its unique identifier, scope note, etc.),
+together with sub-records
+(that is, named sections within the main record)
+briefly describing related terms.  The
+primary means of navigation from one term to another is by searching
+for the unique identifiers of the terms related to the first one.
+
+</p><h3><a name="2.2">2.2.  Schema</a></h3>
+In the element tables in this profile, the occurrence columns describe
+whether the elements are mandatory and/or repeatable as follows:
+
+<p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Value</th>
+	<th align="left">Meaning</th>
+</tr>
+<tr>
+	<td valign="top">1</td>
+	<td valign="top">mandatory, not repeatable</td>
+</tr>
+<tr>
+	<td valign="top">1+</td>
+	<td valign="top">mandatory, repeatable</td>
+</tr>
+<tr>
+	<td valign="top">[0,1]</td>
+	<td valign="top">optional, not repeatable</td>
+</tr>
+<tr>
+	<td valign="top">0+</td>
+	<td valign="top">optional, repeatable</td>
+</tr>
+</tbody></table>
+
+</p><p>
+The top level term record is composed of the following elements:
+
+</p><p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Name</th>
+	<th align="left">Occurrence</th>
+	<th align="left">Description</th>
+</tr>
+<tr>
+	<td valign="top">termId</td>
+	<td valign="top">1</td>
+	<td valign="top">an opaque string of characters which uniquely
+		identifies the term within the thesaurus</td>
+</tr>
+<tr>
+	<td valign="top">termName</td>
+	<td valign="top">1</td>
+	<td valign="top">the name of the term in a form which may be
+		displayed to a user or used as a search term in a
+		target database</td>
+</tr>
+<tr>
+	<td valign="top">termQualifier</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">an additional string which, if supplied,
+		qualifies the term name such that the combination of
+		term and qualifier is unique within the thesaurus</td>
+</tr>
+<tr>
+	<td valign="top">termType</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">an indication of the type of the term, chosen
+		from the controlled vocabulary described below</td>
+</tr>
+<tr>
+	<td valign="top">termLanguage</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the language of the term</td>
+</tr>
+<tr>
+	<td valign="top">termNote</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">a scope note for the term: that is, arbitrary
+		prose clarifying the meaning and scope of the
+		term</td>
+</tr>
+<tr>
+	<td valign="top">termCreatedDate</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the date on which the record defining the
+		term was created</td>
+</tr>
+<tr>
+	<td valign="top">termCreatedBy</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the name of the person who created the
+		record defining the term</td>
+</tr>
+<tr>
+	<td valign="top">termModifiedDate</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the date on which the record defining the term
+		was last modified</td>
+</tr>
+<tr>
+	<td valign="top">termModifiedBy</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the name of the person who last modified the
+		record defining the term</td>
+</tr>
+<tr>
+	<td valign="top">postings</td>
+	<td valign="top">0+</td>
+	<td valign="top">a sub-record, in the format described below,
+		indicating the frequency with which the term occurs in
+		a target database</td><!-- xxx -->
+</tr>
+<tr>
+	<td valign="top">relation</td>
+	<td valign="top">0+</td>
+	<td valign="top">a sub-record, in the format described below,
+		briefly describing a term related to this one</td>
+</tr>
+</tbody></table>
+
+</p><p>
+It is recognised that in many thesauri there is no explicit unique
+identifier field, and the term itself, perhaps in combination with the
+qualifier, uniquely identifies a record.  Thesauri such as these must
+nevertheless provide a <tt>termID</tt> field, which may be
+automatically generated simply by combining the term and qualifier.
+
+</p><p>
+The <tt>termType</tt> element may take the following values:
+</p><dl compact="compact">
+<dt>``PT''</dt>
+	<dd>Preferred term (also known as a <i>descriptor</i>)</dd>
+<!-- ##NPT If indeed we represent non-preferred terms by records -->
+<dt>``ND''</dt>
+	<dd>Non-descriptor: that is, a non-preferred term.</dd>
+<dt>``NL''</dt>
+	<dd>Node label: that is, a dummy term not assigned to
+	documents when indexing, but inserted into the hierarchy to
+	indicate the logical basis on which a category has been
+	divided - for example, <tt>by function</tt>.
+	Also known as a <i>guide term</i> or a <i>facet
+	indicator</i>.</dd>
+</dl>
+<p>
+Servers may return other values of <tt>termType</tt> at their
+discretion.  It is recommended that such extension values begin with
+the string ``<tt>X-</tt>''.
+
+</p><p>
+Each <tt>postings</tt> sub-record is composed of the following
+elements:
+
+</p><p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Name</th>
+	<th align="left">Occurrence</th>
+	<th align="left">Description</th>
+</tr>
+<tr>
+	<td valign="top">sourceDb</td>
+	<td valign="top">1</td>
+	<td valign="top">the host, port and name of a target database in
+		which the term may be found</td>
+</tr>
+<tr>
+	<td valign="top">fieldName</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">if specified, the name of a field in the target
+		database in which the term may be found; otherwise,
+		the sub-record represents a postings count across the
+		entire target database</td>
+</tr>
+<tr>
+	<td valign="top">hitCount</td>
+	<td valign="top">1</td>
+	<td valign="top">the number of occurrences of the term in the
+		target database (in the nominated field only, if
+		specified)</td>
+</tr>
+</tbody></table>
+
+</p><p>
+If a server wishes to communicate separate postings counts for a term
+in more than one field, then multiple <tt>postings</tt> sub-records
+with the same value of <tt>sourceDb</tt> should be used.
+
+</p><p>
+Each <tt>relation</tt> sub-record is composed of the following elements:
+</p><p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Name</th>
+	<th align="left">Occurrence</th>
+	<th align="left">Description</th>
+</tr>
+<tr>
+	<td valign="top">relationType</td>
+	<td valign="top">1</td>
+	<td valign="top">an indication of the type of the relation,
+		chosen from the controlled vocabulary described
+		below</td>
+</tr>
+<tr>
+	<td valign="top">sourceDb</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">if specified, the host, port and name of a
+		different Zthes database in which the related term is
+		found; otherwise, the related term is in the same
+		database as the current one</td>
+</tr>
+<tr>
+	<td valign="top">termId</td>
+	<td valign="top">1</td>
+	<td valign="top">the unique identifier of the related term
+		within its database</td>
+</tr>
+<tr>
+	<td valign="top">termName</td>
+	<td valign="top">1</td>
+	<td valign="top">the name of the related term</td>
+</tr>
+<tr>
+	<td valign="top">termQualifier</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the qualifier of the related term</td>
+</tr>
+<tr>
+	<td valign="top">termType</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the type of the related term</td>
+</tr>
+<tr>
+	<td valign="top">termLanguage</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">the language of the related term</td>
+</tr>
+</tbody></table>
+
+</p><p>
+The <tt>relationType</tt> element may take the following values:
+</p><dl compact="compact">
+<dt>``NT''</dt>
+	<dd>Narrower term: that is, the related term is more specific
+	than the current one.</dd>
+<dt>``BT''</dt>
+	<dd>Broader term: that is, the related term is more general
+	than the current one.</dd>
+<dt>``USE''</dt>
+	<dd>Use instead: that is, the related term should be used in
+	preference to the current one.</dd>
+<dt>``UF''</dt>
+	<dd>Use for: that is, the current term should be used in
+	preference to the related one</dd>
+<dt>``RT''</dt>
+	<dd>Related term.</dd>
+<dt>``LE''</dt>
+	<dd>Linguistic equivalent: the current term and the related
+	term are preferred terms representing the same concept - or
+	``sufficiently close'' concepts - in different languages.</dd>
+</dl>
+<p>
+Servers may return other values of <tt>relationType</tt> at their
+discretion.  It is recommended that such extension values begin with
+the string ``<tt>X-</tt>''.
+</p><p>
+With a single exception,
+this profile deliberately restricts its set of supported relations to
+those discussed in ISO 2788 <a href="#r2">[2]</a>, in the belief that
+it is better for a small set of relations to be used interoperably
+than for a larger set to be specified, with different servers and
+clients in practice using different subsets.
+</p><p>
+That sole exception is the addition to the standard relation types of
+``LE'', introduced to model the multilingual links described in
+ISO 5964 <a href="#r2">[7]</a>.
+
+</p><p>
+<!-- ##NPT the bit about USE/UF here will need rewriting if we allow
+	non-preferred terms not to have their own records -->
+The ``NT'' and ``BT'' relationships are reciprocal; so are ``USE'' and
+``UF''; and ``RT'' and ``LE'' are reflexive.  That is, when any term <i>T1</i>
+points to another <i>T2</i> using the relation ``NT'', <i>T2</i>
+should point back to <i>T1</i> using ``BT'' and vice versa; when
+<i>T1</i> points to <i>T2</i> using the relation ``USE'', <i>T2</i>
+should point back to <i>T1</i> using ``UF'' and vice versa; and when
+<i>T1</i> points to <i>T2</i> using the relation ``RT'' or ``LE'', <i>T2</i>
+should point back to <i>T1</i> using the same relation.
+
+</p><p>
+The <tt>termType</tt> element in a <tt>relation</tt> sub-record may
+take the same values as in the top-level record.
+
+</p><h3><a name="2.3">2.3.  Searching</a></h3>
+The following searches must be supported:
+<ul>
+
+<li>
+A search which finds the single record with a specified
+<tt>termId</tt> at the top level (i.e. not within a <tt>relation</tt>
+sub-record.)
+
+</li><li>
+A search which finds records with a specified <tt>termName</tt> at the
+top level.
+
+</li><li>
+A search which finds records with a specified <tt>termQualifier</tt>
+at the top level.  (This is useful primarily in conjunction with the
+<tt>termName</tt> search.)
+
+<!-- ##NPT If non-preferred terms are allowed not to have records:
+<LI>
+A search which finds records in which a specified term occurs in the
+<TT>termName</TT> either in the top level of the record or in
+<TT>relation</TT> sub-records for which the <TT>relationType</TT> is
+``UF'' (use for).
+(This may be called OA: see Pat Stevens' email of 1999-02-16)
+-->
+</li><li>
+A search which finds words occurring anywhere in the term record.
+</li></ul>
+
+<p>
+Support for additional searches, including the following, may be
+useful.
+
+</p><ul>
+
+<li>
+A search which locates all the records considered suitable as starting
+points for browsing.
+
+</li><li>
+A search which finds all the records in a specified relation to the
+term with a specified <tt>termId</tt>.  (This is useful for finding
+the narrower terms of a very broad term without needing to retrieve a
+very large record.)
+</li></ul>
+
+<h2><a name="3">3.  Z39.50 Specification</a></h2>
+
+<h3><a name="3.1">3.1.  Overview</a></h3>
+This profile builds on the work of others by using
+the Z39.50 Attribute Architecture <a href="#r3">[3]</a>
+together with
+the Utility Attribute Set <a href="#r4">[4]</a>
+and
+the Cross-Domain Attribute Set <a href="#r5">[5]</a>
+developed for it.
+<p>
+As such, it requires servers and clients to support version 3 of the
+Z39.50 protocol.
+</p><p>
+In designing the  Zthes-1 attribute set of additional attributes
+required for thesaurus navigational searches, we have sought to comply
+with the guidelines expounded in the
+the Attribute Set Developers Guide<a href="#r6">[6]</a>.
+
+</p><p>
+The intention of this profile is that
+it is used in conjunction with other profiles.  It is envisaged that
+an application will use the Zthes profile to navigate a thesaurus and
+thereby obtain terms suitable for searching in a target database; and
+use a second, domain-specific profile such as GILS or CIMI to search
+in and retrieve from that database.
+
+</p><p>
+The Z39.50 objects defined by this profile have the following OIDs.
+</p><p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Object</th>
+	<th align="left">OID</th>
+</tr>
+<tr>
+	<td valign="top"><a href="#3.2">tagSet-Zthes</a></td>
+	<td valign="top">No OID yet assigned by the Z39.50 Maintenance
+	Agency; the private OID 1.2.840.10003.14.1000.136.1 may be
+	used if necessary.</td>
+</tr>
+<tr>
+	<td valign="top"><a href="#3.3">The Zthes Schema</a></td>
+	<td valign="top">1.2.840.10003.13.8</td>
+</tr>
+<tr>
+	<td valign="top"><a href="#3.5">The Zthes-1 Attribute Set</a></td>
+	<td valign="top">1.2.840.10003.3.13</td>
+</tr>
+</tbody></table>
+
+</p><h3><a name="3.2">3.2.  tagSet-Zthes</a></h3>
+This profile defines a tag set called tagSet-Zthes, which describes
+the additional tags needed in the schema beyond those found in the
+standard tagSet-M and tagSet-G.  It contains the following elements,
+corresponding to the same-named elements in the abstract model schema
+described above:
+
+<p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Tag</th>
+	<th align="left">Name</th>
+	<th align="left">ASN.1 Datatype</th>
+</tr>
+<tr>
+	<td valign="top">1</td>
+	<td valign="top">termQualifier</td>
+	<td valign="top">InternationalString</td>
+</tr>
+<tr>
+	<td valign="top">2</td>
+	<td valign="top">termType</td>
+	<td valign="top">InternationalString</td>
+</tr>
+<tr>
+	<td valign="top">3</td>
+	<td valign="top">relationType</td>
+	<td valign="top">InternationalString</td>
+</tr>
+<tr>
+	<td valign="top">4</td>
+	<td valign="top">postings</td>
+	<td valign="top">structured</td>
+</tr>
+<tr>
+	<td valign="top">5</td>
+	<td valign="top">fieldName</td>
+	<td valign="top">InternationalString</td>
+</tr>
+<tr>
+	<td valign="top">6</td>
+	<td valign="top">hitCount</td>
+	<td valign="top">INTEGER</td>
+</tr>
+</tbody></table>
+
+</p><h3><a name="3.3">3.3.  Schema</a></h3>
+In the Zthes schema, tag types indicate elements from the following
+tag sets:
+
+<p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Type</th>
+	<th align="left">Meaning</th>
+</tr>
+<tr>
+	<td valign="top">1</td>
+	<td valign="top">tagSet-M, defined in appendix TAG.2.1
+		of the Z39.50 standard <a href="#r1">[1]</a></td>
+</tr>
+<tr>
+	<td valign="top">2</td>
+	<td valign="top">tagSet-G, defined in appendix TAG.2.2
+		of the Z39.50 standard <a href="#r1">[1]</a></td>
+</tr>
+<tr>
+	<td valign="top">3</td>
+	<td valign="top">application-defined string tags</td>
+</tr>
+<tr>
+	<td valign="top">4</td>
+	<td valign="top">tagSet-Zthes, defined above</td>
+</tr>
+</tbody></table>
+
+</p><p>
+The abstract schema described in section 2.2 is represented in Z39.50
+by a GRS-1 record encoded with the tag-paths specified in the
+following table.  Where possible, standard tags from tagSet-M and
+tagSet-G are re-used; in these cases, the generic names of the tags
+are listed in the right-hand column.
+</p><p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Tag Path</th>
+	<th align="left">Occurrence</th>
+	<th align="left">Element</th>
+	<th align="left">Generic Name</th>
+</tr>
+<tr>
+	<td valign="top">(1,14)</td>
+	<td valign="top">1</td>
+	<td valign="top">termId</td>
+	<td valign="top">localControlNumber</td>
+</tr>
+<tr>
+	<td valign="top">(2,1)</td>
+	<td valign="top">1</td>
+	<td valign="top">termName</td>
+	<td valign="top">title</td>
+</tr>
+<tr>
+	<td valign="top">(4,1)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termQualifier</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">(4,2)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termType</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">(2,17)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termNote</td>
+	<td valign="top">description</td>
+</tr>
+<tr>
+	<td valign="top">(2,20)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termLanguage</td>
+	<td valign="top">language</td>
+</tr>
+<tr>
+	<td valign="top">(1,15)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termCreatedDate</td>
+	<td valign="top">creation date</td>
+</tr>
+<tr>
+	<td valign="top">(1,27)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termCreatedBy</td>
+	<td valign="top">record created by</td>
+</tr>
+<tr>
+	<td valign="top">(1,16)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termModifiedDate</td>
+	<td valign="top">dateOfLastModifification</td>
+</tr>
+<tr>
+	<td valign="top">(1,28)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termModifiedBy</td>
+	<td valign="top">record modified by</td>
+</tr>
+<tr><td colspan="4"></td></tr><!-- slight break in the table -->
+<tr>
+	<td valign="top">(4,4)</td>
+	<td valign="top">0+</td>
+	<td valign="top">postings</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">(4,4)(2,36)</td>
+	<td valign="top">1</td>
+	<td valign="top">sourceDb</td>
+	<td valign="top">databaseName</td>
+</tr>
+<tr>
+	<td valign="top">(4,4)(4,5)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">fieldName</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">(4,4)(4,6)</td>
+	<td valign="top">1</td>
+	<td valign="top">hitCount</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr><td colspan="4"></td></tr><!-- slight break in the table -->
+<tr>
+	<td valign="top">(2,30)</td>
+	<td valign="top">0+</td>
+	<td valign="top">relation</td>
+	<td valign="top">relation</td>
+</tr>
+<tr>
+	<td valign="top">(2,30)(4,3)</td>
+	<td valign="top">1</td>
+	<td valign="top">relationType</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">(2,30)(2,36)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">sourceDb</td>
+	<td valign="top">databaseName</td>
+</tr>
+<tr>
+	<td valign="top">(2,30)(1,14)</td>
+	<td valign="top">1</td>
+	<td valign="top">termId</td>
+	<td valign="top">localControlNumber</td>
+</tr>
+<tr>
+	<td valign="top">(2,30)(2,1)</td>
+	<td valign="top">1</td>
+	<td valign="top">termName</td>
+	<td valign="top">title</td>
+</tr>
+<tr>
+	<td valign="top">(2,30)(4,1)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termQualifier</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">(2,30)(4,2)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termType</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">(2,30)(2,20)</td>
+	<td valign="top">[0,1]</td>
+	<td valign="top">termLanguage</td>
+	<td valign="top">language</td>
+</tr>
+</tbody></table>
+
+</p><p>
+(The numeric value of the tagSet-G element <tt>databaseName</tt>
+is assumed since it is the first of two new tagSet-G elements up for
+consideration at the August 1999 ZIG, and the approved elements
+currently go up to 35.) 
+</p><p>
+(The numeric values of the tagSet-M elements <tt>record created
+by</tt> and <tt>record modified by</tt> are assumed since they are the
+first and second new tagSet-M elements up for consideration at the
+August 1999 ZIG, and the approved elements currently go up to 26.) 
+
+</p><p>
+The <tt>termLanguage</tt> element is expressed as one of the standard
+codes described in
+RFC 1766 <a href="#r8">[8]</a> and
+ISO 639 <a href="#r9">[9]</a>
+- for example,
+``en'' for English, ``fr'' for French and ``de'' for German.
+</p><p>
+The administrative date fields should be returned in the ASN.1
+GeneralizedTime format.  (The working group considered the Z39.50
+ASN.1 date/time definition <a href="#r11">[11]</a>, but reached the
+conclusion that the benefits would be outweighed by the barrier raised
+to implementation.
+</p><p>
+The person-name elements, <tt>termCreatedBy</tt> and
+<tt>termModifiedBy</tt>, may be returned in whatever format is
+convenient for the server: this profile does not attempt to address
+the interpretation of such administrative information across multiple
+databases.
+</p><p>
+The <tt>sourceDb</tt> element should be returned in the form of a
+<tt>z39.50s</tt> URL as described in
+RFC 2056 <a href="#r10">[10]</a>.
+For example, if the related term is in the database called ``aat'' on
+the server running on port 3950 on the host foo.bar.org, then the
+<tt>sourceDb</tt> element should have the value
+<tt>z39.50s://foo.bar.org:3950/aat</tt>.
+</p><p>
+Servers may, at their discretion, include additional tagSet-M,
+tagSet-G and string-tagged (type 3) elements in the records they
+return; they may include such additional elements at the top level,
+within relation sub-records, or both.  Clients may display any such
+additional elements as they see fit, or may ignore them.
+
+</p><h3><a name="3.4">3.4.  Element Sets</a></h3>
+
+<h4><a name="3.4.1">3.4.1.  Element Set ``f''</a></h4>
+Use of the element set ``f'' requests a full record, and so servers
+should respond by returning a record containing as many as possible of
+the elements listed above in the table in
+<a href="#3.3">section 3.3</a>.
+
+<h4><a name="3.4.2">3.4.2.  Element Set ``b''</a></h4>
+Use of the element set ``b'' requests a brief record.  Servers should
+respond by returning a record omitting the administrative fields
+(<tt>termCreatedDate</tt>, <tt>termCreatedBy</tt>,
+<tt>termModifiedDate</tt> and <tt>termModifiedBy</tt>), and all the
+<tt>relation</tt> sub-records.
+
+<p>
+This element set may be useful when constructing a summary of several
+records found by a search for initial entry points to a thesaurus; it
+is unlikely to be useful when navigating from term to term.
+
+</p><h3><a name="3.5">3.5.  The Zthes-1 Attribute Set</a></h3>
+This profile defines an attribute set called Zthes-1, which describes
+the additional access points needed for searching beyond those found
+in the standard utility and cross-domain attribute sets.  It contains
+the following attributes, all of type Access Point:
+
+<p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Type</th>
+	<th align="left">Value</th>
+	<th align="left">Name</th>
+	<th align="left">Description</th>
+</tr>
+<tr>
+	<td valign="top">1</td>
+	<td valign="top">1</td>
+	<td valign="top">termQualifier</td>
+	<td valign="top">searches in the <tt>termQualifier</tt> element
+		of the top-level term record</td>
+</tr>
+<tr>
+	<td valign="top">1</td>
+	<td valign="top">2</td>
+	<td valign="top">termType</td>
+	<td valign="top">searches in the <tt>termType</tt> element
+		of the top-level term record</td>
+</tr>
+<tr>
+	<td valign="top">1</td>
+	<td valign="top">3</td>
+	<td valign="top">thesAdmin</td>
+	<td valign="top">used for a variety of searches related to
+		administrative details of thesaurus structure - see
+		below</td>
+</tr>
+<tr>
+	<td valign="top">1</td>
+	<td valign="top">4</td>
+	<td valign="top">relatedTermID</td>
+	<td valign="top">used in conjunction with a semantic qualifier
+		(attribute type 2) with value equal to one of the
+		<tt>relationType</tt>s described in section 2.2;
+		searches for all records in the specified relation to
+		the record whose <tt>termID</tt> is equal to the
+		search term.
+		<p>
+		For example, a search for <tt>abc123</tt> with access
+		point <tt>relatedTermID</tt> and semantic qualifier
+		``NT'' finds all the narrower terms of the record
+		whose <tt>termID</tt> is <tt>abc123</tt>.
+</p></td></tr>
+<!-- ##NPT If non-preferred terms are allowed not to have records:
+<TR>
+	<TD VALIGN=top>1</TD>
+	<TD VALIGN=top>5</TD>
+	<TD VALIGN=top>allTermNames</TD>
+	<TD VALIGN=top>searches for all distinguished
+		<TT>termName</TT>s, whether occurring in the top level
+		of a term record, or in a <TT>relation</TT> sub-record
+		with <TT>relationType</TT> of ``UF'' (use for).</TD>
+</TR>
+-->
+</tbody></table>
+
+</p><p>
+The <tt>thesAdmin</tt> access point must be used with one of a small
+set of well-known strings as the search term.  Servers may support the
+following values:
+<table>
+<tbody><tr>
+	<td valign="top">``start''</td>
+	<td>
+	Searches for all records considered suitable as starting
+	points for browsing.
+	</td>
+</tr>
+	<tr><td valign="top">``whole''</td>
+	<td>
+	Searches for a special record describing the thesaurus as a
+	whole, and containing material such as introductory text and
+	revision history that might be front matter in a printed
+	thesaurus.  This record, when it exists at all, may not be
+	found in any other search.
+	<p>
+	This profile does not currently specify the format of this
+	special record: candidate respresentions would be a
+	pre-formatted SUTRS record or a GRS-1 record using specialised
+	schema.
+	</p></td>
+</tr>
+</tbody></table>
+
+</p><p>
+The Zthes-1 attribute set conforms to attribute set class 1 as
+described in the Z39.50 Attribute Architecture.  However, it
+prescribes no rules to resolve conflict between its own semantics and
+those of another attribute set in the case where attributes for both
+are used in a single search term of a type-1 query and the top-level
+attribute-set of that query is Zthes-1.
+
+</p><h3><a name="3.6">3.6.  Searching</a></h3>
+Servers must support type-1 queries which use the following access
+points in a manner conformant to the definitions of the attribute sets
+which define them.  Where possible, standard attributes from utility
+and cross-domain sets are re-used; in these cases, the generic names
+of the attributes are listed in the right-hand column.
+
+<p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Attribute Set</th>
+	<th align="left">Type</th>
+	<th align="left">Value</th>
+	<th align="left">Search For</th>
+	<th align="left">Generic Name</th>
+</tr>
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">4</td>
+	<td valign="top">termID</td>
+	<td valign="top">local control number</td>
+</tr>
+<tr>
+	<td valign="top">cross-domain</td>
+	<td valign="top">1</td>
+	<td valign="top">1</td>
+	<td valign="top">termName</td>
+	<td valign="top">title</td>
+</tr>
+<tr>
+	<td valign="top">zthes-1</td>
+	<td valign="top">1</td>
+	<td valign="top">1</td>
+	<td valign="top">termQualifier</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<!-- ##NPT If non-preferred terms are allowed not to have records:
+<TR>
+	<TD VALIGN=top>zthes-1</TD>
+	<TD VALIGN=top>1</TD>
+	<TD VALIGN=top>5</TD>
+	<TD VALIGN=top>allTermNames</TD>
+	<TD VALIGN=top>title</TD>
+</TR>
+-->
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">11</td>
+	<td valign="top"><i>all elements</i></td>
+	<td valign="top">all access points</td>
+</tr>
+</tbody></table>
+
+</p><p>
+<b>Note:</b>
+Since the publication of version 0.2b of this profile, the numbering
+of the utility attribute set has changed, so that the <i>all
+elements</i> search now uses access point 11 rather than 10.  Servers
+are encouraged to support searches from old clients which use the old
+attribute value 10 as well as the new one.
+
+</p><p>
+For the purpose of searches on the <tt>local control number</tt> access point,
+values of the <tt>termID</tt> function as opaque ``magic cookies''.
+Therefore, such search terms should not include any contentAuthority
+attribute, even if it happens that for the specific thesaurus in
+question, the <tt>termID</tt> identifiers are taken from a well-known
+source.
+
+</p><p>
+The following additional access points may optionally be supported:
+
+</p><p>
+<table align="center" border="1" cellpadding="5">
+<tbody><tr>
+	<th align="left">Attribute Set</th>
+	<th align="left">Type</th>
+	<th align="left">Value</th>
+	<th align="left">Search For</th>
+	<th align="left">Generic Name</th>
+</tr>
+<tr>
+	<td valign="top">zthes-1</td>
+	<td valign="top">1</td>
+	<td valign="top">3</td>
+	<td valign="top">thesAdmin</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">zthes-1</td>
+	<td valign="top">1</td>
+	<td valign="top">4</td>
+	<td valign="top">relatedTermID</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top"></td>
+	<td colspan="4" valign="top">
+	(with a semantic qualifier from the
+	<tt>relationType</tt> controlled vocabulary)
+	</td>
+</tr>
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">3</td>
+	<td valign="top">termLanguage</td>
+	<td valign="top">language</td>
+</tr>
+<tr>
+	<td valign="top">cross-domain</td>
+	<td valign="top">1</td>
+	<td valign="top">4</td>
+	<td valign="top">termNote</td>
+	<td valign="top">description</td>
+</tr>
+<tr>
+	<td valign="top">zthes-1</td>
+	<td valign="top">1</td>
+	<td valign="top">2</td>
+	<td valign="top">termType</td>
+	<td valign="top">&nbsp;</td>
+</tr>
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">1</td>
+	<td valign="top">termCreatedDate</td>
+	<td valign="top">record date</td>
+</tr>
+<tr>
+	<td valign="top"></td>
+	<td colspan="4" valign="top">
+	(with functional qualifier ``creation'')
+	</td>
+</tr>
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">2</td>
+	<td valign="top">termCreatedBy</td>
+	<td valign="top">record creator</td>
+</tr>
+<tr>
+	<td valign="top"></td>
+	<td colspan="4" valign="top">
+	(with functional qualifier ``creation'')
+	</td>
+</tr>
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">1</td>
+	<td valign="top">termModifiedDate</td>
+	<td valign="top">record date</td>
+</tr>
+<tr>
+	<td valign="top"></td>
+	<td colspan="4" valign="top">
+	(with functional qualifier ``modification'')
+	</td>
+</tr>
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">2</td>
+	<td valign="top">termModifiedBy</td>
+	<td valign="top">record creator</td>
+</tr>
+<tr>
+	<td valign="top"></td>
+	<td colspan="4" valign="top">
+	(with functional qualifier ``modification'')
+	</td>
+</tr>
+<tr>
+	<td valign="top">utility</td>
+	<td valign="top">1</td>
+	<td valign="top">2</td>
+	<td valign="top"><i>either</i> termCreatedBy<br>
+		       <i>or</i> termModifiedBy</td>
+	<td valign="top">record creator</td>
+</tr>
+<tr>
+	<td valign="top"></td>
+	<td colspan="4" valign="top">
+	(with no functional qualifier)
+	</td>
+</tr>
+</tbody></table>
+</p><p>
+
+<b>Note:</b>
+Since the publication of version 0.2b of this profile, functional
+qualifiers for use with the Record Date/Time and Record Agent access
+points have been added to the utility attribute set.  Accordingly, we
+now use the official functional qualifiers ``creation'' and
+``modification''.  Servers are encouraged to support searches from old
+clients which use the old functional qualifiers ``date/time created'',
+``creator'', ``date/time last modified'' and ``last modifier'' as well
+as the new one.
+
+</p><h3><a name="3.7">3.7.  Explain</a></h3>
+
+<h4><a name="3.7.1">3.7.1.  Overview</a></h4>
+(The specification for the use of Explain with Zthes databases was
+contributed by Denis Lynch.)
+<p>
+A client can gain two kinds of information about Zthes databases from
+Explain: the fact that a particular database is a Zthes database, and
+the fact that a Zthes database is relevant to a particular TermList.
+</p><p>
+These two uses are specified in the next two sections.
+
+</p><h4><a name="3.7.2">3.7.2.  Identifying a Zthes Database</a></h4>
+Among the many features that a client could use to deduce that a
+particular database follows the Zthes profile, the profile
+distinguishes one required indicator.  In the <tt>DatabaseInfo</tt>
+record for the database, the <tt>AccessInfo</tt> element must contain
+a <tt>schemas</tt> OID specifying the Zthes schema.
+<p>
+Once a client has observed the Zthes schema in the <tt>schemas</tt>
+for a database, it may presume that the server observes the behaviour
+described in this profile.  (The client may still need other
+information from Explain, for example additional record syntaxes that
+may be available.)
+
+</p><h4><a name="3.7.3">3.7.3.  Locating a Relevant Zthes Database</a></h4>
+Any database may use a Zthes thesaurus or other type of authority file
+for the basis of the vocabulary used for an access point.  This is
+described in Explain as follows: in the access point's
+<tt>TermListDetails</tt> record, the <tt>commonInfo</tt> element must
+contain an <tt>OtherInformation</tt> item encoded as an
+<tt>AuthorityFileInfo</tt> External.  The <tt>AuthorityFileInfo</tt>
+External is defined as follows:
+<blockquote>
+<pre>AuthorityFileInfo ::= SEQUENCE {
+    name        [1] IMPLICIT HumanString,  -- for display
+    database    [2] IMPLICIT InternationalString,
+                     -- z39.50s URL to the authority database.
+                     -- Simplifies to a database name if on the same server.
+    exclusive   [3] IMPLICIT NULL OPTIONAL
+                     -- If present, all terms in the term
+                     -- list come from this authority file.
+                     -- If absent, other terms may or may not
+                     -- be present in the term list.
+}
+</pre>
+</blockquote>
+<p>
+The OID for the <tt>AuthorityFileInfo</tt> External is
+1.2.840.10003.10.11 (subject to ZIG ratification.)
+</p><p>
+<b>Note:</b>
+It may be desirable to include an additional item to indicate
+the kind of authority file being referenced.  If it is desirable, an
+appropriate identification scheme will be required.
+
+</p><h2><a name="4">4.  Future Directions</a></h2>
+This document has already discussed several possible directions for
+subsequent versions of this profile, or perhaps future companion
+profiles.  Areas for consideration include, but may not be limited to,
+the following:
+
+<p>
+</p><ul>
+<li>A specification for the schema of the optional whole-thesaurus
+	descriptive record that can be found by searching for
+	<tt>thesAdmin</tt>=<tt>whole</tt>.
+</li><li>A way for clients to request servers to include <tt>postings</tt>
+	sub-records only for a specified set of ``interesting'' target
+	databases.
+</li><li>Use of the Scan service on <tt>termName</tt> to derive alphabetic
+	displays.
+<!-- ##NPT I don't think we want to mention this, since we're almost
+	certainly not going to do it
+<LI>More lightweight support for non-preferred terms: for example,
+	allowing <TT>relation</TT> sub-records to omit the
+	<TT>termId</TT> element, or introducing an optional and
+	repeatable <TT>alternateTerms</TT> sub-record, consisting of
+	<TT>termName</TT> and <TT>termLanguage</TT> elements, at the
+	top level.  (This will also require searching support.)
+-->
+</li><li>Support for version numbers of thesauri and/or terms.
+</li><li>Post-coordination: for example: coal mining USE COAL + MINING
+	<!-- ### Is this just a matter of multiple USE relations?
+	Yes, but they must be links from NPF term records, which we
+	may decide to allow not to exist! -->
+<!-- ### what did I mean by this?
+<LI>Use of <TT>z39.50r</TT> URLs or an attribute-architecture friendly
+	equivalent.
+-->
+</li></ul>
+
+<h2><a name="A">Appendix A.  References</a></h2>
+<!-- ### Re-order these when the list has stabilised -->
+<table>
+<tbody><tr>
+	<td valign="top"><a name="r1">[1]</a></td>
+	<td>National Information Standards Organization.
+	ANSI/NISO Z39.50-1995.  <i>Information Retrieval (Z39.50):
+	Application Service Definition and Protocol Specification.</i>
+	Bethesda, MD: NISO Press, 1995.
+	Also available at
+	<a href="http://www.loc.gov/z3950/agency/document.html"><tt>http://www.loc.gov/z3950/agency/document.html</tt></a>
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r2">[2]</a></td>
+	<td>International Organization for Standardization.
+	ISO 2788: <i>Guidelines for the establishment and development of
+	monolingual thesauri</i>, 2nd ed.  Geneva: ISO, 1986.  For
+	some inexplicable and inexcusable reason, ISO standards are
+	not generally available on-line.
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r3">[3]</a></td>
+	<td>Z39.50 Maintenance Agency.
+	<i>Z39.50 Attribute Architecture</i>, Draft of November 1998.
+	Available at
+	<a href="http://www.loc.gov/z3950/agency/attrarch/arch.html"><tt>http://www.loc.gov/z3950/agency/attrarch/arch.html</tt></a>
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r4">[4]</a></td>
+	<td>Z39.50 Maintenance Agency.
+	<i>Z39.50 Utility Attribute Set</i>, Version 1 of November 1999.
+	Available at
+	<a href="http://www.loc.gov/z3950/agency/attrarch/util.html"><tt>http://www.loc.gov/z3950/agency/attrarch/util.html</tt></a>
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r5">[5]</a></td>
+	<td>Ralph LeVan.
+	<i>A Cross-Domain Attribute Set</i>, version 1.2 of 1998/11/16.
+	Available at
+	<a href="http://www.oclc.org/%7Elevan/docs/crossdomainattributeset.html"><tt>http://www.oclc.org/~levan/docs/crossdomainattributeset.html</tt></a>
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r6">[6]</a></td>
+	<td>George Percivall.
+	<i>Attribute Set Developers Guide</i>, annotated outline of
+	18th September 1998.
+	Available at
+<a href="http://harp.gsfc.nasa.gov/%7Eeric/attr_set_developers_guide.html"><tt>http://harp.gsfc.nasa.gov/~eric/attr_set_developers_guide.html</tt></a>
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r7">[7]</a></td>
+	<td>International Organization for Standardization.
+	ISO 5964: <i>Guidelines for the establishment and development of
+	multilingual thesauri</i>.  Geneva: ISO, 1985.
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r8">[8]</a></td>
+	<td>H. Alvestrand.
+	RFC 1766: <i>Tags for the Identification of Languages</i>.
+	March 1995.
+	Available at <a href="ftp://ftp.uu.net/inet/rfc/rfc1766.Z"><tt>ftp://ftp.uu.net/inet/rfc/rfc1766.Z</tt></a>
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r9">[9]</a></td>
+	<td>International Organization for Standardization.  Prepared
+	by ISO/TC 37, Terminology (principles and coordination).
+	ISO 639:1988 (E/F): <i>Code for the representation of names of
+	languages</i>, 1st edition, 1988.
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r10">[10]</a></td>
+	<td>R. Denenberg, J. Kunze, D. Lynch.
+	RFC 2056: <i>Uniform Resource Locators for Z39.50</i>.
+	November 1996.
+	Available at <a href="ftp://ftp.uu.net/inet/rfc/rfc2056.Z"><tt>ftp://ftp.uu.net/inet/rfc/rfc2056.Z</tt></a>
+	</td>
+</tr>
+<tr>
+	<td valign="top"><a name="r11">[11]</a></td>
+	<td>Z39.50 Maintenance Agency.
+	<i>Z39.50 Date/Time Definition</i>, April 6, 1998 (amended
+	February 17, 1999.)
+	Available at
+	<a href="http://www.loc.gov/z3950/agency/defns/date.html"><tt>http://www.loc.gov/z3950/agency/defns/date.html</tt></a>
+	</td>
+</tr>
+</tbody></table>
+
+<h2><a name="B">Appendix B.  The Zthes Abstract Model in XML</a></h2>
+
+<h3><a name="B.1">Appendix B.1. The Zthes DTD for XML</a></h3>
+This DTD was supplied by Thomas Place.  It is put forward not as a
+``good'' XML representation of thesaurus information (whatever that
+might be construed to mean) but as a pragmatically valuable
+alternative encoding of the Zthes abstract record.  Real Zthes
+datasets have been exchanged in the form of XML documents conforming
+to this DTD.
+<p>
+</p><pre>&lt;!-- Zthes DTD
+     Based on Z39.50 Profile for Thesaurus Navigation, version 0.1
+     (20 Feb 1999)
+     Version of DTD: 25 Feb 1999 --&gt;
+
+&lt;!-- #PCDATA: parseable character data = text
+
+     occurence indicators (default: required, not repeatable):
+     ?: zero or one occurrence (optional)
+     *: zero or more occurrences (optional, repeatable)
+     +: one or more occurrences (required, repeatable)
+
+     |: choice, one or the other, but not both
+ --&gt;
+
+&lt;!ENTITY % term            "termId, termName, termQualifier?,
+                            termType?, termLanguage?"&gt;
+
+&lt;!ENTITY % admin           "termCreatedDate?, termCreatedBy?,
+                            termModifiedDate?, termModifiedBy?"&gt;
+
+&lt;!ELEMENT Zthes            (%term;, termNote?,
+                            %admin;,
+                            relation*)&gt;
+
+&lt;!ELEMENT relation         (relationType, sourceDb?, %term;)&gt;
+
+&lt;!ELEMENT termId           (#PCDATA)&gt;
+&lt;!ELEMENT termName         (#PCDATA)&gt;
+&lt;!ELEMENT termQualifier    (#PCDATA)&gt;
+&lt;!ELEMENT termType         (#PCDATA)&gt;
+&lt;!ELEMENT termLanguage     (#PCDATA)&gt;
+&lt;!ELEMENT termNote         (#PCDATA)&gt;
+&lt;!ELEMENT termCreatedDate  (#PCDATA)&gt;
+&lt;!ELEMENT termCreatedBy    (#PCDATA)&gt;
+&lt;!ELEMENT termModifiedDate (#PCDATA)&gt;
+&lt;!ELEMENT termModifiedBy   (#PCDATA)&gt;
+&lt;!ELEMENT relationType     (#PCDATA)&gt;
+&lt;!ELEMENT sourceDb         (#PCDATA)&gt;
+</pre>
+<p>
+(This appendix should include a crosswalk with any pre-existing
+thesaurus DTDs if appropriate.)
+
+</p><h3><a name="B.2">Appendix B.2.  Sample Zthes-in-XML Document</a></h3>
+This document was supplied by Thomas Place.
+<p>
+</p><pre>&lt;?XML version="1.0" ?&gt;
+&lt;!DOCTYPE Zthes SYSTEM "zthes.dtd"&gt;
+&lt;Zthes&gt;
+  &lt;termId&gt;102067&lt;/termId&gt;
+  &lt;termName&gt;video art&lt;/termName&gt;
+  &lt;termType&gt;PT&lt;/termType&gt;
+  &lt;termNote&gt;
+    Use for works of art that employ video technology, especially 
+videotapes. For the study and practice of the art of producing such 
+works, use "video."
+  &lt;/termNote&gt;
+  &lt;relation&gt;
+    &lt;relationType&gt;UF&lt;/relationType&gt;
+    &lt;termId&gt;102067/001&lt;/termId&gt;
+    &lt;termName&gt;art, video&lt;/termName&gt;
+    &lt;termType&gt;ND&lt;/termType&gt;
+  &lt;/relation&gt;
+  &lt;relation&gt;
+    &lt;relationType&gt;BT&lt;/relationType&gt;
+    &lt;termId&gt;185191&lt;/termId&gt;
+    &lt;termName&gt;[time-based works]&lt;/termName&gt;
+    &lt;termType&gt;NL&lt;/termType&gt;
+  &lt;/relation&gt;
+  &lt;relation&gt;
+    &lt;relationType&gt;RT&lt;/relationType&gt;
+    &lt;termId&gt;54153&lt;/termId&gt;
+    &lt;termName&gt;video&lt;/termName&gt;
+    &lt;termType&gt;PT&lt;/termType&gt;
+  &lt;/relation&gt;
+  &lt;relation&gt;
+    &lt;relationType&gt;RT&lt;/relationType&gt;
+    &lt;termId&gt;253827&lt;/termId&gt;
+    &lt;termName&gt;video artists&lt;/termName&gt;
+    &lt;termType&gt;PT&lt;/termType&gt;
+  &lt;/relation&gt;
+&lt;/Zthes&gt;
+</pre>
+
+<h2><a name="C">Appendix C.  Implementations</a></h2>
+At the time of writing, only one complete impletation each of Zthes
+client and server are known to exist (but please inform the author of
+any others!):
+<ul>
+<li>
+The server is built on <i>Zebra</i>, Index Data's free database
+management system.  The most up-to-date development version of Zebra
+is always available at
+<a href="ftp://ftp.indexdata.dk/pub/yaz/development/zebra.tar.gz"><tt>ftp://ftp.indexdata.dk/pub/yaz/development/zebra.tar.gz</tt></a>;
+in order to build it, it's also necessary to take the YAZ toolkit,
+which can be found at
+<a href="ftp://ftp.indexdata.dk/pub/yaz/development/yaz.tar.gz"><tt>ftp://ftp.indexdata.dk/pub/yaz/development/yaz.tar.gz</tt></a>.
+The Zebra distribution now contains the configuration files necessary to
+run as a Zthes server.
+<p>
+Running servers are generally available on
+<a href="z39.50s://muffin.indexdata.dk:9004/thatt"><tt>z39.50s://muffin.indexdata.dk:9004/thatt</tt></a>
+and
+<a href="z39.50s://muffin.indexdata.dk:9004/eurovoc-eng"><tt>z39.50s://muffin.indexdata.dk:9004/eurovoc-eng</tt></a>
+</p><p>
+</p></li><li>
+The client is built on <i>Zap</i>, Index Data's free web-to-Z39.50
+gateway.  This software is described at
+<a href="http://www.indexdata.dk/zap"><tt>http://www.indexdata.dk/zap</tt></a>.
+The Zthes client provides a raw interface to thesaurus databases, and
+been tested against the servers above.  A publicly acessible demo can
+be found at
+<a href="http://muffin.indexdata.dk/zthes/tbrowse.zap"><tt>http://muffin.indexdata.dk/zthes/tbrowse.zap</tt></a>
+
+</li></ul>
+There is also an incomplete implementation of a
+a server built on System Simulation's Index+ database management
+system and the Yaz
+toolkit, capable of serving terms from the AAT, TGN and MeSH, subject
+to licensing conditions.
+<p>
+Several other people and organisations have also expressed an interest
+in implementing this profile.
+
+</p><h2><a name="D">Appendix D.  Applications</a></h2>
+At the time of writing, the Zthes profile is known to be in use in the
+following projects:
+<ul>
+<li>
+<i>ELVIL</i> - the European Legislative Virtual Library: The ELVIL
+project aims to provide common access to the parliamentary databases
+of the European member states as well as the European Parliament
+itself, together with an educational framework to enable comparative
+studies of European legislation.  Zthes is used to provide a common,
+subject-browsing mechanism across multi-lingual databases using the
+international EUROVOC thesaurus.
+See
+<a href="http://elvil.sub.su.se/"><tt>http://elvil.sub.su.se/</tt></a> for more information.
+<p>
+</p></li><li>
+<i>UNIverse</i> aims to investigate and develop technology to
+implement large-scale, virtual union catalogue systems based on open
+standards.  Zthes is used in a query-conversion tool which uses a
+multilingual thesaurus to help with language-conversion of queries
+between different databases.
+See
+<a href="http://www.fdgroup.co.uk/research/universe/"><tt>http://www.fdgroup.co.uk/research/universe/</tt></a>
+for more information.
+
+<p>
+</p></li><li>
+<i>Decomate II</i> implements several thesauri in the field
+of economics and combine them.  At the front end is a graphical user
+interface (in Tcl and in Java) that allows the user to navigate
+through the concept space and mark terms as relevant or
+irrelevant; these marked terms are used for generating a query that is
+broadcasted to relevant databases.
+Contact Thomas Place for more information.
+<p>
+</p></li><li>
+<i>Elise II</i> - Zthes is under consideration for use in this project.
+Contact Thomas Place for more information.
+</li></ul>
+(The ELVIL, UNIverse, Decomate II and Elise II projects are all funded
+by the European Union, perhaps reflecting a European interest in the
+multilingual applications of thesauri.)
+<ul>
+<li>
+<i>DEF</i> - Danmarks elektroniske Forskningsbibliotek (Electronic
+Research Library of Denmark). This is a national effort to create a
+common, technological infrastructure for the research libraries in
+Denmark.  The Zthes profile is under consideration as a mechanism to
+implement shared subject-based gateways or portal services.
+See
+<a href="http://www.deflink.dk/english/"><tt>http://www.deflink.dk/english/</tt></a> for more information.
+<p>
+</p></li><li>
+The Natural History Museum in London is considering using the Zthes
+profile for a public access system in which users will navigate
+biological taxonomies to find terms for searches into the ``whole
+museum'' database.  Contact Neil Thomson
+(<a href="mailto:n.thomson@nhm.ac.uk">n.thomson@nhm.ac.uk</a>)
+for more information.
+</li></ul>
+<p>
+We welcome information on further applications of the Zthes profile: a
+short summary, preferably with a URL to a more detailed description,
+should be emailed to the profile author.
+</p><p>
+&nbsp;
+</p><p>
+&nbsp;
+</p><p>
+&nbsp;
+</p><p>
+&nbsp;
+<!-- ### Check superset-ness WRT Library of Congress Subject Headings:
+	 http://www.loc.gov/marc/authority/ecadhome.html -->
+<!--<script type="text/javascript" src="zthes-04_files/s_code.js"></script>--><img src="zthes-04_files/s74001802471639.gif" name="s_i_locgovprod" alt="" border="0" height="1" width="1"></p></body></html>

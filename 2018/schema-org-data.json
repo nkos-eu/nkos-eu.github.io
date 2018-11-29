@@ -1,0 +1,378 @@
+[{
+		"@context": "https://schema.org/",				
+		"@id": "./NKOS2018",
+		"@type" : "EducationEvent",
+		"name" : "18th European Networked Knowledge Organization Systems (NKOS) Workshop",
+		"alternateName"	: "NKOS 2018",
+		"eventStatus" : "EventScheduled",
+		"description" : "A full-day workshop of research projects and development related to next-generation Networked Knowledge Organization Systems/Services",
+		"url" : "https://at-web1.comp.glam.ac.uk/pages/research/hypermedia/nkos/nkos2018/",		
+		"image" : "http://nkos.slis.kent.edu/NKOSLogo.png",
+		"startDate" : "2018-09-13T09:00+0100",
+		"endDate" : "2018-09-13T18:00+0100",
+		"doorTime" : "2018-09-13T08:30+0100",
+		"duration" : "PT8H",
+		"location" : { "@id": "./TPDL2018-location" },		
+		"superEvent" : {
+			"@id": "./TPDL2018",	
+			"@type" : "EducationEvent",
+			"subEvent" : { "@id": "./NKOS2018" },	
+			"name" : "22nd International Conference on Theory and Practice of Digital Libraries",
+			"alternateName" : "TPDL 2018",
+			"eventStatus" : "EventScheduled",
+			"description" : "22nd International Conference on Theory and Practice of Digital Libraries",
+			"url" : "http://www.tpdl.eu/tpdl2018/",
+			"image" : "http://www.tpdl.eu/tpdl2018/wp-content/themes/tpdl18/images/logo_v1.svg",
+			"startDate" : "2018-09-10T09:00+0100",
+			"endDate" : "2018-09-13T18:00+0100",	
+			"duration" : "P4D",			
+			"location" : {
+				"@id": "./TPDL2018-location",
+				"@type" : "Place",
+				"name" : [
+					{ "@value" : "Faculty of Engineering of the University of Porto (FEUP)", "@language" : "en"}, 
+					{ "@value" : "Faculdade de Engenharia da Universidade do Porto (FEUP)", "@language" : "pt" }
+				],
+				"address" : { 
+					"@type" : "PostalAddress",
+					"streetAddress" : "Rua D. Frei Vicente da Soledade e Castro",					
+					"addressRegion" : "Porto", 
+					"postalCode" : "4200-465", 
+					"addressCountry" : "Portugal"
+				}		  		  
+			}
+		},
+		"organizer" : [	
+			{ "@id" : "./NKOS2018-program-committee" },				
+			{
+				"@type" : "Person",
+				"name" : "Philipp Mayr",
+				"honorificPrefix" : "Doctor",
+				"url" : "https://philippmayr.github.io/",
+				"email" : "philipp.mayr@gesis.org",			
+				"affiliation" : {
+					"@type" : "EducationalOrganization",
+					"name" : "GESIS - Leibniz Institute for the Social Sciences",
+					"url" : "http://www.gesis.org/en/institute/",				
+					"address" : {
+						"@type" : "PostalAddress",
+						"addressLocality" : [{ "@value" : "Lower Saxony 6-8", "@language" : "en" }, { "@value" : "Unter Sachsenhausen 6-8", "@language" : "de" }],
+						"addressRegion" : [{ "@value" : "Cologne", "@language" : "en" }, { "@value" : "K&ouml;ln", "@language" : "de" }],						
+						"postalCode" : "50667", 
+						"addressCountry" : [{ "@value" : "Germany", "@language" : "en" }, { "@value" : "Deutschland", "@language" : "de" }]
+					}
+				}
+			},
+			{
+				"@type" : "Person",
+				"name" : "Douglas Tudhope",
+				"honorificPrefix" : "Professor",
+				"url" : "http://hypermedia.research.southwales.ac.uk/people/tudhope/",
+				"email" : "douglas.tudhope@southwales.ac.uk",	
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of South Wales",
+					"url" : "http://hypermedia.research.southwales.ac.uk/kos/",
+					"department" : {
+						"@type" : "EducationalOrganization",
+						"name" : "Faculty of Computing, Engineering and Science",
+						"department" : {
+							"@type" : "EducationalOrganization",
+							"name" : "Hypermedia Research Group"
+						}
+					},				
+					"address" : {
+						"@type" : "PostalAddress",
+						"name" : "University of South Wales",
+						"addressLocality" : "Pontypridd",
+						"postalCode" : "CF37 1DL", 
+						"addressCountry" : [{ "@value" : "United Kingdom", "@language" : "en" }]
+					}
+				}
+			},
+			{
+				"@type" : "Person",
+				"name" : "Koraljka Golub",
+				"honorificPrefix" : "Doctor",
+				"url" : "http://koraljka.info",
+				"email" : "Koraljka.golub@lnu.se",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Linnaeus University",					
+					"department" : {
+						"@type" : "EducationalOrganization",
+						"name" : "Faculty of Arts and Humanities",
+						"department" : {
+							"@type" : "EducationalOrganization",
+							"name" : "Department of Library and Information Science, School of Cultural Sciences"
+						}
+					},				
+					"address" : {
+						"@type" : "PostalAddress",
+						"name" : "Linnaeus University",
+						"addressLocality" : "351 95 V&auml;xj&ouml;",
+						"addressCountry" : [{ "@value" : "Sweden", "@language": "en"}, { "@value" : "Sverige", "@language": "sv"}]
+					}
+				}
+			}				
+		]
+	},
+	
+	{
+		"@context": "https://schema.org/",			
+		"@id": "./NKOS2018-program-committee",
+		"@type" : "EducationalOrganization",
+		"name" : "NKOS 2018 Program Committee",
+		"member" : [
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},
+				"name" : "Vladimir Alexiev",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Ontotext Corporation, Bulgaria"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},
+				"name" : "Ceri Binding",				
+				"url" : "http://hypermedia.research.southwales.ac.uk/people/binding/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of South Wales, UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Ina Bl&uuml;mel",
+				"url" : "http://f3.hs-hannover.de/personen/lehrende/bluemel-ina-dr-v-profin/",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "TIB, Hannover, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Stella Dextre-Clarke",
+				"url" : "http://www.iskouk.org/content/stella-dextre-clarke",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "ISKO UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Claudio Gnoli",
+				"url" : "http://www-dimat.unipv.it/gnoli/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of Pavia, Italy"
+				}
+			},
+						
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Bernhard Haslhofer",
+				"url" : "http://bernhardhaslhofer.info/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of Vienna, Austria"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Steffen Hennicke",
+				"url" : "http://www.gei.de/mitarbeiter/steffen-hennicke.html",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Georg-Eckert-Institut, Braunschweig, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Daniel Hienert",
+				"url" : "http://www.gesis.org/das-institut/mitarbeiterverzeichnis/?alpha=H&name=daniel%2Chienert",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "GESIS, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Gail Hodge",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Information International Associates, Inc., USA"
+				}
+			},
+
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Antoine Isaac",
+				"url" : "http://www.few.vu.nl/~aisaac/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Europeana and Vrije Universiteit Amsterdam, Netherlands"
+				}
+			},			
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Eva M&eacute;ndez Rodr&iacute;guez",
+				"url" : "http://www.uc3m.com/ss/Satellite/UC3MInstitucional/en/Detalle/Organismo_C/1371206549156/1371206549244/Eva_Mendez_Rodriguez",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Universidad Carlos III de Madrid, Spain"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Philipp Schaer",
+				"url" : "http://www.schaer.de/",
+				"affiliation" : {
+					"@type" : "EducationalOrganization",
+					"name" : "GESIS, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Ryan Shaw",
+				"url" : "https://sils.unc.edu/people/faculty/ryan-shaw",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of North Carolina, USA"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Aida Slavic",
+				"url" : "http://www.udcc.org/index.php/site/page?view=editorinchief",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "UDC Consortium, London, UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Dagobert Soergel",
+				"url" : "http://www.dsoergel.com/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of Buffalo, USA"
+				}
+			},		
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Lena-Luise Stahn",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Georg-Eckert-Institut, Braunschweig, Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Armando Stellato",
+				"url" : "http://art.uniroma2.it/stellato/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Universit&agrave; Tor Vergata, Rome, Italy"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Joseph Tennis",
+				"url" : "http://ischool.uw.edu/people/faculty/jtennis",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Information School, University of Washington, USA"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Andreas Vlachidis",
+				"url" : "https://people.uwe.ac.uk/Pages/person.aspx?accountname=campus%5Ca-vlachidis",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "University of the West of England (UWE), UK"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Diane Vizine-Goetz",
+				"url" : "http://www.oclc.org/research/people/vizine-goetz.html",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "OCLC Research, USA"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Jakob Vo&szlig;",
+				"affiliation" : {
+					"@type" : "Organization",
+					"name" : "Verbundzentrale des GBV (VZG), Germany"
+				}
+			},
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},	
+				"name" : "Christian Wartena",
+				"honorificPrefix" : "Prof. Dr.",
+				"url" : "http://f3.hs-hannover.de/personen/lehrende/wartena/",
+				"email" : "christian.wartena@hs-hannover.de",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Hochschule Hannover"
+				}
+			},		
+			
+			{
+				"@type" : "Person",
+				"memberOf" : {"@id" : "./NKOS2018-program-committee"},				
+				"name" : "Marcia Zeng",
+				"url" : "http://faculty-l.slis.kent.edu/~mzeng/",
+				"affiliation" : {
+					"@type" : "CollegeOrUniversity",
+					"name" : "Kent State University, USA"
+				}
+			}		
+		]
+	}]

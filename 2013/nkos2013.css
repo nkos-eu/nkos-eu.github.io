@@ -1,0 +1,110 @@
+/* reset any default box settings */
+/*
+* 
+{
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+*/
+
+body 
+{
+	background-color: #006699;
+	color: #444444;	
+	font-family:Helvetica, sans-serif;
+	font-size: medium;
+	/*font-family:Verdana,Helvetica,Arial,sans-serif;*/
+	/*font-size:small;*/
+}
+
+#main
+{
+	margin: 0px auto;	
+	width: 90%;
+	background: #EEEEEE;
+	text-align: left;
+	padding: 15px;	
+	min-height: 600px;	
+}
+
+#header
+{
+text-align: center;
+}
+
+#menu
+{
+margin-top: 20px;
+text-align: center;
+}
+
+#footer
+{
+	height:40px;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+	margin-top: 15px;
+	margin-bottom: 5px;
+	color: #006699;
+}
+
+p
+{
+	margin-bottom: 10px;
+}
+
+hr
+{
+	border:  1px dashed #eee;
+}
+
+ul
+{
+	margin-left: 15px;
+	list-style-type: square;
+}
+
+ol
+{
+	margin-left: 15px;		
+}
+
+li
+{
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+a
+{
+	color: steelblue;
+	text-decoration: none;
+}
+a:hover
+{
+	text-decoration: underline;
+	color: red;
+}
+
+.center
+{
+	margin-left : auto;
+	margin-right: auto;
+	text-align: center;
+}	
+
+.newbox
+{
+	border: 2px dashed lightsteelblue;
+	padding: 3px;
+	margin: 2px;
+}
+.hilite
+{
+	color:red;
+	font-weight:bold;
+}
+

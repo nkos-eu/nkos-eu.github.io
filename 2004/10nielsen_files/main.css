@@ -1,0 +1,224 @@
+`/* Default Main Style Sheet for D-Lib Magazine Monthly Issues */
+
+/* Body background is white. */
+
+body	{ background-color: #ffffff; }
+
+/* use these for paragraphs  and for aligning paragraphs */ 
+/* or text in table cells */
+
+p	{ color: #000000; }
+
+.left	{ text-align: left; }
+
+.right	{ text-align: right; }
+
+.center	{ text-align: center; }
+
+.centerbold { 	text-align: center; 
+				font-weight: bold; }
+				
+.italics { font-style: italic;
+		   font-size: 10pt; }
+		   
+/* .border is used to put a narrow black border around images */	
+
+.border {border-top: 1px solid #000000;
+	         border-bottom: 1px solid #000000;
+			 border-right: 1px solid #000000;
+			 border-left: 1px solid #000000; }
+		   
+/* .sans-serif isn't used yet, but it's here in case you want to make some paragraphs  use sans-serif font */				
+				
+
+.sans-serif { color: #990000;
+				text-align: left;
+		        font-family: Verdana, Arial, Helvetica, sans-serif; }
+
+/* .cbs and .small are for small text at end of story. */
+
+.cbs { 	color: #990000;
+		text-align: center;
+		font-weight: bold;
+		font-size: 70%;
+		font-family: Verdana, Arial, Helvetical, sans-serif; }
+		
+.small60 { font-size: 60%;
+		 font-weight: bold;
+		 text-align: center;
+		 color: #000000; }
+
+.small70 { font-size: 70%;
+		 font-weight: bold;
+		 text-align: center;
+		 color: #000000; }
+
+.small70white { font-size: 70%;
+		 font-weight: bold;
+		 text-align: center;
+		 color: #FFFFFF; }
+		 
+.smallregular { font-size: 70%;
+				text-align: center;
+		 		color: #000000; }
+
+.smallfc { font-size: 75%;
+				text-align: center;
+		 		color: #000000; }
+		 		
+.small70leftblk { font-size: 80%;
+				text-align: left;
+		 		color: #000000; }
+		 		
+.small70left { font-size: 80%;
+				text-align: left;
+		 		color: #333366; }
+		 		
+/* These increase the font size, used for example in Indexes for alphabet headers. */
+		 		
+.largefontblue { font-size: 120%;
+			 	test-align: left;
+			 	color: #333366;
+			 	font-weight: bold;
+			 	 }
+
+.largess	{   font-size: 120%;
+				font-family: Verdana, Arial, Helvetical, sans-serif;
+				font-weight: regular;
+				color: #333366; }
+		 
+/* .smallfont was intended for bulleted lists that need to be smaller. */
+		 
+.smallfont 	{ font-size: 80%;
+		 	color: #000000; }
+		 	
+.smallfontcell1 	{ font-size: 90%;
+		 	color: #000000; }
+		 	
+.smallfontcell2 	{ font-size: 80%;
+		 	color: #000000; }
+
+.smallfontcell3 	{ font-size: 90%;
+		 	color: #000000; }
+.smallfontbold 	{ font-size: 70%;
+		 	color: #000000; font-weight: bold; }
+
+/* .blue is for the blue text needed in header section of article */
+
+.blue	{ color: #333366; }
+
+.blue-space	{ margin-bottom: 12pt; color: #333366; }
+
+/* .menu is for the navigation table with links to turn them blue and turn off the underscore. */
+
+.menu	{ color: #333366;
+		font-family: Verdana, Arial, Helvetical, sans-serif;
+		font-size: 75%;
+		text-decoration: none;
+		font-weight: bold;
+		}
+
+/* .citation, .box and .box-bold are for the text in the blue box in the book review. */
+
+
+.citation { font-size: 60%;
+		 font-weight: bold;
+		 text-align: center;
+		 color: #000000; }
+		 
+.box	{ font-size: 70%;
+		  color: #000000; }
+			
+.box-bold	{ font-size: 70%;
+			  font-weight: bold;
+			  color: #000000; }
+
+UL.level1 
+		{
+		list-style-type: disc;
+	   list-style-position: outside;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+
+LI.off
+		{
+	   list-style-type: none;
+	   padding-top: 1em;
+	   padding-bottom: 1em;
+	   }
+
+LI.space
+		{
+	   padding-top: .75em;
+	   padding-bottom: .75em;
+	   }
+	   
+	   
+UL.level2 
+		{
+		list-style-type: square;
+	   list-style-position: outside;
+	   padding-left: 6em;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+	   
+UL.level2b 
+		{
+		list-style-type: square;
+	   list-style-position: outside;
+	   padding-left: 6em;
+	   padding-right: 6em;
+	   }
+	   
+UL.level3 
+		{
+		list-style-type: circle;
+	   list-style-position: outside;
+	   padding-left: 8em;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+	   
+	   
+UL.nobullet 
+		{
+		list-style-type: none;
+	   list-style-position: inside;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+	   
+UL.bulletinside 
+		{
+		list-style-type: disc;
+	   list-style-position: inside;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+	   
+UL.number 
+		{
+		list-style-type: decimal;
+	   list-style-position: outside;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+	   
+UL.upperalpha 
+		{
+		list-style-type: upper-alpha;
+	   list-style-position: outside;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+	   
+UL.loweralpha 
+		{
+		list-style-type: lower-alpha;
+	   list-style-position: outside;
+	   padding-right: 6em;
+	   line-height: 1.35em;
+	   }
+	   
