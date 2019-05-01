@@ -4,7 +4,7 @@ PRODID:-//www.marudot.com//iCal Event Maker
 CALSCALE:GREGORIAN
 BEGIN:VTIMEZONE
 TZID:Europe/Lisbon
-TZURL:ttp://tzurl.org/zoneinfo-outlook/Europe/Lisbon
+TZURL:http://tzurl.org/zoneinfo-outlook/Europe/Lisbon
 X-LIC-LOCATION:Europe/Lisbon
 BEGIN:STANDARD
 TZOFFSETFROM:+0100
