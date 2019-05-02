@@ -65,8 +65,3 @@
 		font-weight:bold;
 		background: lightyellow;
 	}	
-	summary:hover
-	{
-		border: 1px solid gray;
-		cursor: pointer;
-	}
