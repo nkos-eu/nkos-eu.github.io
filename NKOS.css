@@ -1,6 +1,9 @@
 	body
 	{
-		background-color: aliceblue;		
+		background-color: aliceblue;
+		background-image: url(./background2.png);
+		background-repeat: repeat;
+		background-position: 50% 50%;
 	}
 	div.container
 	{
@@ -64,4 +67,12 @@
 		color:red;
 		font-weight:bold;
 		background: lightyellow;
-	}	
+	}
+	
+	/* use to show buttons as disabled */
+	.disabled, .disabled:hover
+	{
+		color: lightgray;
+		border-color: lightgray;
+		background: transparent;
+	}
