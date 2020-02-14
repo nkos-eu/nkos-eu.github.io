@@ -1,7 +1,7 @@
 	body
 	{
 		background-color: aliceblue;
-		background-image: url(./background2.png);
+		background-image: url(https://nkos-eu.github.io/background2.png);
 		background-repeat: repeat;
 		background-position: 50% 50%;
 	}
@@ -31,7 +31,7 @@
 	}		
 	
 	.footer {
-		border-top: 1px solid lightgray;		
+		border-top: 1px solid lightgray;
 	}
 	
 	h3 {
