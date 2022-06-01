@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ical.marudot.com//iCal Event Maker
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:1654070927010-27574@ical.marudot.com
+DTSTART:20220623T180000Z
+DTEND:20220623T220000Z
+SUMMARY:NKOS 2022 Workshop
+URL:https://nkos-eu.github.io/2022/
+DESCRIPTION:20th European Networked Knowledge Organization Systems (NKOS) Workshop. A virtual workshop to be held as part of the JCDL 2022 Conference
+END:VEVENT
+END:VCALENDAR
