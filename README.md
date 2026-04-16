@@ -9,6 +9,7 @@ the description and retrieval of diverse information resources through the Inter
 
 Knowledge Organization Systems/Services (KOS) model the underlying semantic structure of a domain. Embodied as Web-based services, they can facilitate resource discovery and retrieval. They act as semantic road maps and make possible a common orientation by indexers and future users (whether human or machine). -- Douglas Tudhope, Traugott Koch
 
+- [2026](./2026) - at TPDL, Faro, Portugal.
 - [2022](./2022) - virtual workshop during JCDL conference (online).
 - [2021](./2021) - NKOS Consolidated Workshop (online).
 - [2020](./2020) - NKOS Consolidated Workshop (online).
@@ -35,4 +36,4 @@ Knowledge Organization Systems/Services (KOS) model the underlying semantic stru
 - [2002](./2002) - NetLab conference. Lund, Sweden.
 - [2000](./2000) - at ECDL (European Conference on Digital Libraries), Lisbon, Portugal.
 
-See http://hypermedia.research.southwales.ac.uk/kos/nkos/ and https://nkos.dublincore.org/ for further details on previous NKOS workshops and information about NKOS generally.
+See https://nkos.dublincore.org/ for further details on previous NKOS workshops and information about NKOS generally.
